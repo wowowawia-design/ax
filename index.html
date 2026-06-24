@@ -233,4 +233,669 @@ nav.scrolled { padding:1rem 2.5rem; background:rgba(10,10,10,0.7); backdrop-filt
 .contact-link svg { color:rgba(201,169,110,0.55); flex-shrink:0; }
 .payment-info p { font-size:.85rem; color:rgba(232,228,222,0.45); margin-bottom:.55rem; }
 .payment-info .bank-name { color:rgba(201,169,110,0.65); }
-.shipping-note { font-size:.74rem; color:rgba(232,228,222,0.25); line-height:1.65; margin-top:1
+.shipping-note { font-size:.74rem; color:rgba(232,228,222,0.25); line-height:1.65; margin-top:1.6rem; }
+.contact-cta { display:flex; justify-content:center; margin-top:2.6rem; }
+.contact-cta a { display:inline-flex; align-items:center; gap:.8rem; padding:1.1rem 2.6rem; border-radius:100px; background:rgba(201,169,110,0.1); border:1px solid rgba(201,169,110,0.28); color:var(--gold); text-decoration:none; font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; transition:background .4s var(--ease); }
+.contact-cta a:hover { background:rgba(201,169,110,0.2); }
+
+footer { text-align:center; padding:5rem 2rem 3rem; }
+footer .logo-text { font-family:'Playfair Display',serif; font-size:1.6rem; margin-bottom:.6rem; }
+footer .tagline { font-size:.62rem; letter-spacing:.32em; text-transform:uppercase; color:rgba(232,228,222,0.15); }
+
+.magnetic { display:inline-block; will-change:transform; }
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){ .modal-grid{grid-template-columns:1fr; text-align:center;} .modal-bottle-wrap{min-height:240px;} .note-value{text-align:left;} .note-row{justify-content:center;} }
+@media(max-width:768px){
+  nav{padding:1.2rem 1.4rem;}
+  .nav-links{display:none;}
+  .menu-btn{display:flex;}
+  .product-grid{grid-template-columns:1fr 1fr; gap:1rem;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr; gap:2rem;}
+  .modal-content{padding:2rem;}
+  .catalog,.pricing,.contact{padding:5rem 1.2rem;}
+}
+@media(max-width:480px){
+  .product-grid{grid-template-columns:1fr;}
+  .card-visual{height:240px;}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-logo">TORRES STORE</div>
+  <div class="loader-bar"><span id="loaderBar"></span></div>
+  <div class="loader-pct" id="loaderPct">0%</div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo text-gradient" data-cursor>TORRES STORE</a>
+    <ul class="nav-links">
+      <li><a href="#collection" data-cursor>Colección</a></li>
+      <li><a href="#story" data-cursor>Manifiesto</a></li>
+      <li><a href="#pricing" data-cursor>Precios</a></li>
+      <li><a href="#contact" data-cursor>Contacto</a></li>
+    </ul>
+    <button class="menu-btn" id="menuBtn" aria-label="Menú" data-cursor><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu glass-strong" id="mobileMenu">
+  <a href="#collection">Colección</a>
+  <a href="#story">Manifiesto</a>
+  <a href="#pricing">Precios</a>
+  <a href="#contact">Contacto</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <canvas id="heroCanvas"></canvas>
+  <div class="webgl-fallback" id="webglFallback"><div class="bottle-css"></div></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" id="heroEyebrow">Perfumería de Lujo — Chile</div>
+    <h1>
+      <span class="line l1"><span class="word text-gradient">Torres Store</span></span>
+      <span class="line l2"><span class="word">La Esencia del Lujo</span></span>
+    </h1>
+    <p class="hero-desc" id="heroDesc">Donde la fragancia se convierte en emoción, y cada nota cuenta una historia escrita sobre la piel.</p>
+    <a href="#collection" class="hero-cta magnetic" data-cursor id="heroCta">Explorar Colección →</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Desliza</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="story-scene">
+    <p class="story-num">01 — Filosofía</p>
+    <h2 data-split>Creado para los Audaces</h2>
+    <p>Cada fragancia en nuestra colección es elegida no por su popularidad, sino por su poder de transformar un momento en un recuerdo imborrable.</p>
+    <p class="accent">No vendemos perfume. Curamos confianza.</p>
+  </div>
+  <div class="story-scene">
+    <p class="story-num">02 — Composición</p>
+    <h2 data-split>Notas que Hablan</h2>
+    <p>Notas de salida que despiertan curiosidad. Notas de corazón que capturan la atención. Notas de fondo que permanecen en la memoria mucho después de tu partida.</p>
+    <p class="accent">Tres capas. Una impresión inolvidable.</p>
+  </div>
+  <div class="story-scene">
+    <p class="story-num">03 — El Estándar</p>
+    <h2 data-split>El Estándar Torres</h2>
+    <p>De Dior a Tom Ford, de Chanel a Creed — solo fragancias dignas de obsesión entran a nuestra selección.</p>
+    <p class="accent">Premium. Auténtico. Sin compromisos.</p>
+  </div>
+</section>
+
+<!-- CATÁLOGO -->
+<section class="catalog" id="collection">
+  <div class="section-header reveal">
+    <p class="section-label">La Colección</p>
+    <h2 class="section-title text-gradient">Excelencia Curada</h2>
+    <p class="section-desc">Cada botella contiene un universo. Elige la que habla tu idioma.</p>
+  </div>
+  <div class="tabs reveal">
+    <button class="tab-btn active" data-tab="men" data-cursor>Caballero</button>
+    <button class="tab-btn" data-tab="women" data-cursor>Dama</button>
+  </div>
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-header reveal">
+    <p class="section-label">Inversión</p>
+    <h2 class="section-title text-gradient">Tu Acceso</h2>
+    <p class="section-desc">Lujo a cualquier escala. Desde tu firma personal hasta construir un imperio.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card glass reveal">
+      <h3>Personal</h3>
+      <p class="card-sub">Para el conocedor</p>
+      <div class="price-row"><span class="price-qty">1 perfume</span><span class="price-value">$20.000</span></div>
+      <div class="price-row"><span class="price-qty">2 perfumes</span><span class="price-value">$35.000</span></div>
+      <div class="price-row"><span class="price-qty">3 perfumes</span><span class="price-value">$50.000</span></div>
+    </div>
+    <div class="price-card glass reveal" style="border-color:rgba(201,169,110,0.22)">
+      <span class="best-badge">Mejor Valor</span>
+      <h3>Emprendedor</h3>
+      <p class="card-sub">Construye tu negocio de fragancias</p>
+      <div class="price-row"><span class="price-qty">5 perfumes</span><span class="price-value">$75.000<span class="price-unit">$15.000 c/u</span></span></div>
+      <div class="price-row"><span class="price-qty">10 perfumes</span><span class="price-value">$140.000<span class="price-unit">$14.000 c/u</span></span></div>
+      <div class="price-row"><span class="price-qty">15 perfumes</span><span class="price-value">$200.000<span class="price-unit">$13.333 c/u</span></span></div>
+      <div class="price-row"><span class="price-qty">20 perfumes</span><span class="price-value">$260.000<span class="price-unit">$13.000 c/u</span></span></div>
+      <div class="price-row"><span class="price-qty">30 perfumes</span><span class="price-value">$375.000<span class="price-unit">$12.500 c/u</span></span></div>
+    </div>
+  </div>
+  <p class="pricing-note reveal">Personaliza tu pedido: selecciona libremente los perfumes en el modelo y la cantidad de tu elección.</p>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-header reveal">
+    <p class="section-label">Comienza</p>
+    <h2 class="section-title text-gradient">Hazlo Tuyo</h2>
+  </div>
+  <div class="contact-card glass reveal">
+    <div class="contact-grid">
+      <div>
+        <h3>Contáctanos</h3>
+        <a href="https://wa.me/56987395445" target="_blank" rel="noopener" class="contact-link" data-cursor>
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 00-8 8 7.9 7.9 0 001.1 4.1L0 16l4-1.1A7.9 7.9 0 008 16a8 8 0 000-16zm4.3 11.3c-.2.5-1 .9-1.4 1s-.9.1-1.5-.1a12 12 0 01-2.1-1.1 9.3 9.3 0 01-3-3c-.5-.7-.6-1.5-.1-2.1.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .5.4s.6 1.5.7 1.6.1.2 0 .4-.2.3-.3.4-.3.3-.1.6.7 1.2 1.5 1.9c.5.4 1 .6 1.1.7.2.1.3.1.4-.1l.7-1c.1-.2.3-.2.5-.1l1.5.7c.2.1.4.2.4.3s0 .6-.2 1z"/></svg>
+          +56 9 8739 5445
+        </a>
+        <a href="https://instagram.com/Torresoficial_store" target="_blank" rel="noopener" class="contact-link" data-cursor>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          @Torresoficial_store
+        </a>
+        <p class="shipping-note">Entregas presenciales y envíos a todo Chile en 1 a 3 días hábiles a través de Starken y Bluexpress.</p>
+      </div>
+      <div class="payment-info">
+        <h3>Métodos de Pago</h3>
+        <p>Alvaro Francisco Torres Bustamante</p>
+        <p>RUT: 18.880.763-1</p>
+        <p>Cuenta Corriente 0 000 88 47532 1</p>
+        <p class="bank-name">Banco Santander</p>
+      </div>
+    </div>
+    <div class="contact-cta">
+      <a href="https://wa.me/56987395445?text=Hola,%20me%20interesa%20un%20perfume%20del%20cat%C3%A1logo%20de%20Torres%20Store" target="_blank" rel="noopener" class="magnetic" data-cursor>Pedir por WhatsApp →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="glow-line" style="width:60px;margin:0 auto 2rem"></div>
+  <p class="logo-text text-gradient">TORRES STORE</p>
+  <p class="tagline">La Esencia del Lujo — Chile</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-bg" id="modalBg"></div>
+  <div class="modal-content glass-strong">
+    <button class="modal-close" id="modalClose" aria-label="Cerrar" data-cursor>✕</button>
+    <div class="modal-grid">
+      <div class="modal-bottle-wrap">
+        <div class="modal-bottle-glow" id="modalGlow"></div>
+        <img id="modalImg" src="" alt="Perfume">
+      </div>
+      <div>
+        <p class="modal-brand" id="modalBrand"></p>
+        <h2 class="modal-name" id="modalName"></h2>
+        <p class="modal-type" id="modalType"></p>
+        <p class="modal-emotion" id="modalEmotion"></p>
+        <p class="modal-notes-title">Viaje Olfativo</p>
+        <div id="modalNotes"></div>
+        <a href="https://wa.me/56987395445" target="_blank" rel="noopener" class="modal-cta" data-cursor id="modalCta">Pedir Ahora →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DATOS ===== -->
+<script>
+const perfumesMen = [
+  { id:'sauvage-elixir', name:'Sauvage Elixir', brand:'DIOR', type:'Parfum', size:'100 ml', emotion:'"Magnetismo puro destilado en oro líquido. El aire cambia cuando entras."', notes:{salida:'Pomelo, Canela',corazon:'Lavanda, Nuez Moscada',fondo:'Ámbar, Sándalo'}, color:'#1a3a5c', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw3ae0ce38/Y0996004/Y0996004_C099600455_E01_GHC.jpg?sw=460' },
+  { id:'sauvage-edp', name:'Sauvage', brand:'DIOR', type:'Eau de Parfum', size:'100 ml', emotion:'"Salvaje. Refinado. El desierto al atardecer, infinito e indomable."', notes:{salida:'Bergamota, Pimienta',corazon:'Pimienta Sichuan, Lavanda',fondo:'Ambroxan, Cedro'}, color:'#1a2a3a', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwf6b1f8ec/Y0996006/Y0996006_C099600613_E01_GHC.jpg?sw=460' },
+  { id:'bleu-parfum', name:'Bleu de Chanel', brand:'CHANEL', type:'Parfum', size:'100 ml', emotion:'"El aroma de la confianza silenciosa. Para quienes nunca necesitan alzar la voz."', notes:{salida:'Cítricos, Menta',corazon:'Jazmín, Iso E Super',fondo:'Cedro, Sándalo'}, color:'#0d1b3e', img:'https://www.chanel.com/images/t_one/t_fnbedito//q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/bleu-de-chanel-parfum-spray-3-4fl-oz--packshot-default-107160-8841226027038.jpg' },
+  { id:'aventus', name:'Aventus', brand:'CREED', type:'Eau de Parfum', size:'100 ml', emotion:'"El poder tiene una firma. Esta es. Audaz, sin disculpas, legendaria."', notes:{salida:'Piña, Bergamota',corazon:'Abedul, Rosa',fondo:'Almizcle, Musgo'}, color:'#2d4a2d', img:'https://creedfragrance.com/cdn/shop/files/aventus-100ml-bottle_900x.png?v=1694535571' },
+  { id:'tobacco-vanille', name:'Tobacco Vanille', brand:'TOM FORD', type:'Eau de Parfum', size:'100 ml', emotion:'"Decadencia embotellada. La calidez de un club privado de puros a medianoche."', notes:{salida:'Tabaco, Especias',corazon:'Vainilla, Tonka',fondo:'Frutos Secos, Madera'}, color:'#4a2c17', img:'' },
+  { id:'oud-wood', name:'Oud Wood', brand:'TOM FORD', type:'Eau de Parfum', size:'100 ml', emotion:'"Bosques ancestrales susurran entre velos de humo. Atemporal. Enigmático."', notes:{salida:'Palo de Rosa, Cardamomo',corazon:'Oud, Sándalo',fondo:'Vetiver, Ámbar'}, color:'#3d2b1f', img:'' },
+  { id:'1million-elixir', name:'1 Million Elixir', brand:'PACO RABANNE', type:'Parfum', size:'100 ml', emotion:'"Exceso refinado en elegancia. Oro que gotea con intención."', notes:{salida:'Manzana, Azafrán',corazon:'Rosa, Praliné',fondo:'Ámbar, Cuero'}, color:'#8b6914', img:'https://www.sephora.com/productimages/sku/s2609892-main-zoom.jpg' },
+  { id:'1million-edt', name:'1 Million', brand:'PACO RABANNE', type:'Eau de Toilette', size:'100 ml', emotion:'"El dorado definitivo. Cada pulverización es una declaración de ambición."', notes:{salida:'Pomelo, Menta',corazon:'Rosa, Canela',fondo:'Cuero, Ámbar'}, color:'#7a5a0a', img:'https://www.sephora.com/productimages/sku/s1269847-main-zoom.jpg' },
+  { id:'eros-parfum', name:'Eros', brand:'VERSACE', type:'Eau de Parfum', size:'100 ml', emotion:'"Deseo hecho tangible. Cada nota es una invitación imposible de rechazar."', notes:{salida:'Menta, Manzana',corazon:'Tonka, Geranio',fondo:'Vainilla, Vetiver'}, color:'#1a4a6b', img:'https://www.sephora.com/productimages/sku/s2553082-main-zoom.jpg' },
+  { id:'eros-edt', name:'Eros', brand:'VERSACE', type:'Eau de Toilette', size:'100 ml', emotion:'"El dios griego del amor no pide permiso. Conquista."', notes:{salida:'Menta, Manzana Verde',corazon:'Tonka, Geranio, Ambroxan',fondo:'Vainilla, Vetiver, Cedro'}, color:'#1a4a6b', img:'https://www.sephora.com/productimages/sku/s1647430-main-zoom.jpg' },
+  { id:'invictus-victory', name:'Invictus Victory', brand:'PACO RABANNE', type:'Eau de Parfum Extrême', size:'100 ml', emotion:'"Triunfo cristalizado. El aroma que recuerdan mucho después de tu partida."', notes:{salida:'Laurel, Cardamomo',corazon:'Incienso, Tonka',fondo:'Ámbar Gris, Oud'}, color:'#2a3a4a', img:'https://www.sephora.com/productimages/sku/s2503434-main-zoom.jpg' },
+  { id:'y-le-parfum', name:'Y Le Parfum', brand:'YVES SAINT LAURENT', type:'Parfum', size:'100 ml', emotion:'"La pregunta respondida antes de ser formulada. Certeza absoluta en forma líquida."', notes:{salida:'Manzana, Jengibre',corazon:'Salvia, Enebro',fondo:'Amberwood, Tonka'}, color:'#1a1a3d', img:'https://www.sephora.com/productimages/sku/s2313768-main-zoom.jpg' },
+  { id:'stronger-with-you', name:'Stronger With You', brand:'EMPORIO ARMANI', type:'Parfum', size:'100 ml', emotion:'"Intimidad embotellada. La calidez entre palabras susurradas."', notes:{salida:'Pimienta Rosa, Violeta',corazon:'Toffee, Canela',fondo:'Vainilla, Gamuza'}, color:'#5a2a2a', img:'https://www.sephora.com/productimages/sku/s2487687-main-zoom.jpg' },
+  { id:'born-in-roma-intense', name:'Born in Roma Intense', brand:'VALENTINO', type:'Eau de Parfum Intense', size:'100 ml', emotion:'"Noches romanas destiladas en obsesión. Ciudad eterna, atracción eterna."', notes:{salida:'Té Verde, Jengibre',corazon:'Salvia, Vetiver',fondo:'Vainilla Ahumada, Guaiac'}, color:'#1a2a1a', img:'https://www.sephora.com/productimages/sku/s2563933-main-zoom.jpg' },
+  { id:'acqua-di-gio', name:'Acqua di Giò Profumo', brand:'GIORGIO ARMANI', type:'Parfum', size:'100 ml', emotion:'"El Mediterráneo a la hora dorada. Profundidad bajo la superficie."', notes:{salida:'Bergamota, Notas Marinas',corazon:'Romero, Geranio',fondo:'Pachulí, Ámbar'}, color:'#1a3a4a', img:'https://www.sephora.com/productimages/sku/s1913329-main-zoom.jpg' },
+  { id:'bad-boy-edt', name:'Bad Boy', brand:'CAROLINA HERRERA', type:'Eau de Toilette', size:'100 ml', emotion:'"Las reglas existen para ser reescritas. Audaz, eléctrico, inolvidable."', notes:{salida:'Salvia, Pimienta Negra',corazon:'Cedro, Cacao',fondo:'Tonka, Ámbar'}, color:'#6b5a14', img:'https://www.sephora.com/productimages/sku/s2202326-main-zoom.jpg' },
+  { id:'212-vip-black', name:'212 VIP Black', brand:'CAROLINA HERRERA', type:'Eau de Parfum', size:'100 ml', emotion:'"La lista de invitados no aplica. Nacido para la cuerda de terciopelo."', notes:{salida:'Lavanda, Vainilla Negra',corazon:'Cuero',fondo:'Benzoína, Almizcle'}, color:'#0d0d1a', img:'https://www.sephora.com/productimages/sku/s2090176-main-zoom.jpg' },
+  { id:'scandal-m', name:'Scandal Pour Homme', brand:'JEAN PAUL GAULTIER', type:'Eau de Parfum', size:'100 ml', emotion:'"Hablarán de ti. Asegúrate de que valga la pena."', notes:{salida:'Mandarina, Canela',corazon:'Cacao, Tonka',fondo:'Vetiver, Cuero'}, color:'#3d1a2a', img:'https://www.sephora.com/productimages/sku/s2560806-main-zoom.jpg' },
+  { id:'phantom-edt', name:'Phantom', brand:'PACO RABANNE', type:'Eau de Toilette', size:'100 ml', emotion:'"Tecnología y seducción en una botella de otro mundo."', notes:{salida:'Limón, Lavanda',corazon:'Manzana Ahumada',fondo:'Vainilla, Cashmeran'}, color:'#5a5a6a', img:'https://www.sephora.com/productimages/sku/s2455056-main-zoom.jpg' },
+  { id:'the-one', name:'The One', brand:'DOLCE & GABBANA', type:'Eau de Parfum', size:'100 ml', emotion:'"El elegido. Sofisticación cálida que envuelve como terciopelo."', notes:{salida:'Pomelo, Cilantro',corazon:'Flor de Azahar, Jengibre',fondo:'Ámbar, Cedro'}, color:'#4a3a1a', img:'https://www.sephora.com/productimages/sku/s1154329-main-zoom.jpg' },
+  { id:'allure-sport', name:'Allure Homme Sport', brand:'CHANEL', type:'Eau de Toilette', size:'100 ml', emotion:'"Dinamismo sofisticado. El movimiento convertido en fragancia."', notes:{salida:'Naranja, Aldehídos',corazon:'Néroli, Pimienta',fondo:'Cedro, Tonka'}, color:'#3a4a4a', img:'https://www.chanel.com/images/t_one/t_fnbedito/q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/allure-homme-sport-eau-de-toilette-spray-3-4fl-oz--packshot-default-123630-8841225895966.jpg' },
+  { id:'code-profumo', name:'Code Profumo', brand:'GIORGIO ARMANI', type:'Parfum', size:'110 ml', emotion:'"La versión definitiva del misterio. Más oscuro, más adictivo."', notes:{salida:'Manzana Verde, Bergamota',corazon:'Lavanda, Flor de Naranjo',fondo:'Tonka, Ámbar'}, color:'#1a1a2a', img:'https://www.sephora.com/productimages/sku/s1845786-main-zoom.jpg' },
+  { id:'most-wanted', name:'The Most Wanted', brand:'AZZARO', type:'Eau de Parfum Intense', size:'100 ml', emotion:'"El más buscado. Una intensidad que no se olvida."', notes:{salida:'Cardamomo, Salvia',corazon:'Madera de Teca',fondo:'Vainilla Bourbon, Ámbar'}, color:'#4a2a1a', img:'https://www.sephora.com/productimages/sku/s2515618-main-zoom.jpg' },
+  { id:'man-in-black', name:'Man in Black', brand:'BVLGARI', type:'Eau de Parfum', size:'100 ml', emotion:'"Oscuridad sofisticada. El caballero que domina desde las sombras."', notes:{salida:'Ron, Tabaco',corazon:'Cuero, Tuberosa',fondo:'Ámbar, Guaiac'}, color:'#1a1a1a', img:'https://www.sephora.com/productimages/sku/s1779829-main-zoom.jpg' },
+];
+
+const perfumesWomen = [
+  { id:'good-girl', name:'Good Girl', brand:'CAROLINA HERRERA', type:'Eau de Parfum', size:'80 ml', emotion:'"Dualidad hecha divina. El tacón stiletto esconde un jardín de jazmín."', notes:{salida:'Almendra, Café',corazon:'Tuberosa, Jazmín',fondo:'Tonka, Cacao'}, color:'#1a0d2a', img:'https://www.sephora.com/productimages/sku/s1925141-main-zoom.jpg' },
+  { id:'good-girl-supreme', name:'Good Girl Suprême', brand:'CAROLINA HERRERA', type:'Eau de Parfum', size:'80 ml', emotion:'"La versión suprema. Más frutal, más golosa, más irresistible."', notes:{salida:'Frutos Rojos',corazon:'Tuberosa, Jazmín',fondo:'Tonka, Vainilla'}, color:'#2a0d3a', img:'https://www.sephora.com/productimages/sku/s2283862-main-zoom.jpg' },
+  { id:'libre-intense', name:'Libre Intense', brand:'YVES SAINT LAURENT', type:'Eau de Parfum Intense', size:'90 ml', emotion:'"Libertad destilada. Azahar floreciendo contra cuero de medianoche."', notes:{salida:'Mandarina, Lavanda',corazon:'Azahar',fondo:'Vainilla, Oud'}, color:'#2a1a3d', img:'https://www.sephora.com/productimages/sku/s2433095-main-zoom.jpg' },
+  { id:'libre-edp', name:'Libre', brand:'YVES SAINT LAURENT', type:'Eau de Parfum', size:'90 ml', emotion:'"Sin reglas. Sin cadenas. Absolutamente libre."', notes:{salida:'Mandarina, Grosella Negra',corazon:'Lavanda, Azahar',fondo:'Vainilla de Madagascar'}, color:'#3a2a4d', img:'https://www.sephora.com/productimages/sku/s2225624-main-zoom.jpg' },
+  { id:'mon-paris', name:'Mon Paris', brand:'YVES SAINT LAURENT', type:'Eau de Parfum', size:'90 ml', emotion:'"Amor parisino a primera vista. Intoxicante, impulsivo, divino."', notes:{salida:'Fresa, Pera',corazon:'Peonía, Datura',fondo:'Almizcle Blanco, Pachulí'}, color:'#4a1a2a', img:'https://www.sephora.com/productimages/sku/s1873382-main-zoom.jpg' },
+  { id:'baccarat-rouge', name:'Baccarat Rouge 540', brand:'MAISON FRANCIS KURKDJIAN', type:'Extrait de Parfum', size:'70 ml', emotion:'"Luminosa. De otro mundo. La fragancia que trasciende lo físico."', notes:{salida:'Azafrán, Jazmín',corazon:'Amberwood, Resina',fondo:'Cedro, Almizcle'}, color:'#6b1a1a', img:'https://www.sephora.com/productimages/sku/s2176793-main-zoom.jpg' },
+  { id:'miss-dior-blooming', name:'Miss Dior Blooming Bouquet', brand:'DIOR', type:'Eau de Toilette', size:'100 ml', emotion:'"Primavera capturada en su momento más fugaz. Pétalos en cámara lenta."', notes:{salida:'Mandarina Siciliana',corazon:'Peonía, Rosa Damascena',fondo:'Almizcle Blanco'}, color:'#d4a5a5', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw04ee36f2/Y0185006/Y0185006_C018500613_E01_GHC.jpg?sw=460' },
+  { id:'jadore', name:"J'adore", brand:'DIOR', type:'Eau de Parfum', size:'100 ml', emotion:'"Oro líquido tejido de rosas y luz solar. Gracia atemporal."', notes:{salida:'Ylang-Ylang, Rosa',corazon:'Jazmín, Lirio',fondo:'Almizcle, Vainilla'}, color:'#c9a96e', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw7f7e4e0f/Y0996152/Y0996152_C099615213_E01_GHC.jpg?sw=460' },
+  { id:'coco-mademoiselle', name:'Coco Mademoiselle', brand:'CHANEL', type:'Eau de Parfum', size:'100 ml', emotion:'"El legado reinventado. Feminidad moderna que deja una marca indeleble."', notes:{salida:'Naranja, Bergamota',corazon:'Rosa, Jazmín',fondo:'Pachulí, Vetiver'}, color:'#4a3a2a', img:'https://www.chanel.com/images/t_one/t_fnbedito/q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/coco-mademoiselle-eau-de-parfum-spray-3-4fl-oz--packshot-default-116520-8841226125342.jpg' },
+  { id:'n5', name:'N°5', brand:'CHANEL', type:'Eau de Parfum', size:'100 ml', emotion:'"Leyenda. Cien años definiendo qué significa el perfume para el mundo."', notes:{salida:'Aldehídos, Néroli',corazon:'Jazmín, Rosa, Ylang-Ylang',fondo:'Sándalo, Vainilla'}, color:'#d4c9a5', img:'https://www.chanel.com/images/t_one/t_fnbedito/q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/n5-eau-de-parfum-spray-3-4fl-oz--packshot-default-101450-8841226092574.jpg' },
+  { id:'lady-million', name:'Lady Million', brand:'PACO RABANNE', type:'Eau de Parfum', size:'80 ml', emotion:'"Opulencia sin disculpas. Los diamantes se sentirían mal vestidos."', notes:{salida:'Frambuesa, Naranja Amarga',corazon:'Jazmín, Gardenia',fondo:'Miel, Pachulí'}, color:'#8b7a14', img:'https://www.sephora.com/productimages/sku/s1269870-main-zoom.jpg' },
+  { id:'olympea', name:'Olympéa', brand:'PACO RABANNE', type:'Eau de Parfum', size:'80 ml', emotion:'"Una diosa no llega: aparece. Piel besada por sal y vainilla divina."', notes:{salida:'Mandarina Verde, Acuática',corazon:'Jazmín, Sal',fondo:'Vainilla, Cachemira'}, color:'#4a5a6b', img:'https://www.sephora.com/productimages/sku/s1834970-main-zoom.jpg' },
+  { id:'fame-edp', name:'Fame', brand:'PACO RABANNE', type:'Eau de Parfum', size:'80 ml', emotion:'"El reflector te encuentra. Mango e incienso colisionan en obsesión dorada."', notes:{salida:'Mango',corazon:'Jazmín, Incienso',fondo:'Sándalo, Cedro'}, color:'#6b4a14', img:'https://www.sephora.com/productimages/sku/s2596586-main-zoom.jpg' },
+  { id:'la-vie-est-belle', name:'La Vie Est Belle', brand:'LANCÔME', type:'Eau de Parfum', size:'75 ml', emotion:'"Felicidad en su forma molecular más pura. Una sonrisa hecha eterna."', notes:{salida:'Iris, Pera',corazon:'Iris, Jazmín',fondo:'Praliné, Pachulí'}, color:'#d4a5c9', img:'https://www.sephora.com/productimages/sku/s1524324-main-zoom.jpg' },
+  { id:'la-nuit-tresor', name:'La Nuit Trésor', brand:'LANCÔME', type:'Eau de Parfum', size:'100 ml', emotion:'"La noche tiene tesoros ocultos. Este es el más precioso."', notes:{salida:'Orquídea',corazon:'Rosa, Frambuesa',fondo:'Chocolate, Vainilla'}, color:'#2a0d2a', img:'https://www.sephora.com/productimages/sku/s1838856-main-zoom.jpg' },
+  { id:'si-passione', name:'Sì Passione', brand:'GIORGIO ARMANI', type:'Eau de Parfum', size:'100 ml', emotion:'"Labios rojos y confianza. La mujer que posee cada habitación."', notes:{salida:'Pera, Pimienta Rosa',corazon:'Rosa, Jazmín',fondo:'Vainilla, Cedro'}, color:'#8b1a1a', img:'https://www.sephora.com/productimages/sku/s2106998-main-zoom.jpg' },
+  { id:'my-way', name:'My Way', brand:'GIORGIO ARMANI', type:'Eau de Parfum', size:'90 ml', emotion:'"Cada viaje deja su esencia en la piel. Este se queda para siempre."', notes:{salida:'Azahar, Bergamota',corazon:'Tuberosa, Jazmín',fondo:'Vainilla, Almizcle'}, color:'#c9a55a', img:'https://www.sephora.com/productimages/sku/s2340639-main-zoom.jpg' },
+  { id:'born-in-roma-w', name:'Born in Roma', brand:'VALENTINO', type:'Eau de Parfum', size:'100 ml', emotion:'"Adoquines cubiertos de jazmín al atardecer. La dolce vita infinita."', notes:{salida:'Pimienta Rosa, Grosella Negra',corazon:'Jazmín, Rosa',fondo:'Cashmeran, Guaiac'}, color:'#3d1a3d', img:'https://www.sephora.com/productimages/sku/s2263062-main-zoom.jpg' },
+  { id:'scandal-w', name:'Scandal', brand:'JEAN PAUL GAULTIER', type:'Eau de Parfum', size:'80 ml', emotion:'"Escándalo puro. Miel y naranja sanguina en piernas que se cruzan."', notes:{salida:'Naranja Sanguina, Mandarina',corazon:'Gardenia, Miel',fondo:'Caramelo, Regaliz'}, color:'#4a1a2a', img:'https://www.sephora.com/productimages/sku/s2200445-main-zoom.jpg' },
+  { id:'paradoxe', name:'Paradoxe', brand:'PRADA', type:'Eau de Parfum', size:'90 ml', emotion:'"Contradictoria por naturaleza. Única por elección."', notes:{salida:'Pera, Bergamota',corazon:'Jazmín',fondo:'Almizcle, Ámbar'}, color:'#c9a5d4', img:'https://www.sephora.com/productimages/sku/s2632894-main-zoom.jpg' },
+  { id:'bright-crystal', name:'Bright Crystal', brand:'VERSACE', type:'Eau de Toilette', size:'90 ml', emotion:'"Cristal brillante. La pureza del agua y la luz convertidas en joya."', notes:{salida:'Granada, Yuzu',corazon:'Magnolia, Peonía',fondo:'Almizcle, Ámbar'}, color:'#c9c9d4', img:'https://www.sephora.com/productimages/sku/s1218629-main-zoom.jpg' },
+  { id:'light-blue', name:'Light Blue', brand:'DOLCE & GABBANA', type:'Eau de Toilette', size:'100 ml', emotion:'"Azul claro del Mediterráneo. Sol, sal y libertad infinita."', notes:{salida:'Limón Siciliano, Manzana',corazon:'Jazmín, Bambú',fondo:'Cedro, Almizcle'}, color:'#75a5c9', img:'https://www.sephora.com/productimages/sku/s1218652-main-zoom.jpg' },
+  { id:'flora-gardenia', name:'Flora Gorgeous Gardenia', brand:'GUCCI', type:'Eau de Parfum', size:'100 ml', emotion:'"Un jardín italiano en plena floración. Belleza sin reservas."', notes:{salida:'Pera, Frutos Rojos',corazon:'Gardenia, Jazmín',fondo:'Azúcar Moreno, Pachulí'}, color:'#d4758a', img:'https://www.sephora.com/productimages/sku/s2530518-main-zoom.jpg' },
+  { id:'bombshell', name:'Bombshell', brand:"VICTORIA'S SECRET", type:'Eau de Parfum', size:'100 ml', emotion:'"Explosiva. La bomba que todos esperaban pero nadie predijo."', notes:{salida:'Mandarina Púrpura',corazon:'Peonía, Jazmín',fondo:'Almizcle Blanco'}, color:'#d4758a', img:'' },
+];
+</script>
+
+<!-- ===== INTERACCIÓN PRINCIPAL ===== -->
+<script>
+(function(){
+  'use strict';
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- CURSOR ---------- */
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = window.innerWidth/2, my = window.innerHeight/2, rx = mx, ry = my;
+  const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if (fine) {
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+    });
+    (function ringLoop(){
+      rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
+      ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+      requestAnimationFrame(ringLoop);
+    })();
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest('[data-cursor], a, button')) ring.classList.add('hover');
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest('[data-cursor], a, button')) ring.classList.remove('hover');
+    });
+    document.addEventListener('mouseleave', () => { dot.classList.add('hidden'); ring.classList.add('hidden'); });
+    document.addEventListener('mouseenter', () => { dot.classList.remove('hidden'); ring.classList.remove('hidden'); });
+  }
+
+  /* ---------- BOTONES MAGNÉTICOS ---------- */
+  if (fine && !prefersReduced) {
+    document.querySelectorAll('.magnetic').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width/2;
+        const y = e.clientY - r.top - r.height/2;
+        el.style.transform = `translate(${x*0.3}px, ${y*0.4}px)`;
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = 'translate(0,0)'; });
+    });
+  }
+
+  /* ---------- MENÚ MÓVIL ---------- */
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menuBtn.classList.remove('open'); mobileMenu.classList.remove('open');
+  }));
+
+  /* ---------- CATÁLOGO ---------- */
+  let currentTab = 'men';
+  const grid = document.getElementById('productGrid');
+
+  function cardImg(p){
+    if (!p.img) return `<div class="img-fallback"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name}</span></div>`;
+    return `<img src="${p.img}" alt="${p.brand} ${p.name}" loading="lazy" onerror="this.outerHTML='<div class="img-fallback"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name.replace(/'/g,'&#39;')}</span></div>'">`;
+  }
+
+  function renderGrid(){
+    const data = currentTab === 'men' ? perfumesMen : perfumesWomen;
+    grid.innerHTML = data.map(p => `
+      <article class="product-card glass" data-id="${p.id}" data-cursor>
+        <div class="card-visual">
+          <div class="card-glow" style="background:radial-gradient(circle,${p.color},transparent)"></div>
+          ${cardImg(p)}
+        </div>
+        <p class="card-brand">${p.brand}</p>
+        <h3 class="card-name">${p.name}</h3>
+        <p class="card-type">${p.type} — ${p.size}</p>
+        <div class="card-discover"><span>Descubrir</span> →</div>
+      </article>
+    `).join('');
+    animateCards();
+  }
+
+  grid.addEventListener('click', e => {
+    const card = e.target.closest('.product-card');
+    if (card) openModal(card.dataset.id);
+  });
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.tab === currentTab) return;
+      currentTab = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+      renderGrid();
+    });
+  });
+
+  /* ---------- MODAL ---------- */
+  const modal = document.getElementById('modal');
+  function openModal(id){
+    const p = [...perfumesMen, ...perfumesWomen].find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('modalBrand').textContent = p.brand;
+    document.getElementById('modalName').textContent = p.name;
+    document.getElementById('modalType').textContent = `${p.type} — ${p.size}`;
+    document.getElementById('modalEmotion').textContent = p.emotion;
+    document.getElementById('modalGlow').style.background = p.color;
+    const wrap = document.querySelector('.modal-bottle-wrap');
+    const oldImg = document.getElementById('modalImg');
+    const imgHtml = p.img
+      ? `<img id="modalImg" src="${p.img}" alt="${p.brand} ${p.name}" onerror="this.outerHTML='<div class="img-fallback" style="width:140px;height:230px"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name.replace(/'/g,'&#39;')}</span></div>'">`
+      : `<div class="img-fallback" id="modalImg" style="width:140px;height:230px"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name}</span></div>`;
+    oldImg.outerHTML = imgHtml;
+    const noteKeys = Object.keys(p.notes);
+    document.getElementById('modalNotes').innerHTML = noteKeys.map(n => `
+      <div class="note-row">
+        <span class="note-label">${n}</span>
+        <div class="note-line"></div>
+        <span class="note-value">${p.notes[n]}</span>
+      </div>`).join('');
+    document.getElementById('modalCta').href = `https://wa.me/56987395445?text=${encodeURIComponent('Hola, me interesa el perfume '+p.name+' ('+p.brand+') del catálogo de Torres Store')}`;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (window.lenisInstance) window.lenisInstance.stop();
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    if (window.lenisInstance) window.lenisInstance.start();
+  }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalBg').addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  /* ---------- GSAP + LENIS ---------- */
+  let lenis = null;
+  if (typeof Lenis !== 'undefined' && !prefersReduced) {
+    lenis = new Lenis({ duration:1.2, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true });
+    window.lenisInstance = lenis;
+  }
+
+  function setupGSAP(){
+    if (typeof gsap === 'undefined') return;
+    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+    if (lenis && typeof ScrollTrigger !== 'undefined') {
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(time => lenis.raf(time*1000));
+      gsap.ticker.lagSmoothing(0);
+    } else if (lenis) {
+      function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    }
+
+    if (prefersReduced) { document.querySelectorAll('.reveal').forEach(el=>el.style.opacity=1); return; }
+
+    // Hero entrada
+    const heroTl = gsap.timeline({ delay:0.2 });
+    heroTl.from('.hero-eyebrow', { y:30, opacity:0, duration:1, ease:'power3.out' })
+          .from('.hero h1 .word', { yPercent:120, opacity:0, duration:1.1, stagger:0.12, ease:'power4.out' }, '-=0.5')
+          .from('.hero-desc', { y:30, opacity:0, duration:1, ease:'power3.out' }, '-=0.6')
+          .from('.hero-cta', { y:30, opacity:0, duration:1, ease:'power3.out' }, '-=0.7')
+          .from('.hero-scroll', { opacity:0, duration:1, ease:'power2.out' }, '-=0.5');
+
+    // Reveals genéricos
+    if (typeof ScrollTrigger !== 'undefined') {
+      gsap.utils.toArray('.reveal').forEach(el => {
+        gsap.from(el, { y:60, opacity:0, duration:1.1, ease:'power3.out',
+          scrollTrigger:{ trigger:el, start:'top 85%' } });
+      });
+
+      // Story: split de palabras
+      document.querySelectorAll('[data-split]').forEach(h => {
+        const words = h.textContent.split(' ');
+        h.innerHTML = words.map(w => `<span class="story-word">${w}</span>`).join(' ');
+        gsap.from(h.querySelectorAll('.story-word'), {
+          yPercent:110, opacity:0, duration:1, stagger:0.06, ease:'power4.out',
+          scrollTrigger:{ trigger:h, start:'top 80%' }
+        });
+      });
+      gsap.utils.toArray('.story-scene p').forEach(p => {
+        gsap.from(p, { y:40, opacity:0, duration:1, ease:'power3.out',
+          scrollTrigger:{ trigger:p, start:'top 85%' } });
+      });
+
+      // Parallax suave en orbes
+      gsap.to('.hero-orb-1', { yPercent:30, ease:'none', scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true } });
+      gsap.to('.hero-orb-2', { yPercent:-20, ease:'none', scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true } });
+    }
+  }
+
+  // Entrada escalonada de tarjetas
+  function animateCards(){
+    if (typeof gsap === 'undefined' || prefersReduced) return;
+    gsap.from('#productGrid .product-card', {
+      y:50, opacity:0, duration:0.8, stagger:0.05, ease:'power3.out',
+      scrollTrigger: (typeof ScrollTrigger !== 'undefined') ? { trigger:'#productGrid', start:'top 90%' } : undefined
+    });
+  }
+
+  /* ---------- NAV scrolled ---------- */
+  const navbar = document.getElementById('navbar');
+  function onScroll(){ navbar.classList.toggle('scrolled', window.scrollY > 60); }
+  window.addEventListener('scroll', onScroll, { passive:true });
+
+  /* ---------- Anclas con Lenis ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id === '#' || id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(target, { offset:-20 });
+      else target.scrollIntoView({ behavior:'smooth' });
+    });
+  });
+
+  /* ---------- INIT ---------- */
+  renderGrid();
+  setupGSAP();
+
+  // Loader (se cierra al cargar todo o tras timeout de seguridad)
+  const loader = document.getElementById('loader');
+  const loaderBar = document.getElementById('loaderBar');
+  const loaderPct = document.getElementById('loaderPct');
+  let progress = 0;
+  const fakeLoad = setInterval(() => {
+    progress = Math.min(progress + Math.random()*18, 100);
+    if (typeof gsap !== 'undefined') gsap.set(loaderBar, { scaleX: progress/100 });
+    else loaderBar.style.transform = `scaleX(${progress/100})`;
+    loaderPct.textContent = Math.round(progress) + '%';
+    if (progress >= 100) { clearInterval(fakeLoad); finishLoad(); }
+  }, 130);
+  function finishLoad(){
+    setTimeout(() => { loader.classList.add('done'); if (lenis) lenis.start(); }, 300);
+  }
+  // seguridad
+  setTimeout(() => { if (!loader.classList.contains('done')){ progress=100; clearInterval(fakeLoad); loader.classList.add('done'); } }, 6000);
+})();
+</script>
+
+<!-- ===== ESCENA 3D (Three.js) ===== -->
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+const canvas = document.getElementById('heroCanvas');
+const fallback = document.getElementById('webglFallback');
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function showFallback(){ if (canvas) canvas.style.display='none'; if (fallback) fallback.style.display='flex'; }
+
+try {
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
+  if (!renderer.getContext()) { showFallback(); throw new Error('no-webgl'); }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+  camera.position.set(0, 0, 6.5);
+
+  // Entorno para reflejos/refracción
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+  // Grupo de la botella
+  const bottle = new THREE.Group();
+  scene.add(bottle);
+
+  // Material vidrio
+  const glass = new THREE.MeshPhysicalMaterial({
+    transmission: 1, thickness: 1.4, roughness: 0.08, ior: 1.5,
+    metalness: 0, transparent: true,
+    color: new THREE.Color('#cfd6e6'), attenuationColor: new THREE.Color('#c9a96e'),
+    attenuationDistance: 2.5, clearcoat: 1, clearcoatRoughness: 0.06,
+    envMapIntensity: 1.2, specularIntensity: 1
+  });
+
+  const bodyGeo = new RoundedBoxGeometry(1.9, 2.7, 0.95, 6, 0.28);
+  const body = new THREE.Mesh(bodyGeo, glass);
+  bottle.add(body);
+
+  // Líquido interior (ámbar dorado)
+  const liquidMat = new THREE.MeshPhysicalMaterial({
+    color: new THREE.Color('#b8893f'), transmission: 0.55, thickness: 1,
+    roughness: 0.25, ior: 1.4, metalness: 0, transparent: true,
+    attenuationColor: new THREE.Color('#7a4f12'), attenuationDistance: 1.2,
+    envMapIntensity: 0.8
+  });
+  const liquidGeo = new RoundedBoxGeometry(1.62, 1.85, 0.7, 5, 0.22);
+  const liquid = new THREE.Mesh(liquidGeo, liquidMat);
+  liquid.position.y = -0.38;
+  bottle.add(liquid);
+
+  // Cuello
+  const neckMat = new THREE.MeshPhysicalMaterial({ color:'#cfd6e6', transmission:0.9, thickness:0.8, roughness:0.1, ior:1.5, transparent:true, clearcoat:1, envMapIntensity:1.1 });
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.42, 0.45, 32), neckMat);
+  neck.position.y = 1.55;
+  bottle.add(neck);
+
+  // Tapa dorada
+  const goldMat = new THREE.MeshStandardMaterial({ color:'#c9a96e', metalness:1, roughness:0.22, envMapIntensity:1.4 });
+  const cap = new THREE.Mesh(new RoundedBoxGeometry(0.78, 0.62, 0.78, 5, 0.12), goldMat);
+  cap.position.y = 2.05;
+  bottle.add(cap);
+  const capTop = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.22, 0.18, 24), goldMat);
+  capTop.position.y = 2.42;
+  bottle.add(capTop);
+
+  // Luces de acento
+  const key = new THREE.SpotLight('#ffffff', 60, 30, Math.PI/6, 0.4, 1.5);
+  key.position.set(4, 6, 6); scene.add(key);
+  const rim = new THREE.PointLight('#c9a96e', 40, 30); rim.position.set(-5, 2, -4); scene.add(rim);
+  const fill = new THREE.PointLight('#6a7fc4', 18, 30); fill.position.set(3, -4, 3); scene.add(fill);
+  scene.add(new THREE.AmbientLight('#ffffff', 0.25));
+
+  // Partículas
+  const pCount = 600;
+  const pGeo = new THREE.BufferGeometry();
+  const pPos = new Float32Array(pCount*3);
+  for (let i=0;i<pCount;i++){
+    pPos[i*3]   = (Math.random()-0.5)*16;
+    pPos[i*3+1] = (Math.random()-0.5)*12;
+    pPos[i*3+2] = (Math.random()-0.5)*8 - 2;
+  }
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  const pMat = new THREE.PointsMaterial({ color:'#c9a96e', size:0.025, transparent:true, opacity:0.55, depthWrite:false, blending:THREE.AdditiveBlending });
+  const particles = new THREE.Points(pGeo, pMat);
+  scene.add(particles);
+
+  // Postproceso: bloom
+  const composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  const bloom = new UnrealBloomPass(new THREE.Vector2(1,1), 0.45, 0.85, 0.85);
+  composer.addPass(bloom);
+
+  // Resize
+  function resize(){
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w, h, false);
+    composer.setSize(w, h);
+    camera.aspect = w/h; camera.updateProjectionMatrix();
+    bottle.scale.setScalar(w < 700 ? 0.78 : 1);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Mouse parallax
+  let targetRX = 0, targetRY = 0, curRX = 0, curRY = 0;
+  window.addEventListener('mousemove', e => {
+    targetRY = (e.clientX/window.innerWidth - 0.5) * 0.8;
+    targetRX = (e.clientY/window.innerHeight - 0.5) * 0.5;
+  });
+  window.addEventListener('deviceorientation', e => {
+    if (e.gamma!=null) targetRY = Math.max(-0.8,Math.min(0.8,(e.gamma/45)*0.6));
+    if (e.beta!=null)  targetRX = Math.max(-0.5,Math.min(0.5,((e.beta-45)/45)*0.4));
+  });
+
+  const clock = new THREE.Clock();
+  let running = true;
+  document.addEventListener('visibilitychange', () => { running = !document.hidden; });
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if (!running) return;
+    const t = clock.getElapsedTime();
+    curRX += (targetRX - curRX)*0.05;
+    curRY += (targetRY - curRY)*0.05;
+    if (!prefersReduced) {
+      bottle.rotation.y = t*0.25 + curRY;
+      bottle.rotation.x = curRX;
+      bottle.position.y = Math.sin(t*0.8)*0.12;
+      particles.rotation.y = t*0.02;
+      particles.position.y = Math.sin(t*0.2)*0.3;
+    } else {
+      bottle.rotation.y = curRY; bottle.rotation.x = curRX;
+    }
+    composer.render();
+  }
+  animate();
+} catch(err){
+  console.warn('WebGL no disponible, usando fallback:', err);
+  showFallback();
+}
+</script>
+
+</body>
+</html>
