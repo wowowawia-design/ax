@@ -3,282 +3,360 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TORRES hSTORE | La Esencia del Lujo</title>
+<meta name="description" content="Torres Store — Perfumería de lujo en Chile. Fragancias premium de Dior, Chanel, Tom Ford, Creed y más. Una experiencia digital inmersiva.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="Torres Store | La Esencia del Lujo">
+<meta property="og:description" content="Fragancias premium curadas. Una experiencia digital de lujo.">
+<meta property="og:type" content="website">
+<title>TORRES STORE | La Esencia del Lujo</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- Import map para módulos Three.js -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<!-- GSAP + ScrollTrigger + Lenis (UMD) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 :root {
-  --obsidian: #0a0a0a;
-  --charcoal: #1a1a1a;
-  --platinum: #e8e4de;
-  --gold: #c9a96e;
-  --cream: #f5f0eb;
+  --obsidian:#0a0a0a;
+  --charcoal:#151515;
+  --platinum:#e8e4de;
+  --gold:#c9a96e;
+  --gold-bright:#e3c894;
+  --cream:#f5f0eb;
+  --ease:cubic-bezier(0.16,1,0.3,1);
 }
-::selection { background: rgba(201,169,110,0.3); color: var(--cream); }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--obsidian); }
-::-webkit-scrollbar-thumb { background: rgba(201,169,110,0.4); border-radius: 2px; }
-html { scroll-behavior: smooth; }
+::selection { background:rgba(201,169,110,0.3); color:var(--cream); }
+::-webkit-scrollbar { width:0; background:transparent; }
+
+html { scroll-behavior:auto; }
+html.lenis, html.lenis body { height:auto; }
+.lenis.lenis-smooth { scroll-behavior:auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior:contain; }
+.lenis.lenis-stopped { overflow:hidden; }
+
 body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: var(--obsidian);
-  color: var(--platinum);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+  font-family:'Inter', system-ui, sans-serif;
+  background:var(--obsidian);
+  color:var(--platinum);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  cursor:none;
 }
+img { display:block; max-width:100%; }
+
+/* Grano de película */
 body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.015;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9998;
+  opacity:0.025; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.glass {
-  background: rgba(26,26,26,0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(201,169,110,0.1);
+
+/* ===== CURSOR PERSONALIZADO ===== */
+.cursor-dot, .cursor-ring {
+  position:fixed; top:0; left:0; border-radius:50%; pointer-events:none;
+  z-index:10000; transform:translate(-50%,-50%); will-change:transform;
 }
-.glass-strong {
-  background: rgba(10,10,10,0.85);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border: 1px solid rgba(201,169,110,0.15);
+.cursor-dot { width:6px; height:6px; background:var(--gold-bright); }
+.cursor-ring {
+  width:38px; height:38px; border:1px solid rgba(201,169,110,0.5);
+  transition:width .35s var(--ease), height .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease);
 }
-.text-gradient {
-  background: linear-gradient(135deg, #c9a96e 0%, #e8e4de 50%, #c9a96e 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.cursor-ring.hover { width:64px; height:64px; background:rgba(201,169,110,0.08); border-color:rgba(201,169,110,0.8); }
+.cursor-ring.hidden, .cursor-dot.hidden { opacity:0; }
+@media(hover:none),(pointer:coarse){ body{cursor:auto;} .cursor-dot,.cursor-ring{display:none;} }
+
+/* ===== LOADER ===== */
+#loader {
+  position:fixed; inset:0; z-index:11000; background:var(--obsidian);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2rem;
+  transition:opacity 1s var(--ease), visibility 1s;
 }
-.glow-line {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.6), transparent);
-}
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+#loader.done { opacity:0; visibility:hidden; }
+.loader-logo { font-family:'Playfair Display',serif; font-size:1.6rem; letter-spacing:.4em; color:var(--gold); opacity:0; animation:fadeUp 1s var(--ease) .2s forwards; }
+.loader-bar { width:180px; height:1px; background:rgba(201,169,110,0.15); overflow:hidden; position:relative; }
+.loader-bar span { position:absolute; inset:0; background:var(--gold); transform-origin:left; transform:scaleX(0); }
+.loader-pct { font-size:.6rem; letter-spacing:.3em; color:rgba(232,228,222,0.35); }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+/* ===== UTILIDADES ===== */
+.glass { background:rgba(21,21,21,0.55); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(201,169,110,0.1); }
+.glass-strong { background:rgba(10,10,10,0.82); backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px); border:1px solid rgba(201,169,110,0.15); }
+.text-gradient { background:linear-gradient(135deg,#c9a96e 0%,#f5f0eb 50%,#c9a96e 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.glow-line { height:1px; background:linear-gradient(90deg,transparent,rgba(201,169,110,0.6),transparent); }
+
 @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-@keyframes particleFloat { 0%,100%{transform:translateY(0);opacity:.3} 50%{transform:translateY(-80px);opacity:.5} }
-@keyframes pulse-slow { 0%,100%{opacity:.3;transform:scale(1)} 50%{opacity:.6;transform:scale(1.1)} }
-.reveal { opacity:0; transform:translateY(50px); transition:all 1.2s cubic-bezier(0.16,1,0.3,1); }
-.reveal.active { opacity:1; transform:translateY(0); }
+@keyframes pulse-slow { 0%,100%{opacity:.25;transform:scale(1)} 50%{opacity:.5;transform:scale(1.15)} }
 
-nav { position:fixed; top:0; left:0; width:100%; z-index:100; padding:1.5rem 2rem; transition:all .7s cubic-bezier(0.16,1,0.3,1); }
-nav.scrolled { padding:1rem 2rem; background:rgba(10,10,10,0.85); backdrop-filter:blur(40px); border-bottom:1px solid rgba(201,169,110,0.08); }
-.nav-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
-.logo { font-family:'Playfair Display',serif; font-size:1.4rem; letter-spacing:.1em; text-decoration:none; }
+/* ===== NAV ===== */
+nav { position:fixed; top:0; left:0; width:100%; z-index:200; padding:1.6rem 2.5rem; transition:padding .6s var(--ease), background .6s var(--ease), border-color .6s var(--ease); border-bottom:1px solid transparent; }
+nav.scrolled { padding:1rem 2.5rem; background:rgba(10,10,10,0.7); backdrop-filter:blur(30px); -webkit-backdrop-filter:blur(30px); border-bottom-color:rgba(201,169,110,0.08); }
+.nav-inner { max-width:1300px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+.logo { font-family:'Playfair Display',serif; font-size:1.35rem; letter-spacing:.18em; text-decoration:none; }
 .nav-links { display:flex; gap:2.5rem; list-style:none; }
-.nav-links a { font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(232,228,222,0.5); text-decoration:none; transition:color .4s; }
+.nav-links a { font-size:.68rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(232,228,222,0.5); text-decoration:none; position:relative; transition:color .4s; }
+.nav-links a::after { content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px; background:var(--gold); transition:width .4s var(--ease); }
 .nav-links a:hover { color:var(--gold); }
-.menu-btn { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; }
-.menu-btn span { width:24px; height:1px; background:var(--platinum); transition:all .3s; }
+.nav-links a:hover::after { width:100%; }
+.menu-btn { display:none; flex-direction:column; gap:6px; background:none; border:none; padding:8px; }
+.menu-btn span { width:26px; height:1px; background:var(--platinum); transition:.35s var(--ease); display:block; }
+.menu-btn.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.menu-btn.open span:nth-child(2){ opacity:0; }
+.menu-btn.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display:none; position:fixed; inset:0; z-index:190; flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; }
+.mobile-menu.open { display:flex; }
+.mobile-menu a { font-family:'Playfair Display',serif; font-size:1.8rem; color:rgba(232,228,222,0.8); text-decoration:none; }
 
-.hero { min-height:100vh; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
-.hero-orb { position:absolute; border-radius:50%; filter:blur(100px); animation:pulse-slow 8s ease-in-out infinite; }
-.hero-orb-1 { width:500px;height:500px;top:10%;left:20%;background:rgba(201,169,110,0.05); }
-.hero-orb-2 { width:400px;height:400px;bottom:20%;right:15%;background:rgba(201,169,110,0.03);animation-delay:3s; }
-.particles { position:absolute; inset:0; overflow:hidden; z-index:0; }
-.particle { position:absolute; width:3px; height:3px; background:var(--gold); border-radius:50%; opacity:.3; animation:particleFloat 8s ease-in-out infinite; }
-.bottle-container { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:1; pointer-events:none; }
-.bottle-3d { width:120px; height:200px; position:relative; animation:float 6s ease-in-out infinite; }
-.bottle-body { width:100%; height:100%; border-radius:12px; background:linear-gradient(160deg,rgba(201,169,110,0.25),rgba(201,169,110,0.08),rgba(10,10,10,0.8)); border:1px solid rgba(255,255,255,0.08); box-shadow:0 40px 100px rgba(201,169,110,0.15),inset 0 1px 0 rgba(255,255,255,0.1); position:relative; overflow:hidden; }
-.bottle-body::before { content:''; position:absolute; top:0;left:0;right:0; height:60%; background:linear-gradient(180deg,rgba(255,255,255,0.08),transparent); border-radius:12px 12px 0 0; }
-.bottle-cap { position:absolute; top:-20px; left:50%; transform:translateX(-50%); width:40px; height:25px; background:linear-gradient(180deg,rgba(255,255,255,0.15),rgba(26,26,26,0.9)); border-radius:4px; border:1px solid rgba(255,255,255,0.1); }
-.bottle-glow { position:absolute; bottom:-30px; left:50%; transform:translateX(-50%); width:150px; height:60px; background:radial-gradient(ellipse,rgba(201,169,110,0.2),transparent); filter:blur(20px); }
-.hero-content { position:relative; z-index:2; text-align:center; padding:2rem; }
-.hero h1 { font-family:'Playfair Display',serif; font-size:clamp(3rem,10vw,7rem); font-weight:400; line-height:1; margin-bottom:1.5rem; }
-.hero h1 .subtitle { display:block; font-size:clamp(1.5rem,4vw,3rem); font-weight:300; font-style:italic; color:rgba(232,228,222,0.85); -webkit-text-fill-color:rgba(232,228,222,0.85); background:none; -webkit-background-clip:unset; }
-.hero-desc { font-size:1.1rem; font-weight:200; color:rgba(232,228,222,0.4); max-width:500px; margin:0 auto 3rem; line-height:1.8; }
-.hero-cta { display:inline-flex; align-items:center; gap:.8rem; padding:1rem 2.5rem; border-radius:100px; font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); text-decoration:none; transition:all .5s; }
-.hero-cta:hover { background:rgba(201,169,110,0.1); transform:scale(1.05); }
+/* ===== HERO ===== */
+.hero { position:relative; height:100vh; min-height:640px; overflow:hidden; }
+#heroCanvas { position:absolute; inset:0; width:100%; height:100%; z-index:1; }
+.hero-orb { position:absolute; border-radius:50%; filter:blur(120px); animation:pulse-slow 9s ease-in-out infinite; z-index:0; }
+.hero-orb-1 { width:600px; height:600px; top:-10%; left:5%; background:rgba(201,169,110,0.06); }
+.hero-orb-2 { width:480px; height:480px; bottom:-5%; right:0; background:rgba(120,90,200,0.04); animation-delay:4s; }
+.hero-vignette { position:absolute; inset:0; z-index:2; pointer-events:none; background:radial-gradient(ellipse at center,transparent 35%,rgba(10,10,10,0.55) 100%); }
+.hero-content { position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem; pointer-events:none; }
+.hero-eyebrow { font-size:.65rem; letter-spacing:.5em; text-transform:uppercase; color:rgba(201,169,110,0.6); margin-bottom:2rem; overflow:hidden; }
+.hero h1 { font-family:'Playfair Display',serif; font-weight:400; line-height:.95; margin-bottom:1.5rem; }
+.hero h1 .line { display:block; overflow:hidden; }
+.hero h1 .l1 { font-size:clamp(3rem,11vw,8rem); }
+.hero h1 .l2 { font-size:clamp(1.4rem,4.5vw,3rem); font-style:italic; font-weight:300; color:rgba(232,228,222,0.85); }
+.hero h1 .word { display:inline-block; }
+.hero-desc { font-size:clamp(.9rem,2vw,1.1rem); font-weight:200; color:rgba(232,228,222,0.4); max-width:480px; line-height:1.8; margin-bottom:2.8rem; }
+.hero-cta { pointer-events:auto; display:inline-flex; align-items:center; gap:.8rem; padding:1.1rem 2.6rem; border-radius:100px; font-size:.68rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); text-decoration:none; border:1px solid rgba(201,169,110,0.25); transition:background .5s var(--ease), transform .4s var(--ease); }
+.hero-cta:hover { background:rgba(201,169,110,0.1); }
+.hero-scroll { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); z-index:3; display:flex; flex-direction:column; align-items:center; gap:.8rem; }
+.hero-scroll span { font-size:.55rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(232,228,222,0.3); }
+.scroll-line { width:1px; height:50px; background:linear-gradient(180deg,rgba(201,169,110,0.6),transparent); position:relative; overflow:hidden; }
+.scroll-line::after { content:''; position:absolute; top:0; left:0; width:100%; height:40%; background:var(--gold); animation:scrollDown 2.2s var(--ease) infinite; }
+@keyframes scrollDown { 0%{transform:translateY(-100%)} 100%{transform:translateY(250%)} }
+.webgl-fallback { position:absolute; inset:0; z-index:1; display:none; align-items:center; justify-content:center; }
+.webgl-fallback .bottle-css { width:120px; height:200px; border-radius:14px; background:linear-gradient(160deg,rgba(201,169,110,0.3),rgba(201,169,110,0.08),rgba(10,10,10,0.85)); border:1px solid rgba(255,255,255,0.1); box-shadow:0 40px 100px rgba(201,169,110,0.2); animation:float 6s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
 
-.scroll-story { padding:8rem 2rem; position:relative; }
-.scroll-story::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg,var(--obsidian),rgba(26,26,26,0.3),var(--obsidian)); pointer-events:none; }
-.story-section { max-width:800px; margin:0 auto; padding:6rem 0; text-align:center; position:relative; }
-.story-section h2 { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.5rem); color:rgba(232,228,222,0.9); margin-bottom:1.5rem; }
-.story-section p { font-size:1.1rem; font-weight:200; color:rgba(232,228,222,0.45); line-height:1.9; max-width:600px; margin:0 auto 1.5rem; }
-.story-section .accent { font-family:'Playfair Display',serif; font-style:italic; font-size:1.3rem; color:rgba(201,169,110,0.75); }
+/* ===== SCROLL STORY ===== */
+.story { position:relative; padding:6rem 2rem; }
+.story-scene { max-width:820px; margin:0 auto; min-height:90vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+.story-num { font-size:.6rem; letter-spacing:.5em; color:rgba(201,169,110,0.4); margin-bottom:1.5rem; }
+.story-scene h2 { font-family:'Playfair Display',serif; font-size:clamp(2rem,6vw,4rem); color:rgba(232,228,222,0.92); line-height:1.1; margin-bottom:1.8rem; }
+.story-scene p { font-size:clamp(1rem,2vw,1.2rem); font-weight:200; color:rgba(232,228,222,0.45); line-height:1.9; max-width:580px; margin-bottom:1.5rem; }
+.story-scene .accent { font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.5rem); color:rgba(201,169,110,0.8); }
+.story-word { display:inline-block; }
 
-.catalog { padding:6rem 2rem; max-width:1300px; margin:0 auto; }
+/* ===== CATÁLOGO ===== */
+.catalog { padding:7rem 2rem; max-width:1340px; margin:0 auto; }
 .section-header { text-align:center; margin-bottom:4rem; }
-.section-label { font-size:.65rem; letter-spacing:.4em; text-transform:uppercase; color:rgba(201,169,110,0.5); margin-bottom:1rem; }
-.section-title { font-family:'Playfair Display',serif; font-size:clamp(2.5rem,6vw,4.5rem); margin-bottom:1rem; }
-.section-desc { font-size:1rem; font-weight:200; color:rgba(232,228,222,0.35); max-width:450px; margin:0 auto; }
-.tabs { display:flex; justify-content:center; gap:.5rem; margin-bottom:3rem; }
-.tab-btn { padding:.8rem 2rem; border-radius:100px; border:1px solid transparent; background:none; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,228,222,0.4); cursor:pointer; transition:all .4s; font-family:'Inter',sans-serif; }
-.tab-btn:hover { color:rgba(232,228,222,0.7); }
+.section-label { font-size:.65rem; letter-spacing:.45em; text-transform:uppercase; color:rgba(201,169,110,0.5); margin-bottom:1.2rem; }
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(2.4rem,6vw,4.5rem); margin-bottom:1.2rem; }
+.section-desc { font-size:1rem; font-weight:200; color:rgba(232,228,222,0.35); max-width:460px; margin:0 auto; line-height:1.8; }
+.tabs { display:flex; justify-content:center; gap:.5rem; margin-bottom:3.5rem; }
+.tab-btn { padding:.85rem 2.2rem; border-radius:100px; border:1px solid transparent; background:none; font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,228,222,0.4); transition:.4s var(--ease); font-family:'Inter',sans-serif; }
+.tab-btn:hover { color:rgba(232,228,222,0.75); }
 .tab-btn.active { background:rgba(201,169,110,0.12); color:var(--gold); border-color:rgba(201,169,110,0.25); }
-.product-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.5rem; }
-.product-card { border-radius:1.25rem; padding:1.5rem; cursor:pointer; transition:all .5s cubic-bezier(0.16,1,0.3,1); position:relative; overflow:hidden; }
-.product-card::after { content:''; position:absolute; inset:0; background:linear-gradient(110deg,transparent 25%,rgba(201,169,110,0.04) 37%,transparent 63%); background-size:200% 100%; animation:shimmer 4s ease-in-out infinite; pointer-events:none; }
-.product-card:hover { border-color:rgba(201,169,110,0.25); transform:translateY(-4px) scale(1.01); box-shadow:0 20px 60px rgba(0,0,0,0.4); }
-.card-visual { height:200px; display:flex; align-items:center; justify-content:center; position:relative; margin-bottom:1.5rem; border-radius:.75rem; overflow:hidden; }
-.card-visual img { max-height:180px; max-width:100%; object-fit:contain; position:relative; z-index:1; transition:transform .7s cubic-bezier(0.16,1,0.3,1); filter:drop-shadow(0 10px 30px rgba(0,0,0,0.5)); }
-.product-card:hover .card-visual img { transform:scale(1.08) translateY(-5px); }
-.card-glow { position:absolute; inset:0; opacity:.12; filter:blur(30px); transition:opacity .5s; }
-.product-card:hover .card-glow { opacity:.3; }
-.card-brand { font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(201,169,110,0.45); margin-bottom:.3rem; }
-.card-name { font-family:'Playfair Display',serif; font-size:1.1rem; color:rgba(232,228,222,0.85); margin-bottom:.4rem; transition:color .4s; }
+.product-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:1.6rem; }
+.product-card { border-radius:1.4rem; padding:1.6rem; position:relative; overflow:hidden; transition:transform .6s var(--ease), border-color .6s var(--ease), box-shadow .6s var(--ease); will-change:transform; }
+.product-card::after { content:''; position:absolute; inset:0; background:linear-gradient(110deg,transparent 25%,rgba(201,169,110,0.05) 37%,transparent 63%); background-size:200% 100%; animation:shimmer 5s ease-in-out infinite; pointer-events:none; }
+.product-card:hover { border-color:rgba(201,169,110,0.3); transform:translateY(-6px); box-shadow:0 30px 70px rgba(0,0,0,0.5); }
+.card-visual { height:220px; display:flex; align-items:center; justify-content:center; position:relative; margin-bottom:1.5rem; border-radius:1rem; overflow:hidden; }
+.card-visual img { max-height:195px; object-fit:contain; position:relative; z-index:1; transition:transform .8s var(--ease); filter:drop-shadow(0 14px 36px rgba(0,0,0,0.55)); }
+.product-card:hover .card-visual img { transform:scale(1.1) translateY(-6px); }
+.card-glow { position:absolute; width:160px; height:160px; border-radius:50%; opacity:.18; filter:blur(40px); transition:opacity .6s; }
+.product-card:hover .card-glow { opacity:.4; }
+.img-fallback { width:90px; height:150px; border-radius:10px; background:linear-gradient(150deg,rgba(201,169,110,0.22),rgba(10,10,10,0.85)); border:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:.6rem; gap:.3rem; }
+.img-fallback .fb-brand { font-size:.5rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(201,169,110,0.6); }
+.img-fallback .fb-name { font-family:'Playfair Display',serif; font-size:.7rem; color:rgba(232,228,222,0.55); line-height:1.2; }
+.card-brand { font-size:.6rem; letter-spacing:.32em; text-transform:uppercase; color:rgba(201,169,110,0.45); margin-bottom:.4rem; }
+.card-name { font-family:'Playfair Display',serif; font-size:1.15rem; color:rgba(232,228,222,0.88); margin-bottom:.4rem; transition:color .4s; }
 .product-card:hover .card-name { color:var(--gold); }
-.card-type { font-size:.75rem; font-weight:300; color:rgba(232,228,222,0.25); }
-.card-discover { margin-top:1rem; display:flex; align-items:center; gap:.5rem; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(201,169,110,0.5); opacity:0; transform:translateY(8px); transition:all .5s; }
+.card-type { font-size:.72rem; font-weight:300; color:rgba(232,228,222,0.28); }
+.card-discover { margin-top:1.1rem; display:flex; align-items:center; gap:.5rem; font-size:.58rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(201,169,110,0.5); opacity:0; transform:translateY(8px); transition:.5s var(--ease); }
 .product-card:hover .card-discover { opacity:1; transform:translateY(0); }
 
-.modal-overlay { position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; padding:1rem; opacity:0; pointer-events:none; transition:opacity .4s; }
+/* ===== MODAL ===== */
+.modal-overlay { position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity .45s var(--ease); }
 .modal-overlay.open { opacity:1; pointer-events:auto; }
-.modal-bg { position:absolute; inset:0; background:rgba(10,10,10,0.92); backdrop-filter:blur(30px); }
-.modal-content { position:relative; max-width:800px; width:100%; max-height:90vh; overflow-y:auto; border-radius:1.5rem; padding:3rem; transform:translateY(30px) scale(0.97); transition:transform .5s cubic-bezier(0.16,1,0.3,1); }
+.modal-bg { position:absolute; inset:0; background:rgba(8,8,8,0.9); backdrop-filter:blur(30px); -webkit-backdrop-filter:blur(30px); }
+.modal-content { position:relative; max-width:840px; width:100%; max-height:90vh; overflow-y:auto; border-radius:1.6rem; padding:3.2rem; transform:translateY(40px) scale(0.96); transition:transform .55s var(--ease); }
 .modal-overlay.open .modal-content { transform:translateY(0) scale(1); }
-.modal-close { position:absolute; top:1.5rem; right:1.5rem; width:40px; height:40px; border-radius:50%; border:1px solid rgba(232,228,222,0.1); background:none; color:rgba(232,228,222,0.5); font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .3s; }
-.modal-close:hover { border-color:rgba(201,169,110,0.3); color:var(--gold); }
-.modal-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; }
-.modal-bottle-wrap { display:flex; align-items:center; justify-content:center; position:relative; }
-.modal-bottle-wrap img { max-height:280px; max-width:100%; object-fit:contain; animation:float 6s ease-in-out infinite; filter:drop-shadow(0 20px 60px rgba(0,0,0,0.6)); }
-.modal-bottle-glow { position:absolute; inset:-40px; border-radius:50%; filter:blur(60px); opacity:.2; }
-.modal-brand { font-size:.65rem; letter-spacing:.4em; text-transform:uppercase; color:rgba(201,169,110,0.5); margin-bottom:.5rem; }
-.modal-name { font-family:'Playfair Display',serif; font-size:2rem; color:var(--platinum); margin-bottom:.3rem; }
-.modal-type { font-size:.85rem; color:rgba(232,228,222,0.35); margin-bottom:2rem; }
-.modal-emotion { font-family:'Playfair Display',serif; font-style:italic; font-size:1.1rem; color:rgba(232,228,222,0.65); line-height:1.7; margin-bottom:2.5rem; }
-.modal-notes-title { font-size:.6rem; letter-spacing:.4em; text-transform:uppercase; color:rgba(201,169,110,0.45); margin-bottom:1rem; }
-.note-row { display:flex; align-items:center; gap:1rem; padding:.6rem 0; }
-.note-label { font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,228,222,0.25); width:55px; }
-.note-line { flex:1; height:1px; background:linear-gradient(90deg,rgba(201,169,110,0.2),transparent); }
-.note-value { font-size:.85rem; color:rgba(232,228,222,0.55); }
-.modal-cta { display:inline-flex; align-items:center; gap:.7rem; margin-top:2rem; padding:1rem 2rem; border-radius:100px; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); text-decoration:none; border:1px solid rgba(201,169,110,0.2); transition:all .4s; }
-.modal-cta:hover { background:rgba(201,169,110,0.1); transform:scale(1.03); }
+.modal-close { position:absolute; top:1.4rem; right:1.4rem; width:42px; height:42px; border-radius:50%; border:1px solid rgba(232,228,222,0.12); background:none; color:rgba(232,228,222,0.55); font-size:1.1rem; display:flex; align-items:center; justify-content:center; transition:.3s; }
+.modal-close:hover { border-color:rgba(201,169,110,0.4); color:var(--gold); transform:rotate(90deg); }
+.modal-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:3rem; align-items:center; }
+.modal-bottle-wrap { display:flex; align-items:center; justify-content:center; position:relative; min-height:300px; }
+.modal-bottle-wrap img { max-height:300px; object-fit:contain; animation:float 6s ease-in-out infinite; filter:drop-shadow(0 24px 60px rgba(0,0,0,0.65)); position:relative; z-index:1; }
+.modal-bottle-glow { position:absolute; width:240px; height:240px; border-radius:50%; filter:blur(70px); opacity:.28; }
+.modal-brand { font-size:.65rem; letter-spacing:.4em; text-transform:uppercase; color:rgba(201,169,110,0.55); margin-bottom:.6rem; }
+.modal-name { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.4rem); color:var(--platinum); margin-bottom:.3rem; line-height:1.1; }
+.modal-type { font-size:.82rem; color:rgba(232,228,222,0.35); margin-bottom:1.8rem; }
+.modal-emotion { font-family:'Playfair Display',serif; font-style:italic; font-size:1.1rem; color:rgba(232,228,222,0.68); line-height:1.7; margin-bottom:2.2rem; }
+.modal-notes-title { font-size:.58rem; letter-spacing:.4em; text-transform:uppercase; color:rgba(201,169,110,0.45); margin-bottom:1rem; }
+.note-row { display:flex; align-items:center; gap:1rem; padding:.55rem 0; }
+.note-label { font-size:.58rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,228,222,0.28); width:56px; flex-shrink:0; }
+.note-line { flex:1; height:1px; background:linear-gradient(90deg,rgba(201,169,110,0.25),transparent); }
+.note-value { font-size:.84rem; color:rgba(232,228,222,0.58); text-align:right; }
+.modal-cta { display:inline-flex; align-items:center; gap:.7rem; margin-top:2.2rem; padding:1rem 2.2rem; border-radius:100px; font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); text-decoration:none; border:1px solid rgba(201,169,110,0.25); transition:background .4s var(--ease); }
+.modal-cta:hover { background:rgba(201,169,110,0.12); }
 
-.pricing { padding:6rem 2rem; max-width:1000px; margin:0 auto; }
+/* ===== PRICING ===== */
+.pricing { padding:7rem 2rem; max-width:1040px; margin:0 auto; }
 .pricing-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:3rem; }
-.price-card { border-radius:1.5rem; padding:2.5rem; }
-.price-card h3 { font-family:'Playfair Display',serif; font-size:1.5rem; color:rgba(232,228,222,0.9); margin-bottom:.3rem; }
+.price-card { border-radius:1.6rem; padding:2.6rem; position:relative; }
+.price-card h3 { font-family:'Playfair Display',serif; font-size:1.6rem; color:rgba(232,228,222,0.92); margin-bottom:.3rem; }
 .price-card .card-sub { font-size:.85rem; color:rgba(232,228,222,0.35); margin-bottom:2rem; }
-.price-row { display:flex; justify-content:space-between; align-items:center; padding:.8rem 0; border-bottom:1px solid rgba(232,228,222,0.04); }
+.price-row { display:flex; justify-content:space-between; align-items:center; padding:.85rem 0; border-bottom:1px solid rgba(232,228,222,0.05); }
+.price-row:last-child { border-bottom:none; }
 .price-qty { color:rgba(232,228,222,0.55); font-size:.9rem; }
-.price-value { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--gold); }
-.price-unit { display:block; font-family:'Inter',sans-serif; font-size:.6rem; color:rgba(232,228,222,0.25); text-align:right; }
-.best-badge { position:absolute; top:1rem; right:1rem; padding:.3rem .8rem; border-radius:100px; background:rgba(201,169,110,0.1); border:1px solid rgba(201,169,110,0.2); font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+.price-value { font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--gold); text-align:right; }
+.price-unit { display:block; font-family:'Inter',sans-serif; font-size:.58rem; color:rgba(232,228,222,0.25); }
+.best-badge { position:absolute; top:1.2rem; right:1.2rem; padding:.35rem .9rem; border-radius:100px; background:rgba(201,169,110,0.12); border:1px solid rgba(201,169,110,0.25); font-size:.52rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+.pricing-note { text-align:center; font-size:.8rem; color:rgba(232,228,222,0.28); margin-top:2.2rem; }
 
-.contact { padding:6rem 2rem; max-width:800px; margin:0 auto; }
-.contact-card { border-radius:1.5rem; padding:3rem; }
+/* ===== CONTACT ===== */
+.contact { padding:7rem 2rem; max-width:840px; margin:0 auto; }
+.contact-card { border-radius:1.6rem; padding:3.2rem; }
 .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; }
-.contact-card h3 { font-family:'Playfair Display',serif; font-size:1.2rem; color:rgba(232,228,222,0.9); margin-bottom:1.5rem; }
-.contact-link { display:flex; align-items:center; gap:.7rem; color:rgba(232,228,222,0.55); text-decoration:none; font-size:.9rem; margin-bottom:1rem; transition:color .3s; }
+.contact-card h3 { font-family:'Playfair Display',serif; font-size:1.25rem; color:rgba(232,228,222,0.9); margin-bottom:1.6rem; }
+.contact-link { display:flex; align-items:center; gap:.7rem; color:rgba(232,228,222,0.55); text-decoration:none; font-size:.9rem; margin-bottom:1.1rem; transition:color .3s; }
 .contact-link:hover { color:var(--gold); }
-.contact-link svg { color:rgba(201,169,110,0.5); flex-shrink:0; }
-.payment-info p { font-size:.85rem; color:rgba(232,228,222,0.45); margin-bottom:.5rem; }
-.payment-info .bank-name { color:rgba(201,169,110,0.6); }
-.shipping-note { font-size:.75rem; color:rgba(232,228,222,0.25); line-height:1.6; margin-top:1.5rem; }
-.contact-cta { display:flex; justify-content:center; margin-top:2.5rem; }
-.contact-cta a { display:inline-flex; align-items:center; gap:.8rem; padding:1rem 2.5rem; border-radius:100px; background:rgba(201,169,110,0.1); border:1px solid rgba(201,169,110,0.25); color:var(--gold); text-decoration:none; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; transition:all .4s; }
-.contact-cta a:hover { background:rgba(201,169,110,0.2); transform:scale(1.03); }
-footer { text-align:center; padding:4rem 2rem; }
-footer .logo-text { font-family:'Playfair Display',serif; font-size:1.5rem; margin-bottom:.5rem; }
-footer .tagline { font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(232,228,222,0.15); }
+.contact-link svg { color:rgba(201,169,110,0.55); flex-shrink:0; }
+.payment-info p { font-size:.85rem; color:rgba(232,228,222,0.45); margin-bottom:.55rem; }
+.payment-info .bank-name { color:rgba(201,169,110,0.65); }
+.shipping-note { font-size:.74rem; color:rgba(232,228,222,0.25); line-height:1.65; margin-top:1.6rem; }
+.contact-cta { display:flex; justify-content:center; margin-top:2.6rem; }
+.contact-cta a { display:inline-flex; align-items:center; gap:.8rem; padding:1.1rem 2.6rem; border-radius:100px; background:rgba(201,169,110,0.1); border:1px solid rgba(201,169,110,0.28); color:var(--gold); text-decoration:none; font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; transition:background .4s var(--ease); }
+.contact-cta a:hover { background:rgba(201,169,110,0.2); }
 
-.mobile-menu { display:none; position:absolute; top:100%; left:1rem; right:1rem; border-radius:1rem; padding:2rem; flex-direction:column; gap:1.5rem; }
-.mobile-menu.open { display:flex; }
-.mobile-menu a { font-size:.85rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,228,222,0.7); text-decoration:none; }
+footer { text-align:center; padding:5rem 2rem 3rem; }
+footer .logo-text { font-family:'Playfair Display',serif; font-size:1.6rem; margin-bottom:.6rem; }
+footer .tagline { font-size:.62rem; letter-spacing:.32em; text-transform:uppercase; color:rgba(232,228,222,0.15); }
 
-/* Fallback placeholder cuando imagen no carga */
-.img-fallback {
-  width:60px; height:90px; border-radius:8px;
-  background:linear-gradient(135deg,rgba(201,169,110,0.2),rgba(10,10,10,0.8));
-  border:1px solid rgba(255,255,255,0.08);
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Playfair Display',serif; font-size:.6rem; color:rgba(232,228,222,0.3);
-  text-align:center; padding:.5rem;
+.magnetic { display:inline-block; will-change:transform; }
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){ .modal-grid{grid-template-columns:1fr; text-align:center;} .modal-bottle-wrap{min-height:240px;} .note-value{text-align:left;} .note-row{justify-content:center;} }
+@media(max-width:768px){
+  nav{padding:1.2rem 1.4rem;}
+  .nav-links{display:none;}
+  .menu-btn{display:flex;}
+  .product-grid{grid-template-columns:1fr 1fr; gap:1rem;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr; gap:2rem;}
+  .modal-content{padding:2rem;}
+  .catalog,.pricing,.contact{padding:5rem 1.2rem;}
 }
-
-@media(max-width:768px) {
-  .nav-links { display:none; }
-  .menu-btn { display:flex; }
-  .product-grid { grid-template-columns:1fr 1fr; }
-  .pricing-grid { grid-template-columns:1fr; }
-  .modal-grid { grid-template-columns:1fr; text-align:center; }
-  .modal-content { padding:2rem; }
-  .contact-grid { grid-template-columns:1fr; }
-  .bottle-3d { width:80px; height:140px; }
+@media(max-width:480px){
+  .product-grid{grid-template-columns:1fr;}
+  .card-visual{height:240px;}
 }
-@media(max-width:480px) {
-  .product-grid { grid-template-columns:1fr; }
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important;}
 }
 </style>
 </head>
 <body>
 
+<!-- Cursor -->
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-logo">TORRES STORE</div>
+  <div class="loader-bar"><span id="loaderBar"></span></div>
+  <div class="loader-pct" id="loaderPct">0%</div>
+</div>
+
+<!-- NAV -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="#" class="logo text-gradient">TORRES STORE</a>
+    <a href="#" class="logo text-gradient" data-cursor>TORRES STORE</a>
     <ul class="nav-links">
-      <li><a href="#collection">Colección</a></li>
-      <li><a href="#pour-homme">Caballero</a></li>
-      <li><a href="#pour-femme">Dama</a></li>
-      <li><a href="#pricing">Precios</a></li>
-      <li><a href="#contact">Contacto</a></li>
+      <li><a href="#collection" data-cursor>Colección</a></li>
+      <li><a href="#story" data-cursor>Manifiesto</a></li>
+      <li><a href="#pricing" data-cursor>Precios</a></li>
+      <li><a href="#contact" data-cursor>Contacto</a></li>
     </ul>
-    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menú"><span></span><span></span><span></span></button>
-  </div>
-  <div class="mobile-menu glass-strong" id="mobileMenu">
-    <a href="#collection" onclick="toggleMenu()">Colección</a>
-    <a href="#pour-homme" onclick="toggleMenu()">Caballero</a>
-    <a href="#pour-femme" onclick="toggleMenu()">Dama</a>
-    <a href="#pricing" onclick="toggleMenu()">Precios</a>
-    <a href="#contact" onclick="toggleMenu()">Contacto</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menú" data-cursor><span></span><span></span><span></span></button>
   </div>
 </nav>
+<div class="mobile-menu glass-strong" id="mobileMenu">
+  <a href="#collection">Colección</a>
+  <a href="#story">Manifiesto</a>
+  <a href="#pricing">Precios</a>
+  <a href="#contact">Contacto</a>
+</div>
 
-<section class="hero">
+<!-- HERO -->
+<section class="hero" id="top">
   <div class="hero-orb hero-orb-1"></div>
   <div class="hero-orb hero-orb-2"></div>
-  <div class="particles" id="particles"></div>
-  <div class="bottle-container">
-    <div class="bottle-3d"><div class="bottle-cap"></div><div class="bottle-body"></div><div class="bottle-glow"></div></div>
-  </div>
+  <canvas id="heroCanvas"></canvas>
+  <div class="webgl-fallback" id="webglFallback"><div class="bottle-css"></div></div>
+  <div class="hero-vignette"></div>
   <div class="hero-content">
-    <div class="glow-line" style="width:80px;margin:0 auto 3rem"></div>
-    <h1><span class="text-gradient">Torres Store</span><span class="subtitle">La Esencia del Lujo</span></h1>
-    <p class="hero-desc">Donde la fragancia se convierte en emoción, y cada nota cuenta una historia escrita sobre la piel.</p>
-    <a href="#collection" class="hero-cta glass">Explorar Colección →</a>
+    <div class="hero-eyebrow" id="heroEyebrow">Perfumería de Lujo — Chile</div>
+    <h1>
+      <span class="line l1"><span class="word text-gradient">Torres Store</span></span>
+      <span class="line l2"><span class="word">La Esencia del Lujo</span></span>
+    </h1>
+    <p class="hero-desc" id="heroDesc">Donde la fragancia se convierte en emoción, y cada nota cuenta una historia escrita sobre la piel.</p>
+    <a href="#collection" class="hero-cta magnetic" data-cursor id="heroCta">Explorar Colección →</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Desliza</span>
+    <div class="scroll-line"></div>
   </div>
 </section>
 
-<section class="scroll-story">
-  <div class="story-section reveal">
-    <div class="glow-line" style="width:50px;margin:0 auto 2.5rem"></div>
-    <h2>Creado para los Audaces</h2>
-    <p>Cada fragancia en nuestra colección es elegida no por su popularidad — sino por su poder de transformar un momento en un recuerdo.</p>
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="story-scene">
+    <p class="story-num">01 — Filosofía</p>
+    <h2 data-split>Creado para los Audaces</h2>
+    <p>Cada fragancia en nuestra colección es elegida no por su popularidad, sino por su poder de transformar un momento en un recuerdo imborrable.</p>
     <p class="accent">No vendemos perfume. Curamos confianza.</p>
   </div>
-  <div class="story-section reveal">
-    <div class="glow-line" style="width:50px;margin:0 auto 2.5rem"></div>
-    <h2>Notas que Hablan</h2>
-    <p>Notas de salida que despiertan curiosidad. Notas de corazón que capturan atención. Notas de fondo que permanecen en la memoria.</p>
+  <div class="story-scene">
+    <p class="story-num">02 — Composición</p>
+    <h2 data-split>Notas que Hablan</h2>
+    <p>Notas de salida que despiertan curiosidad. Notas de corazón que capturan la atención. Notas de fondo que permanecen en la memoria mucho después de tu partida.</p>
     <p class="accent">Tres capas. Una impresión inolvidable.</p>
   </div>
-  <div class="story-section reveal">
-    <div class="glow-line" style="width:50px;margin:0 auto 2.5rem"></div>
-    <h2>El Estándar Torres</h2>
+  <div class="story-scene">
+    <p class="story-num">03 — El Estándar</p>
+    <h2 data-split>El Estándar Torres</h2>
     <p>De Dior a Tom Ford, de Chanel a Creed — solo fragancias dignas de obsesión entran a nuestra selección.</p>
     <p class="accent">Premium. Auténtico. Sin compromisos.</p>
   </div>
 </section>
 
+<!-- CATÁLOGO -->
 <section class="catalog" id="collection">
   <div class="section-header reveal">
     <p class="section-label">La Colección</p>
     <h2 class="section-title text-gradient">Excelencia Curada</h2>
     <p class="section-desc">Cada botella contiene un universo. Elige la que habla tu idioma.</p>
   </div>
-  <div class="tabs" id="pour-homme">
-    <button class="tab-btn active" onclick="switchTab('men')">Caballero</button>
-    <button class="tab-btn" onclick="switchTab('women')" id="pour-femme">Dama</button>
+  <div class="tabs reveal">
+    <button class="tab-btn active" data-tab="men" data-cursor>Caballero</button>
+    <button class="tab-btn" data-tab="women" data-cursor>Dama</button>
   </div>
   <div class="product-grid" id="productGrid"></div>
 </section>
 
+<!-- PRICING -->
 <section class="pricing" id="pricing">
   <div class="section-header reveal">
     <p class="section-label">Inversión</p>
@@ -293,20 +371,21 @@ footer .tagline { font-size:.65rem; letter-spacing:.3em; text-transform:uppercas
       <div class="price-row"><span class="price-qty">2 perfumes</span><span class="price-value">$35.000</span></div>
       <div class="price-row"><span class="price-qty">3 perfumes</span><span class="price-value">$50.000</span></div>
     </div>
-    <div class="price-card glass reveal" style="position:relative;border-color:rgba(201,169,110,0.2)">
+    <div class="price-card glass reveal" style="border-color:rgba(201,169,110,0.22)">
       <span class="best-badge">Mejor Valor</span>
       <h3>Emprendedor</h3>
       <p class="card-sub">Construye tu negocio de fragancias</p>
-      <div class="price-row"><span class="price-qty">5 perfumes</span><span class="price-value">$75.000<span class="price-unit">$15.000/u</span></span></div>
-      <div class="price-row"><span class="price-qty">10 perfumes</span><span class="price-value">$140.000<span class="price-unit">$14.000/u</span></span></div>
-      <div class="price-row"><span class="price-qty">15 perfumes</span><span class="price-value">$200.000<span class="price-unit">$13.333/u</span></span></div>
-      <div class="price-row"><span class="price-qty">20 perfumes</span><span class="price-value">$260.000<span class="price-unit">$13.000/u</span></span></div>
-      <div class="price-row"><span class="price-qty">30 perfumes</span><span class="price-value">$375.000<span class="price-unit">$12.500/u</span></span></div>
+      <div class="price-row"><span class="price-qty">5 perfumes</span><span class="price-value">$75.000<span class="price-unit">$15.000 c/u</span></span></div>
+      <div class="price-row"><span class="price-qty">10 perfumes</span><span class="price-value">$140.000<span class="price-unit">$14.000 c/u</span></span></div>
+      <div class="price-row"><span class="price-qty">15 perfumes</span><span class="price-value">$200.000<span class="price-unit">$13.333 c/u</span></span></div>
+      <div class="price-row"><span class="price-qty">20 perfumes</span><span class="price-value">$260.000<span class="price-unit">$13.000 c/u</span></span></div>
+      <div class="price-row"><span class="price-qty">30 perfumes</span><span class="price-value">$375.000<span class="price-unit">$12.500 c/u</span></span></div>
     </div>
   </div>
-  <p class="reveal" style="text-align:center;font-size:.8rem;color:rgba(232,228,222,0.25);margin-top:2rem">Personaliza tu pedido: selecciona libremente perfumes en el modelo y cantidad de tu elección.</p>
+  <p class="pricing-note reveal">Personaliza tu pedido: selecciona libremente los perfumes en el modelo y la cantidad de tu elección.</p>
 </section>
 
+<!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="section-header reveal">
     <p class="section-label">Comienza</p>
@@ -316,15 +395,15 @@ footer .tagline { font-size:.65rem; letter-spacing:.3em; text-transform:uppercas
     <div class="contact-grid">
       <div>
         <h3>Contáctanos</h3>
-        <a href="https://wa.me/56987395445" target="_blank" rel="noopener" class="contact-link">
+        <a href="https://wa.me/56987395445" target="_blank" rel="noopener" class="contact-link" data-cursor>
           <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 00-8 8 7.9 7.9 0 001.1 4.1L0 16l4-1.1A7.9 7.9 0 008 16a8 8 0 000-16zm4.3 11.3c-.2.5-1 .9-1.4 1s-.9.1-1.5-.1a12 12 0 01-2.1-1.1 9.3 9.3 0 01-3-3c-.5-.7-.6-1.5-.1-2.1.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .5.4s.6 1.5.7 1.6.1.2 0 .4-.2.3-.3.4-.3.3-.1.6.7 1.2 1.5 1.9c.5.4 1 .6 1.1.7.2.1.3.1.4-.1l.7-1c.1-.2.3-.2.5-.1l1.5.7c.2.1.4.2.4.3s0 .6-.2 1z"/></svg>
-          +56 987395445
+          +56 9 8739 5445
         </a>
-        <a href="https://instagram.com/Torresoficial_store" target="_blank" rel="noopener" class="contact-link">
+        <a href="https://instagram.com/Torresoficial_store" target="_blank" rel="noopener" class="contact-link" data-cursor>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
           @Torresoficial_store
         </a>
-        <p class="shipping-note">Entregas presenciales y envíos a todo Chile de 1-3 días hábiles a través de Starken y Bluexpress.</p>
+        <p class="shipping-note">Entregas presenciales y envíos a todo Chile en 1 a 3 días hábiles a través de Starken y Bluexpress.</p>
       </div>
       <div class="payment-info">
         <h3>Métodos de Pago</h3>
@@ -335,7 +414,7 @@ footer .tagline { font-size:.65rem; letter-spacing:.3em; text-transform:uppercas
       </div>
     </div>
     <div class="contact-cta">
-      <a href="https://wa.me/56987395445?text=Hola,%20me%20interesa%20un%20perfume%20del%20cat%C3%A1logo%20de%20Torres%20Store" target="_blank" rel="noopener">Pedir por WhatsApp →</a>
+      <a href="https://wa.me/56987395445?text=Hola,%20me%20interesa%20un%20perfume%20del%20cat%C3%A1logo%20de%20Torres%20Store" target="_blank" rel="noopener" class="magnetic" data-cursor>Pedir por WhatsApp →</a>
     </div>
   </div>
 </section>
@@ -346,10 +425,11 @@ footer .tagline { font-size:.65rem; letter-spacing:.3em; text-transform:uppercas
   <p class="tagline">La Esencia del Lujo — Chile</p>
 </footer>
 
+<!-- MODAL -->
 <div class="modal-overlay" id="modal">
-  <div class="modal-bg" onclick="closeModal()"></div>
+  <div class="modal-bg" id="modalBg"></div>
   <div class="modal-content glass-strong">
-    <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">✕</button>
+    <button class="modal-close" id="modalClose" aria-label="Cerrar" data-cursor>✕</button>
     <div class="modal-grid">
       <div class="modal-bottle-wrap">
         <div class="modal-bottle-glow" id="modalGlow"></div>
@@ -362,152 +442,460 @@ footer .tagline { font-size:.65rem; letter-spacing:.3em; text-transform:uppercas
         <p class="modal-emotion" id="modalEmotion"></p>
         <p class="modal-notes-title">Viaje Olfativo</p>
         <div id="modalNotes"></div>
-        <a href="https://wa.me/56987395445" target="_blank" rel="noopener" class="modal-cta">Pedir Ahora →</a>
+        <a href="https://wa.me/56987395445" target="_blank" rel="noopener" class="modal-cta" data-cursor id="modalCta">Pedir Ahora →</a>
       </div>
     </div>
   </div>
 </div>
 
+<!-- ===== DATOS ===== -->
 <script>
-// URLs de imágenes verificadas - usando la estructura correcta de Fragrantica y otras fuentes públicas
 const perfumesMen = [
   { id:'sauvage-elixir', name:'Sauvage Elixir', brand:'DIOR', type:'Parfum', size:'100 ml', emotion:'"Magnetismo puro destilado en oro líquido. El aire cambia cuando entras."', notes:{salida:'Pomelo, Canela',corazon:'Lavanda, Nuez Moscada',fondo:'Ámbar, Sándalo'}, color:'#1a3a5c', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw3ae0ce38/Y0996004/Y0996004_C099600455_E01_GHC.jpg?sw=460' },
-  { id:'sauvage-edp', name:'Sauvage', brand:'DIOR', type:'Eau de Parfum', size:'100 ml', emotion:'"Salvaje. Refinado. El desierto al atardecer — infinito e indomable."', notes:{salida:'Bergamota, Pimienta',corazon:'Pimienta Sichuan, Lavanda',fondo:'Ambroxan, Cedro'}, color:'#1a2a3a', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwf6b1f8ec/Y0996006/Y0996006_C099600613_E01_GHC.jpg?sw=460' },
-  { id:'bleu-parfum', name:'Bleu de Chanel', brand:'CHANEL', type:'Parfum', size:'100 ml', emotion:'"El aroma de la confianza silenciosa. Usado por quienes nunca necesitan alzar la voz."', notes:{salida:'Cítricos, Menta',corazon:'Jazmín, Iso E Super',fondo:'Cedro, Sándalo'}, color:'#0d1b3e', img:'https://www.chanel.com/images/t_one/t_fnbedito//q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/bleu-de-chanel-parfum-spray-3-4fl-oz--packshot-default-107160-8841226027038.jpg' },
+  { id:'sauvage-edp', name:'Sauvage', brand:'DIOR', type:'Eau de Parfum', size:'100 ml', emotion:'"Salvaje. Refinado. El desierto al atardecer, infinito e indomable."', notes:{salida:'Bergamota, Pimienta',corazon:'Pimienta Sichuan, Lavanda',fondo:'Ambroxan, Cedro'}, color:'#1a2a3a', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwf6b1f8ec/Y0996006/Y0996006_C099600613_E01_GHC.jpg?sw=460' },
+  { id:'bleu-parfum', name:'Bleu de Chanel', brand:'CHANEL', type:'Parfum', size:'100 ml', emotion:'"El aroma de la confianza silenciosa. Para quienes nunca necesitan alzar la voz."', notes:{salida:'Cítricos, Menta',corazon:'Jazmín, Iso E Super',fondo:'Cedro, Sándalo'}, color:'#0d1b3e', img:'https://www.chanel.com/images/t_one/t_fnbedito//q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/bleu-de-chanel-parfum-spray-3-4fl-oz--packshot-default-107160-8841226027038.jpg' },
   { id:'aventus', name:'Aventus', brand:'CREED', type:'Eau de Parfum', size:'100 ml', emotion:'"El poder tiene una firma. Esta es. Audaz, sin disculpas, legendaria."', notes:{salida:'Piña, Bergamota',corazon:'Abedul, Rosa',fondo:'Almizcle, Musgo'}, color:'#2d4a2d', img:'https://creedfragrance.com/cdn/shop/files/aventus-100ml-bottle_900x.png?v=1694535571' },
-  { id:'tobacco-vanille', name:'Tobacco Vanille', brand:'TOM FORD', type:'Eau de Parfum', size:'100 ml', emotion:'"Decadencia embotellada. La calidez de un club privado de puros a medianoche."', notes:{salida:'Tabaco, Especias',corazon:'Vainilla, Tonka',fondo:'Frutos Secos, Madera'}, color:'#4a2c17', img:'https://www.tomford.com/dw/image/v2/AAWJ_PRD/on/demandware.static/-/Sites-master-catalog/default/dwf6854c85/images/T0CA_?"sw=560' },
-  { id:'oud-wood', name:'Oud Wood', brand:'TOM FORD', type:'Eau de Parfum', size:'100 ml', emotion:'"Bosques ancestrales susurran entre velos de humo. Atemporal. Enigmático."', notes:{salida:'Palo de Rosa, Cardamomo',corazon:'Oud, Sándalo',fondo:'Vetiver, Ámbar'}, color:'#3d2b1f', img:'https://www.tomford.com/dw/image/v2/AAWJ_PRD/on/demandware.static/-/Sites-master-catalog/default/dw79a6e0fb/images/T0CA_?sw=560' },
+  { id:'tobacco-vanille', name:'Tobacco Vanille', brand:'TOM FORD', type:'Eau de Parfum', size:'100 ml', emotion:'"Decadencia embotellada. La calidez de un club privado de puros a medianoche."', notes:{salida:'Tabaco, Especias',corazon:'Vainilla, Tonka',fondo:'Frutos Secos, Madera'}, color:'#4a2c17', img:'' },
+  { id:'oud-wood', name:'Oud Wood', brand:'TOM FORD', type:'Eau de Parfum', size:'100 ml', emotion:'"Bosques ancestrales susurran entre velos de humo. Atemporal. Enigmático."', notes:{salida:'Palo de Rosa, Cardamomo',corazon:'Oud, Sándalo',fondo:'Vetiver, Ámbar'}, color:'#3d2b1f', img:'' },
   { id:'1million-elixir', name:'1 Million Elixir', brand:'PACO RABANNE', type:'Parfum', size:'100 ml', emotion:'"Exceso refinado en elegancia. Oro que gotea con intención."', notes:{salida:'Manzana, Azafrán',corazon:'Rosa, Praliné',fondo:'Ámbar, Cuero'}, color:'#8b6914', img:'https://www.sephora.com/productimages/sku/s2609892-main-zoom.jpg' },
   { id:'1million-edt', name:'1 Million', brand:'PACO RABANNE', type:'Eau de Toilette', size:'100 ml', emotion:'"El dorado definitivo. Cada pulverización es una declaración de ambición."', notes:{salida:'Pomelo, Menta',corazon:'Rosa, Canela',fondo:'Cuero, Ámbar'}, color:'#7a5a0a', img:'https://www.sephora.com/productimages/sku/s1269847-main-zoom.jpg' },
-  { id:'eros-parfum', name:'Eros', brand:'VERSACE', type:'Eau de Parfum', size:'100 ml', emotion:'"Deseo hecho tangible. Cada nota es una invitación que no se puede rechazar."', notes:{salida:'Menta, Manzana',corazon:'Tonka, Geranio',fondo:'Vainilla, Vetiver'}, color:'#1a4a6b', img:'https://www.sephora.com/productimages/sku/s2553082-main-zoom.jpg' },
+  { id:'eros-parfum', name:'Eros', brand:'VERSACE', type:'Eau de Parfum', size:'100 ml', emotion:'"Deseo hecho tangible. Cada nota es una invitación imposible de rechazar."', notes:{salida:'Menta, Manzana',corazon:'Tonka, Geranio',fondo:'Vainilla, Vetiver'}, color:'#1a4a6b', img:'https://www.sephora.com/productimages/sku/s2553082-main-zoom.jpg' },
   { id:'eros-edt', name:'Eros', brand:'VERSACE', type:'Eau de Toilette', size:'100 ml', emotion:'"El dios griego del amor no pide permiso. Conquista."', notes:{salida:'Menta, Manzana Verde',corazon:'Tonka, Geranio, Ambroxan',fondo:'Vainilla, Vetiver, Cedro'}, color:'#1a4a6b', img:'https://www.sephora.com/productimages/sku/s1647430-main-zoom.jpg' },
-  { id:'invictus-victory', name:'Invictus Victory', brand:'PACO RABANNE', type:'Eau de Parfum Extrême', size:'100 ml', emotion:'"Triunfo cristalizado. El aroma que recuerdan mucho después de que te has ido."', notes:{salida:'Laurel, Cardamomo',corazon:'Incienso, Tonka',fondo:'Ámbar Gris, Oud'}, color:'#2a3a4a', img:'https://www.sephora.com/productimages/sku/s2503434-main-zoom.jpg' },
-  { id:'invictus-edt', name:'Invictus', brand:'PACO RABANNE', type:'Eau de Toilette', size:'100 ml', emotion:'"Victoria eterna. El trofeo que llevas en la piel."', notes:{salida:'Pomelo, Marina',corazon:'Laurel, Jazmín',fondo:'Ámbar Gris, Madera'}, color:'#3a4a5a', img:'https://www.sephora.com/productimages/sku/s1556060-main-zoom.jpg' },
+  { id:'invictus-victory', name:'Invictus Victory', brand:'PACO RABANNE', type:'Eau de Parfum Extrême', size:'100 ml', emotion:'"Triunfo cristalizado. El aroma que recuerdan mucho después de tu partida."', notes:{salida:'Laurel, Cardamomo',corazon:'Incienso, Tonka',fondo:'Ámbar Gris, Oud'}, color:'#2a3a4a', img:'https://www.sephora.com/productimages/sku/s2503434-main-zoom.jpg' },
   { id:'y-le-parfum', name:'Y Le Parfum', brand:'YVES SAINT LAURENT', type:'Parfum', size:'100 ml', emotion:'"La pregunta respondida antes de ser formulada. Certeza absoluta en forma líquida."', notes:{salida:'Manzana, Jengibre',corazon:'Salvia, Enebro',fondo:'Amberwood, Tonka'}, color:'#1a1a3d', img:'https://www.sephora.com/productimages/sku/s2313768-main-zoom.jpg' },
   { id:'stronger-with-you', name:'Stronger With You', brand:'EMPORIO ARMANI', type:'Parfum', size:'100 ml', emotion:'"Intimidad embotellada. La calidez entre palabras susurradas."', notes:{salida:'Pimienta Rosa, Violeta',corazon:'Toffee, Canela',fondo:'Vainilla, Gamuza'}, color:'#5a2a2a', img:'https://www.sephora.com/productimages/sku/s2487687-main-zoom.jpg' },
   { id:'born-in-roma-intense', name:'Born in Roma Intense', brand:'VALENTINO', type:'Eau de Parfum Intense', size:'100 ml', emotion:'"Noches romanas destiladas en obsesión. Ciudad eterna, atracción eterna."', notes:{salida:'Té Verde, Jengibre',corazon:'Salvia, Vetiver',fondo:'Vainilla Ahumada, Guaiac'}, color:'#1a2a1a', img:'https://www.sephora.com/productimages/sku/s2563933-main-zoom.jpg' },
   { id:'acqua-di-gio', name:'Acqua di Giò Profumo', brand:'GIORGIO ARMANI', type:'Parfum', size:'100 ml', emotion:'"El Mediterráneo a la hora dorada. Profundidad bajo la superficie."', notes:{salida:'Bergamota, Notas Marinas',corazon:'Romero, Geranio',fondo:'Pachulí, Ámbar'}, color:'#1a3a4a', img:'https://www.sephora.com/productimages/sku/s1913329-main-zoom.jpg' },
   { id:'bad-boy-edt', name:'Bad Boy', brand:'CAROLINA HERRERA', type:'Eau de Toilette', size:'100 ml', emotion:'"Las reglas existen para ser reescritas. Audaz, eléctrico, inolvidable."', notes:{salida:'Salvia, Pimienta Negra',corazon:'Cedro, Cacao',fondo:'Tonka, Ámbar'}, color:'#6b5a14', img:'https://www.sephora.com/productimages/sku/s2202326-main-zoom.jpg' },
-  { id:'212-vip-black', name:'212 VIP Black', brand:'CAROLINA HERRERA', type:'Eau de Parfum', size:'100 ml', emotion:'"La lista de invitados no aplica. Nacido para la cuerda de terciopelo."', notes:{salida:'Lavanda, Vainilla Negra',corazon:'Cuero',fondo:'Benzoina, Almizcle'}, color:'#0d0d1a', img:'https://www.sephora.com/productimages/sku/s2090176-main-zoom.jpg' },
-  { id:'scandal-intense-m', name:'Scandal Pour Homme', brand:'JEAN PAUL GAULTIER', type:'Eau de Parfum', size:'100 ml', emotion:'"Hablarán de ti. Asegúrate de que valga la pena."', notes:{salida:'Mandarina, Canela',corazon:'Cacao, Tonka',fondo:'Vetiver, Cuero'}, color:'#3d1a2a', img:'https://www.sephora.com/productimages/sku/s2560806-main-zoom.jpg' },
+  { id:'212-vip-black', name:'212 VIP Black', brand:'CAROLINA HERRERA', type:'Eau de Parfum', size:'100 ml', emotion:'"La lista de invitados no aplica. Nacido para la cuerda de terciopelo."', notes:{salida:'Lavanda, Vainilla Negra',corazon:'Cuero',fondo:'Benzoína, Almizcle'}, color:'#0d0d1a', img:'https://www.sephora.com/productimages/sku/s2090176-main-zoom.jpg' },
+  { id:'scandal-m', name:'Scandal Pour Homme', brand:'JEAN PAUL GAULTIER', type:'Eau de Parfum', size:'100 ml', emotion:'"Hablarán de ti. Asegúrate de que valga la pena."', notes:{salida:'Mandarina, Canela',corazon:'Cacao, Tonka',fondo:'Vetiver, Cuero'}, color:'#3d1a2a', img:'https://www.sephora.com/productimages/sku/s2560806-main-zoom.jpg' },
   { id:'phantom-edt', name:'Phantom', brand:'PACO RABANNE', type:'Eau de Toilette', size:'100 ml', emotion:'"Tecnología y seducción en una botella de otro mundo."', notes:{salida:'Limón, Lavanda',corazon:'Manzana Ahumada',fondo:'Vainilla, Cashmeran'}, color:'#5a5a6a', img:'https://www.sephora.com/productimages/sku/s2455056-main-zoom.jpg' },
   { id:'the-one', name:'The One', brand:'DOLCE & GABBANA', type:'Eau de Parfum', size:'100 ml', emotion:'"El elegido. Sofisticación cálida que envuelve como terciopelo."', notes:{salida:'Pomelo, Cilantro',corazon:'Flor de Azahar, Jengibre',fondo:'Ámbar, Cedro'}, color:'#4a3a1a', img:'https://www.sephora.com/productimages/sku/s1154329-main-zoom.jpg' },
   { id:'allure-sport', name:'Allure Homme Sport', brand:'CHANEL', type:'Eau de Toilette', size:'100 ml', emotion:'"Dinamismo sofisticado. El movimiento convertido en fragancia."', notes:{salida:'Naranja, Aldehídos',corazon:'Néroli, Pimienta',fondo:'Cedro, Tonka'}, color:'#3a4a4a', img:'https://www.chanel.com/images/t_one/t_fnbedito/q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/allure-homme-sport-eau-de-toilette-spray-3-4fl-oz--packshot-default-123630-8841225895966.jpg' },
   { id:'code-profumo', name:'Code Profumo', brand:'GIORGIO ARMANI', type:'Parfum', size:'110 ml', emotion:'"La versión definitiva del misterio. Más oscuro, más adictivo."', notes:{salida:'Manzana Verde, Bergamota',corazon:'Lavanda, Flor de Naranjo',fondo:'Tonka, Ámbar'}, color:'#1a1a2a', img:'https://www.sephora.com/productimages/sku/s1845786-main-zoom.jpg' },
-  { id:'wanted-by-night', name:'The Most Wanted', brand:'AZZARO', type:'Eau de Parfum Intense', size:'100 ml', emotion:'"El más buscado. Intensidad que no se olvida."', notes:{salida:'Cardamomo, Salvia',corazon:'Madera de Teca',fondo:'Vainilla de Bourbon, Ámbar'}, color:'#4a2a1a', img:'https://www.sephora.com/productimages/sku/s2515618-main-zoom.jpg' },
-  { id:'man-in-black', name:'Man in Black', brand:'BVLGARI', type:'Eau de Parfum', size:'100 ml', emotion:'"Oscuridad sofisticada. El caballero que domina desde las sombras."', notes:{salida:'Ron, Tabaco',corazon:'Cuero, Tuberosa',fondo:'Ámbar, Guaiac'}, color:'#0d0d0d', img:'https://www.sephora.com/productimages/sku/s1779829-main-zoom.jpg' },
+  { id:'most-wanted', name:'The Most Wanted', brand:'AZZARO', type:'Eau de Parfum Intense', size:'100 ml', emotion:'"El más buscado. Una intensidad que no se olvida."', notes:{salida:'Cardamomo, Salvia',corazon:'Madera de Teca',fondo:'Vainilla Bourbon, Ámbar'}, color:'#4a2a1a', img:'https://www.sephora.com/productimages/sku/s2515618-main-zoom.jpg' },
+  { id:'man-in-black', name:'Man in Black', brand:'BVLGARI', type:'Eau de Parfum', size:'100 ml', emotion:'"Oscuridad sofisticada. El caballero que domina desde las sombras."', notes:{salida:'Ron, Tabaco',corazon:'Cuero, Tuberosa',fondo:'Ámbar, Guaiac'}, color:'#1a1a1a', img:'https://www.sephora.com/productimages/sku/s1779829-main-zoom.jpg' },
 ];
 
 const perfumesWomen = [
-  { id:'good-girl', name:'Good Girl', brand:'CAROLINA HERRERA', type:'Eau de Parfum', size:'80 ml', emotion:'"Dualidad hecha divina. El tacón de stiletto esconde un jardín de jazmín."', notes:{salida:'Almendra, Café',corazon:'Tuberosa, Jazmín',fondo:'Tonka, Cacao'}, color:'#1a0d2a', img:'https://www.sephora.com/productimages/sku/s1925141-main-zoom.jpg' },
+  { id:'good-girl', name:'Good Girl', brand:'CAROLINA HERRERA', type:'Eau de Parfum', size:'80 ml', emotion:'"Dualidad hecha divina. El tacón stiletto esconde un jardín de jazmín."', notes:{salida:'Almendra, Café',corazon:'Tuberosa, Jazmín',fondo:'Tonka, Cacao'}, color:'#1a0d2a', img:'https://www.sephora.com/productimages/sku/s1925141-main-zoom.jpg' },
   { id:'good-girl-supreme', name:'Good Girl Suprême', brand:'CAROLINA HERRERA', type:'Eau de Parfum', size:'80 ml', emotion:'"La versión suprema. Más frutal, más golosa, más irresistible."', notes:{salida:'Frutos Rojos',corazon:'Tuberosa, Jazmín',fondo:'Tonka, Vainilla'}, color:'#2a0d3a', img:'https://www.sephora.com/productimages/sku/s2283862-main-zoom.jpg' },
   { id:'libre-intense', name:'Libre Intense', brand:'YVES SAINT LAURENT', type:'Eau de Parfum Intense', size:'90 ml', emotion:'"Libertad destilada. Azahar floreciendo contra cuero de medianoche."', notes:{salida:'Mandarina, Lavanda',corazon:'Azahar',fondo:'Vainilla, Oud'}, color:'#2a1a3d', img:'https://www.sephora.com/productimages/sku/s2433095-main-zoom.jpg' },
   { id:'libre-edp', name:'Libre', brand:'YVES SAINT LAURENT', type:'Eau de Parfum', size:'90 ml', emotion:'"Sin reglas. Sin cadenas. Absolutamente libre."', notes:{salida:'Mandarina, Grosella Negra',corazon:'Lavanda, Azahar',fondo:'Vainilla de Madagascar'}, color:'#3a2a4d', img:'https://www.sephora.com/productimages/sku/s2225624-main-zoom.jpg' },
-  { id:'mon-paris', name:'Mon Paris', brand:'YVES SAINT LAURENT', type:'Eau de Parfum', size:'90 ml', emotion:'"Amor parisino a primera vista. Intoxicante, impulsivo, absolutamente divino."', notes:{salida:'Fresa, Pera',corazon:'Peonía, Datura',fondo:'Almizcle Blanco, Pachulí'}, color:'#4a1a2a', img:'https://www.sephora.com/productimages/sku/s1873382-main-zoom.jpg' },
+  { id:'mon-paris', name:'Mon Paris', brand:'YVES SAINT LAURENT', type:'Eau de Parfum', size:'90 ml', emotion:'"Amor parisino a primera vista. Intoxicante, impulsivo, divino."', notes:{salida:'Fresa, Pera',corazon:'Peonía, Datura',fondo:'Almizcle Blanco, Pachulí'}, color:'#4a1a2a', img:'https://www.sephora.com/productimages/sku/s1873382-main-zoom.jpg' },
   { id:'baccarat-rouge', name:'Baccarat Rouge 540', brand:'MAISON FRANCIS KURKDJIAN', type:'Extrait de Parfum', size:'70 ml', emotion:'"Luminosa. De otro mundo. La fragancia que trasciende lo físico."', notes:{salida:'Azafrán, Jazmín',corazon:'Amberwood, Resina',fondo:'Cedro, Almizcle'}, color:'#6b1a1a', img:'https://www.sephora.com/productimages/sku/s2176793-main-zoom.jpg' },
   { id:'miss-dior-blooming', name:'Miss Dior Blooming Bouquet', brand:'DIOR', type:'Eau de Toilette', size:'100 ml', emotion:'"Primavera capturada en su momento más fugaz. Pétalos en cámara lenta."', notes:{salida:'Mandarina Siciliana',corazon:'Peonía, Rosa Damascena',fondo:'Almizcle Blanco'}, color:'#d4a5a5', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw04ee36f2/Y0185006/Y0185006_C018500613_E01_GHC.jpg?sw=460' },
-  { id:'miss-dior-edp', name:'Miss Dior', brand:'DIOR', type:'Eau de Parfum', size:'100 ml', emotion:'"Jardines de rosas al amanecer. La promesa de algo hermoso por florecer."', notes:{salida:'Lirio del Valle',corazon:'Peonía, Iris',fondo:'Palo de Rosa, Almizcle'}, color:'#d4a5b8', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw2a4c3a7c/Y0996160/Y0996160_C099616013_E01_GHC.jpg?sw=460' },
   { id:'jadore', name:"J'adore", brand:'DIOR', type:'Eau de Parfum', size:'100 ml', emotion:'"Oro líquido tejido de rosas y luz solar. Gracia atemporal."', notes:{salida:'Ylang-Ylang, Rosa',corazon:'Jazmín, Lirio',fondo:'Almizcle, Vainilla'}, color:'#c9a96e', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw7f7e4e0f/Y0996152/Y0996152_C099615213_E01_GHC.jpg?sw=460' },
   { id:'coco-mademoiselle', name:'Coco Mademoiselle', brand:'CHANEL', type:'Eau de Parfum', size:'100 ml', emotion:'"El legado reinventado. Feminidad moderna que deja una marca indeleble."', notes:{salida:'Naranja, Bergamota',corazon:'Rosa, Jazmín',fondo:'Pachulí, Vetiver'}, color:'#4a3a2a', img:'https://www.chanel.com/images/t_one/t_fnbedito/q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/coco-mademoiselle-eau-de-parfum-spray-3-4fl-oz--packshot-default-116520-8841226125342.jpg' },
-  { id:'n5', name:'N°5', brand:'CHANEL', type:'Eau de Parfum', size:'100 ml', emotion:'"Leyenda. Cien años definiendo qué significa el perfume para el mundo."', notes:{salida:'Aldehídos, Neroli',corazon:'Jazmín, Rosa, Ylang-Ylang',fondo:'Sándalo, Vainilla'}, color:'#d4c9a5', img:'https://www.chanel.com/images/t_one/t_fnbedito/q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/n5-eau-de-parfum-spray-3-4fl-oz--packshot-default-101450-8841226092574.jpg' },
+  { id:'n5', name:'N°5', brand:'CHANEL', type:'Eau de Parfum', size:'100 ml', emotion:'"Leyenda. Cien años definiendo qué significa el perfume para el mundo."', notes:{salida:'Aldehídos, Néroli',corazon:'Jazmín, Rosa, Ylang-Ylang',fondo:'Sándalo, Vainilla'}, color:'#d4c9a5', img:'https://www.chanel.com/images/t_one/t_fnbedito/q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/n5-eau-de-parfum-spray-3-4fl-oz--packshot-default-101450-8841226092574.jpg' },
   { id:'lady-million', name:'Lady Million', brand:'PACO RABANNE', type:'Eau de Parfum', size:'80 ml', emotion:'"Opulencia sin disculpas. Los diamantes se sentirían mal vestidos."', notes:{salida:'Frambuesa, Naranja Amarga',corazon:'Jazmín, Gardenia',fondo:'Miel, Pachulí'}, color:'#8b7a14', img:'https://www.sephora.com/productimages/sku/s1269870-main-zoom.jpg' },
-  { id:'olympea', name:'Olympéa', brand:'PACO RABANNE', type:'Eau de Parfum', size:'80 ml', emotion:'"Una diosa no llega — aparece. Piel besada por sal y vainilla divina."', notes:{salida:'Mandarina Verde, Acuática',corazon:'Jazmín, Sal',fondo:'Vainilla, Cachemira'}, color:'#4a5a6b', img:'https://www.sephora.com/productimages/sku/s1834970-main-zoom.jpg' },
+  { id:'olympea', name:'Olympéa', brand:'PACO RABANNE', type:'Eau de Parfum', size:'80 ml', emotion:'"Una diosa no llega: aparece. Piel besada por sal y vainilla divina."', notes:{salida:'Mandarina Verde, Acuática',corazon:'Jazmín, Sal',fondo:'Vainilla, Cachemira'}, color:'#4a5a6b', img:'https://www.sephora.com/productimages/sku/s1834970-main-zoom.jpg' },
   { id:'fame-edp', name:'Fame', brand:'PACO RABANNE', type:'Eau de Parfum', size:'80 ml', emotion:'"El reflector te encuentra. Mango e incienso colisionan en obsesión dorada."', notes:{salida:'Mango',corazon:'Jazmín, Incienso',fondo:'Sándalo, Cedro'}, color:'#6b4a14', img:'https://www.sephora.com/productimages/sku/s2596586-main-zoom.jpg' },
   { id:'la-vie-est-belle', name:'La Vie Est Belle', brand:'LANCÔME', type:'Eau de Parfum', size:'75 ml', emotion:'"Felicidad en su forma molecular más pura. Una sonrisa hecha eterna."', notes:{salida:'Iris, Pera',corazon:'Iris, Jazmín',fondo:'Praliné, Pachulí'}, color:'#d4a5c9', img:'https://www.sephora.com/productimages/sku/s1524324-main-zoom.jpg' },
   { id:'la-nuit-tresor', name:'La Nuit Trésor', brand:'LANCÔME', type:'Eau de Parfum', size:'100 ml', emotion:'"La noche tiene tesoros ocultos. Este es el más precioso."', notes:{salida:'Orquídea',corazon:'Rosa, Frambuesa',fondo:'Chocolate, Vainilla'}, color:'#2a0d2a', img:'https://www.sephora.com/productimages/sku/s1838856-main-zoom.jpg' },
-  { id:'si-passione', name:'Sì Passione', brand:'GIORGIO ARMANI', type:'Eau de Parfum', size:'100 ml', emotion:'"Labios rojos y confianza. La mujer que posee cada habitación en la que entra."', notes:{salida:'Pera, Pimienta Rosa',corazon:'Rosa, Jazmín',fondo:'Vainilla, Cedro'}, color:'#8b1a1a', img:'https://www.sephora.com/productimages/sku/s2106998-main-zoom.jpg' },
+  { id:'si-passione', name:'Sì Passione', brand:'GIORGIO ARMANI', type:'Eau de Parfum', size:'100 ml', emotion:'"Labios rojos y confianza. La mujer que posee cada habitación."', notes:{salida:'Pera, Pimienta Rosa',corazon:'Rosa, Jazmín',fondo:'Vainilla, Cedro'}, color:'#8b1a1a', img:'https://www.sephora.com/productimages/sku/s2106998-main-zoom.jpg' },
   { id:'my-way', name:'My Way', brand:'GIORGIO ARMANI', type:'Eau de Parfum', size:'90 ml', emotion:'"Cada viaje deja su esencia en la piel. Este se queda para siempre."', notes:{salida:'Azahar, Bergamota',corazon:'Tuberosa, Jazmín',fondo:'Vainilla, Almizcle'}, color:'#c9a55a', img:'https://www.sephora.com/productimages/sku/s2340639-main-zoom.jpg' },
   { id:'born-in-roma-w', name:'Born in Roma', brand:'VALENTINO', type:'Eau de Parfum', size:'100 ml', emotion:'"Adoquines cubiertos de jazmín al atardecer. La dolce vita infinita."', notes:{salida:'Pimienta Rosa, Grosella Negra',corazon:'Jazmín, Rosa',fondo:'Cashmeran, Guaiac'}, color:'#3d1a3d', img:'https://www.sephora.com/productimages/sku/s2263062-main-zoom.jpg' },
-  { id:'scandal-w', name:'Scandal', brand:'JEAN PAUL GAULTIER', type:'Eau de Parfum', size:'80 ml', emotion:'"Escándalo puro. Miel y sangre de naranja en piernas que cruzan."', notes:{salida:'Naranja Sanguina, Mandarina',corazon:'Gardenia, Miel',fondo:'Caramelo, Regaliz'}, color:'#4a1a2a', img:'https://www.sephora.com/productimages/sku/s2200445-main-zoom.jpg' },
+  { id:'scandal-w', name:'Scandal', brand:'JEAN PAUL GAULTIER', type:'Eau de Parfum', size:'80 ml', emotion:'"Escándalo puro. Miel y naranja sanguina en piernas que se cruzan."', notes:{salida:'Naranja Sanguina, Mandarina',corazon:'Gardenia, Miel',fondo:'Caramelo, Regaliz'}, color:'#4a1a2a', img:'https://www.sephora.com/productimages/sku/s2200445-main-zoom.jpg' },
   { id:'paradoxe', name:'Paradoxe', brand:'PRADA', type:'Eau de Parfum', size:'90 ml', emotion:'"Contradictoria por naturaleza. Única por elección."', notes:{salida:'Pera, Bergamota',corazon:'Jazmín',fondo:'Almizcle, Ámbar'}, color:'#c9a5d4', img:'https://www.sephora.com/productimages/sku/s2632894-main-zoom.jpg' },
   { id:'bright-crystal', name:'Bright Crystal', brand:'VERSACE', type:'Eau de Toilette', size:'90 ml', emotion:'"Cristal brillante. La pureza del agua y la luz convertidas en joya."', notes:{salida:'Granada, Yuzu',corazon:'Magnolia, Peonía',fondo:'Almizcle, Ámbar'}, color:'#c9c9d4', img:'https://www.sephora.com/productimages/sku/s1218629-main-zoom.jpg' },
   { id:'light-blue', name:'Light Blue', brand:'DOLCE & GABBANA', type:'Eau de Toilette', size:'100 ml', emotion:'"Azul claro del Mediterráneo. Sol, sal y libertad infinita."', notes:{salida:'Limón Siciliano, Manzana',corazon:'Jazmín, Bambú',fondo:'Cedro, Almizcle'}, color:'#75a5c9', img:'https://www.sephora.com/productimages/sku/s1218652-main-zoom.jpg' },
   { id:'flora-gardenia', name:'Flora Gorgeous Gardenia', brand:'GUCCI', type:'Eau de Parfum', size:'100 ml', emotion:'"Un jardín italiano en plena floración. Belleza sin reservas."', notes:{salida:'Pera, Frutos Rojos',corazon:'Gardenia, Jazmín',fondo:'Azúcar Moreno, Pachulí'}, color:'#d4758a', img:'https://www.sephora.com/productimages/sku/s2530518-main-zoom.jpg' },
-  { id:'bombshell', name:'Bombshell', brand:"VICTORIA'S SECRET", type:'Eau de Parfum', size:'100 ml', emotion:'"Explosiva. La bomba que todos esperaban pero nadie predijo."', notes:{salida:'Mandarina Púrpura',corazon:'Peonía, Jazmín',fondo:'Almizcle Blanco'}, color:'#d4758a', img:'https://www.victoriassecret.com/p/760x1013/tif/11208971_04B4_760x1013.jpg' },
+  { id:'bombshell', name:'Bombshell', brand:"VICTORIA'S SECRET", type:'Eau de Parfum', size:'100 ml', emotion:'"Explosiva. La bomba que todos esperaban pero nadie predijo."', notes:{salida:'Mandarina Púrpura',corazon:'Peonía, Jazmín',fondo:'Almizcle Blanco'}, color:'#d4758a', img:'' },
 ];
-
-let currentTab = 'men';
-
-function renderGrid() {
-  const grid = document.getElementById('productGrid');
-  const data = currentTab === 'men' ? perfumesMen : perfumesWomen;
-  grid.innerHTML = data.map((p, i) => `
-    <div class="product-card glass" onclick="openModal('${p.id}')" style="animation-delay:${i*0.03}s">
-      <div class="card-visual">
-        <div class="card-glow" style="background:radial-gradient(circle,${p.color},transparent)"></div>
-        <img src="${p.img}" alt="${p.brand} ${p.name}" loading="lazy" onerror="this.outerHTML='<div class=img-fallback>${p.brand}<br>${p.name}</div>'">
-      </div>
-      <p class="card-brand">${p.brand}</p>
-      <h3 class="card-name">${p.name}</h3>
-      <p class="card-type">${p.type} — ${p.size}</p>
-      <div class="card-discover"><span>Descubrir</span> →</div>
-    </div>
-  `).join('');
-}
-
-function switchTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll('.tab-btn').forEach((btn,i) => {
-    btn.classList.toggle('active', (i===0&&tab==='men')||(i===1&&tab==='women'));
-  });
-  renderGrid();
-}
-
-function openModal(id) {
-  const all = [...perfumesMen, ...perfumesWomen];
-  const p = all.find(x => x.id === id);
-  if (!p) return;
-  document.getElementById('modalBrand').textContent = p.brand;
-  document.getElementById('modalName').textContent = p.name;
-  document.getElementById('modalType').textContent = `${p.type} — ${p.size}`;
-  document.getElementById('modalEmotion').textContent = p.emotion;
-  document.getElementById('modalImg').src = p.img;
-  document.getElementById('modalImg').alt = `${p.brand} ${p.name}`;
-  document.getElementById('modalGlow').style.background = p.color;
-  const noteKeys = Object.keys(p.notes);
-  document.getElementById('modalNotes').innerHTML = noteKeys.map(n => `
-    <div class="note-row">
-      <span class="note-label">${n}</span>
-      <div class="note-line"></div>
-      <span class="note-value">${p.notes[n]}</span>
-    </div>
-  `).join('');
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
-  document.querySelectorAll('.reveal').forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('active');
-  });
-});
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-(function(){
-  const c = document.getElementById('particles');
-  for(let i=0;i<25;i++){
-    const p = document.createElement('div');
-    p.className='particle';
-    p.style.left=Math.random()*100+'%';
-    p.style.top=Math.random()*100+'%';
-    p.style.animationDelay=Math.random()*8+'s';
-    p.style.animationDuration=(6+Math.random()*6)+'s';
-    c.appendChild(p);
-  }
-})();
-
-renderGrid();
 </script>
+
+<!-- ===== INTERACCIÓN PRINCIPAL ===== -->
+<script>
+(function(){
+  'use strict';
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- CURSOR ---------- */
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = window.innerWidth/2, my = window.innerHeight/2, rx = mx, ry = my;
+  const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if (fine) {
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+    });
+    (function ringLoop(){
+      rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
+      ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+      requestAnimationFrame(ringLoop);
+    })();
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest('[data-cursor], a, button')) ring.classList.add('hover');
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest('[data-cursor], a, button')) ring.classList.remove('hover');
+    });
+    document.addEventListener('mouseleave', () => { dot.classList.add('hidden'); ring.classList.add('hidden'); });
+    document.addEventListener('mouseenter', () => { dot.classList.remove('hidden'); ring.classList.remove('hidden'); });
+  }
+
+  /* ---------- BOTONES MAGNÉTICOS ---------- */
+  if (fine && !prefersReduced) {
+    document.querySelectorAll('.magnetic').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width/2;
+        const y = e.clientY - r.top - r.height/2;
+        el.style.transform = `translate(${x*0.3}px, ${y*0.4}px)`;
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = 'translate(0,0)'; });
+    });
+  }
+
+  /* ---------- MENÚ MÓVIL ---------- */
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menuBtn.classList.remove('open'); mobileMenu.classList.remove('open');
+  }));
+
+  /* ---------- CATÁLOGO ---------- */
+  let currentTab = 'men';
+  const grid = document.getElementById('productGrid');
+
+  function cardImg(p){
+    if (!p.img) return `<div class="img-fallback"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name}</span></div>`;
+    return `<img src="${p.img}" alt="${p.brand} ${p.name}" loading="lazy" onerror="this.outerHTML='<div class="img-fallback"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name.replace(/'/g,'&#39;')}</span></div>'">`;
+  }
+
+  function renderGrid(){
+    const data = currentTab === 'men' ? perfumesMen : perfumesWomen;
+    grid.innerHTML = data.map(p => `
+      <article class="product-card glass" data-id="${p.id}" data-cursor>
+        <div class="card-visual">
+          <div class="card-glow" style="background:radial-gradient(circle,${p.color},transparent)"></div>
+          ${cardImg(p)}
+        </div>
+        <p class="card-brand">${p.brand}</p>
+        <h3 class="card-name">${p.name}</h3>
+        <p class="card-type">${p.type} — ${p.size}</p>
+        <div class="card-discover"><span>Descubrir</span> →</div>
+      </article>
+    `).join('');
+    animateCards();
+  }
+
+  grid.addEventListener('click', e => {
+    const card = e.target.closest('.product-card');
+    if (card) openModal(card.dataset.id);
+  });
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.tab === currentTab) return;
+      currentTab = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+      renderGrid();
+    });
+  });
+
+  /* ---------- MODAL ---------- */
+  const modal = document.getElementById('modal');
+  function openModal(id){
+    const p = [...perfumesMen, ...perfumesWomen].find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('modalBrand').textContent = p.brand;
+    document.getElementById('modalName').textContent = p.name;
+    document.getElementById('modalType').textContent = `${p.type} — ${p.size}`;
+    document.getElementById('modalEmotion').textContent = p.emotion;
+    document.getElementById('modalGlow').style.background = p.color;
+    const wrap = document.querySelector('.modal-bottle-wrap');
+    const oldImg = document.getElementById('modalImg');
+    const imgHtml = p.img
+      ? `<img id="modalImg" src="${p.img}" alt="${p.brand} ${p.name}" onerror="this.outerHTML='<div class="img-fallback" style="width:140px;height:230px"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name.replace(/'/g,'&#39;')}</span></div>'">`
+      : `<div class="img-fallback" id="modalImg" style="width:140px;height:230px"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name}</span></div>`;
+    oldImg.outerHTML = imgHtml;
+    const noteKeys = Object.keys(p.notes);
+    document.getElementById('modalNotes').innerHTML = noteKeys.map(n => `
+      <div class="note-row">
+        <span class="note-label">${n}</span>
+        <div class="note-line"></div>
+        <span class="note-value">${p.notes[n]}</span>
+      </div>`).join('');
+    document.getElementById('modalCta').href = `https://wa.me/56987395445?text=${encodeURIComponent('Hola, me interesa el perfume '+p.name+' ('+p.brand+') del catálogo de Torres Store')}`;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (window.lenisInstance) window.lenisInstance.stop();
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    if (window.lenisInstance) window.lenisInstance.start();
+  }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalBg').addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  /* ---------- GSAP + LENIS ---------- */
+  let lenis = null;
+  if (typeof Lenis !== 'undefined' && !prefersReduced) {
+    lenis = new Lenis({ duration:1.2, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true });
+    window.lenisInstance = lenis;
+  }
+
+  function setupGSAP(){
+    if (typeof gsap === 'undefined') return;
+    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+    if (lenis && typeof ScrollTrigger !== 'undefined') {
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(time => lenis.raf(time*1000));
+      gsap.ticker.lagSmoothing(0);
+    } else if (lenis) {
+      function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    }
+
+    if (prefersReduced) { document.querySelectorAll('.reveal').forEach(el=>el.style.opacity=1); return; }
+
+    // Hero entrada
+    const heroTl = gsap.timeline({ delay:0.2 });
+    heroTl.from('.hero-eyebrow', { y:30, opacity:0, duration:1, ease:'power3.out' })
+          .from('.hero h1 .word', { yPercent:120, opacity:0, duration:1.1, stagger:0.12, ease:'power4.out' }, '-=0.5')
+          .from('.hero-desc', { y:30, opacity:0, duration:1, ease:'power3.out' }, '-=0.6')
+          .from('.hero-cta', { y:30, opacity:0, duration:1, ease:'power3.out' }, '-=0.7')
+          .from('.hero-scroll', { opacity:0, duration:1, ease:'power2.out' }, '-=0.5');
+
+    // Reveals genéricos
+    if (typeof ScrollTrigger !== 'undefined') {
+      gsap.utils.toArray('.reveal').forEach(el => {
+        gsap.from(el, { y:60, opacity:0, duration:1.1, ease:'power3.out',
+          scrollTrigger:{ trigger:el, start:'top 85%' } });
+      });
+
+      // Story: split de palabras
+      document.querySelectorAll('[data-split]').forEach(h => {
+        const words = h.textContent.split(' ');
+        h.innerHTML = words.map(w => `<span class="story-word">${w}</span>`).join(' ');
+        gsap.from(h.querySelectorAll('.story-word'), {
+          yPercent:110, opacity:0, duration:1, stagger:0.06, ease:'power4.out',
+          scrollTrigger:{ trigger:h, start:'top 80%' }
+        });
+      });
+      gsap.utils.toArray('.story-scene p').forEach(p => {
+        gsap.from(p, { y:40, opacity:0, duration:1, ease:'power3.out',
+          scrollTrigger:{ trigger:p, start:'top 85%' } });
+      });
+
+      // Parallax suave en orbes
+      gsap.to('.hero-orb-1', { yPercent:30, ease:'none', scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true } });
+      gsap.to('.hero-orb-2', { yPercent:-20, ease:'none', scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true } });
+    }
+  }
+
+  // Entrada escalonada de tarjetas
+  function animateCards(){
+    if (typeof gsap === 'undefined' || prefersReduced) return;
+    gsap.from('#productGrid .product-card', {
+      y:50, opacity:0, duration:0.8, stagger:0.05, ease:'power3.out',
+      scrollTrigger: (typeof ScrollTrigger !== 'undefined') ? { trigger:'#productGrid', start:'top 90%' } : undefined
+    });
+  }
+
+  /* ---------- NAV scrolled ---------- */
+  const navbar = document.getElementById('navbar');
+  function onScroll(){ navbar.classList.toggle('scrolled', window.scrollY > 60); }
+  window.addEventListener('scroll', onScroll, { passive:true });
+
+  /* ---------- Anclas con Lenis ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id === '#' || id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(target, { offset:-20 });
+      else target.scrollIntoView({ behavior:'smooth' });
+    });
+  });
+
+  /* ---------- INIT ---------- */
+  renderGrid();
+  setupGSAP();
+
+  // Loader (se cierra al cargar todo o tras timeout de seguridad)
+  const loader = document.getElementById('loader');
+  const loaderBar = document.getElementById('loaderBar');
+  const loaderPct = document.getElementById('loaderPct');
+  let progress = 0;
+  const fakeLoad = setInterval(() => {
+    progress = Math.min(progress + Math.random()*18, 100);
+    if (typeof gsap !== 'undefined') gsap.set(loaderBar, { scaleX: progress/100 });
+    else loaderBar.style.transform = `scaleX(${progress/100})`;
+    loaderPct.textContent = Math.round(progress) + '%';
+    if (progress >= 100) { clearInterval(fakeLoad); finishLoad(); }
+  }, 130);
+  function finishLoad(){
+    setTimeout(() => { loader.classList.add('done'); if (lenis) lenis.start(); }, 300);
+  }
+  // seguridad
+  setTimeout(() => { if (!loader.classList.contains('done')){ progress=100; clearInterval(fakeLoad); loader.classList.add('done'); } }, 6000);
+})();
+</script>
+
+<!-- ===== ESCENA 3D (Three.js) ===== -->
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+const canvas = document.getElementById('heroCanvas');
+const fallback = document.getElementById('webglFallback');
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function showFallback(){ if (canvas) canvas.style.display='none'; if (fallback) fallback.style.display='flex'; }
+
+try {
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
+  if (!renderer.getContext()) { showFallback(); throw new Error('no-webgl'); }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+  camera.position.set(0, 0, 6.5);
+
+  // Entorno para reflejos/refracción
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+  // Grupo de la botella
+  const bottle = new THREE.Group();
+  scene.add(bottle);
+
+  // Material vidrio
+  const glass = new THREE.MeshPhysicalMaterial({
+    transmission: 1, thickness: 1.4, roughness: 0.08, ior: 1.5,
+    metalness: 0, transparent: true,
+    color: new THREE.Color('#cfd6e6'), attenuationColor: new THREE.Color('#c9a96e'),
+    attenuationDistance: 2.5, clearcoat: 1, clearcoatRoughness: 0.06,
+    envMapIntensity: 1.2, specularIntensity: 1
+  });
+
+  const bodyGeo = new RoundedBoxGeometry(1.9, 2.7, 0.95, 6, 0.28);
+  const body = new THREE.Mesh(bodyGeo, glass);
+  bottle.add(body);
+
+  // Líquido interior (ámbar dorado)
+  const liquidMat = new THREE.MeshPhysicalMaterial({
+    color: new THREE.Color('#b8893f'), transmission: 0.55, thickness: 1,
+    roughness: 0.25, ior: 1.4, metalness: 0, transparent: true,
+    attenuationColor: new THREE.Color('#7a4f12'), attenuationDistance: 1.2,
+    envMapIntensity: 0.8
+  });
+  const liquidGeo = new RoundedBoxGeometry(1.62, 1.85, 0.7, 5, 0.22);
+  const liquid = new THREE.Mesh(liquidGeo, liquidMat);
+  liquid.position.y = -0.38;
+  bottle.add(liquid);
+
+  // Cuello
+  const neckMat = new THREE.MeshPhysicalMaterial({ color:'#cfd6e6', transmission:0.9, thickness:0.8, roughness:0.1, ior:1.5, transparent:true, clearcoat:1, envMapIntensity:1.1 });
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.42, 0.45, 32), neckMat);
+  neck.position.y = 1.55;
+  bottle.add(neck);
+
+  // Tapa dorada
+  const goldMat = new THREE.MeshStandardMaterial({ color:'#c9a96e', metalness:1, roughness:0.22, envMapIntensity:1.4 });
+  const cap = new THREE.Mesh(new RoundedBoxGeometry(0.78, 0.62, 0.78, 5, 0.12), goldMat);
+  cap.position.y = 2.05;
+  bottle.add(cap);
+  const capTop = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.22, 0.18, 24), goldMat);
+  capTop.position.y = 2.42;
+  bottle.add(capTop);
+
+  // Luces de acento
+  const key = new THREE.SpotLight('#ffffff', 60, 30, Math.PI/6, 0.4, 1.5);
+  key.position.set(4, 6, 6); scene.add(key);
+  const rim = new THREE.PointLight('#c9a96e', 40, 30); rim.position.set(-5, 2, -4); scene.add(rim);
+  const fill = new THREE.PointLight('#6a7fc4', 18, 30); fill.position.set(3, -4, 3); scene.add(fill);
+  scene.add(new THREE.AmbientLight('#ffffff', 0.25));
+
+  // Partículas
+  const pCount = 600;
+  const pGeo = new THREE.BufferGeometry();
+  const pPos = new Float32Array(pCount*3);
+  for (let i=0;i<pCount;i++){
+    pPos[i*3]   = (Math.random()-0.5)*16;
+    pPos[i*3+1] = (Math.random()-0.5)*12;
+    pPos[i*3+2] = (Math.random()-0.5)*8 - 2;
+  }
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  const pMat = new THREE.PointsMaterial({ color:'#c9a96e', size:0.025, transparent:true, opacity:0.55, depthWrite:false, blending:THREE.AdditiveBlending });
+  const particles = new THREE.Points(pGeo, pMat);
+  scene.add(particles);
+
+  // Postproceso: bloom
+  const composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  const bloom = new UnrealBloomPass(new THREE.Vector2(1,1), 0.45, 0.85, 0.85);
+  composer.addPass(bloom);
+
+  // Resize
+  function resize(){
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w, h, false);
+    composer.setSize(w, h);
+    camera.aspect = w/h; camera.updateProjectionMatrix();
+    bottle.scale.setScalar(w < 700 ? 0.78 : 1);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Mouse parallax
+  let targetRX = 0, targetRY = 0, curRX = 0, curRY = 0;
+  window.addEventListener('mousemove', e => {
+    targetRY = (e.clientX/window.innerWidth - 0.5) * 0.8;
+    targetRX = (e.clientY/window.innerHeight - 0.5) * 0.5;
+  });
+  window.addEventListener('deviceorientation', e => {
+    if (e.gamma!=null) targetRY = Math.max(-0.8,Math.min(0.8,(e.gamma/45)*0.6));
+    if (e.beta!=null)  targetRX = Math.max(-0.5,Math.min(0.5,((e.beta-45)/45)*0.4));
+  });
+
+  const clock = new THREE.Clock();
+  let running = true;
+  document.addEventListener('visibilitychange', () => { running = !document.hidden; });
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if (!running) return;
+    const t = clock.getElapsedTime();
+    curRX += (targetRX - curRX)*0.05;
+    curRY += (targetRY - curRY)*0.05;
+    if (!prefersReduced) {
+      bottle.rotation.y = t*0.25 + curRY;
+      bottle.rotation.x = curRX;
+      bottle.position.y = Math.sin(t*0.8)*0.12;
+      particles.rotation.y = t*0.02;
+      particles.position.y = Math.sin(t*0.2)*0.3;
+    } else {
+      bottle.rotation.y = curRY; bottle.rotation.x = curRX;
+    }
+    composer.render();
+  }
+  animate();
+} catch(err){
+  console.warn('WebGL no disponible, usando fallback:', err);
+  showFallback();
+}
+</script>
+
 </body>
 </html>
