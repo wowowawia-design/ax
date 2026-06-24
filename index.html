@@ -2,19 +2,39 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Torres Store — Perfumería de lujo en Chile. Fragancias premium de Dior, Chanel, Tom Ford, Creed y más. Una experiencia digital inmersiva.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0a0a0a">
-<meta property="og:title" content="Torres Store | La Esencia del Lujo">
-<meta property="og:description" content="Fragancias premium curadas. Una experiencia digital de lujo.">
+<meta name="color-scheme" content="dark">
+
+<!-- ===== SEO ===== -->
+<title>Torres Store | Perfumería de Lujo en Chile · Fragancias Premium</title>
+<meta name="description" content="Torres Store: perfumería de lujo en Chile. Fragancias premium y decants de Dior, Chanel, Tom Ford, Creed y Maison Francis Kurkdjian. Notas olfativas, intensidad, duración y envío a todo el país.">
+<meta name="keywords" content="perfumes de lujo Chile, decants, fragancias premium, Dior Sauvage, Baccarat Rouge 540, Aventus, Oud Wood, perfumería online">
+<meta name="author" content="Torres Store">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://torres.store/">
+
+<!-- Open Graph -->
 <meta property="og:type" content="website">
-<title>TORRES STORE | La Esencia del Lujo</title>
+<meta property="og:site_name" content="Torres Store">
+<meta property="og:locale" content="es_CL">
+<meta property="og:title" content="Torres Store | La Esencia del Lujo">
+<meta property="og:description" content="Fragancias premium curadas y decants. Una experiencia digital de lujo en Chile.">
+<meta property="og:url" content="https://torres.store/">
+<meta property="og:image" content="https://torres.store/og-cover.jpg">
+<meta property="og:image:alt" content="Torres Store — perfumería de lujo">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Torres Store | La Esencia del Lujo">
+<meta name="twitter:description" content="Fragancias premium curadas y decants. Envío a todo Chile.">
+<meta name="twitter:image" content="https://torres.store/og-cover.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
-<!-- Import map para módulos Three.js -->
+<!-- Import map Three.js -->
 <script type="importmap">
 {
   "imports": {
@@ -24,878 +44,1195 @@
 }
 </script>
 
-<!-- GSAP + ScrollTrigger + Lenis (UMD) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<!-- GSAP + ScrollTrigger + Lenis -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script defer src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<!-- ===== Schema.org: Tienda ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "Torres Store",
+  "description": "Perfumería de lujo y decants premium en Chile.",
+  "url": "https://torres.store/",
+  "image": "https://torres.store/og-cover.jpg",
+  "currenciesAccepted": "CLP",
+  "paymentAccepted": "Transferencia bancaria, Tarjeta de crédito, Débito",
+  "address": { "@type": "PostalAddress", "addressCountry": "CL", "addressRegion": "Región Metropolitana" },
+  "areaServed": "CL"
+}
+</script>
 
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --obsidian:#0a0a0a;
-  --charcoal:#151515;
-  --platinum:#e8e4de;
-  --gold:#c9a96e;
-  --gold-bright:#e3c894;
-  --cream:#f5f0eb;
-  --ease:cubic-bezier(0.16,1,0.3,1);
+:root{
+  --obsidian:#0a0a0a; --charcoal:#151515; --platinum:#e8e4de;
+  --gold:#c9a96e; --gold-bright:#e3c894; --cream:#f5f0eb;
+  --ease:cubic-bezier(0.16,1,0.3,1); --maxw:1340px;
 }
-::selection { background:rgba(201,169,110,0.3); color:var(--cream); }
-::-webkit-scrollbar { width:0; background:transparent; }
+::selection{ background:rgba(201,169,110,.3); color:var(--cream); }
+::-webkit-scrollbar{ width:10px; background:transparent; }
+::-webkit-scrollbar-thumb{ background:rgba(201,169,110,.25); border-radius:10px; }
 
-html { scroll-behavior:auto; }
-html.lenis, html.lenis body { height:auto; }
-.lenis.lenis-smooth { scroll-behavior:auto !important; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior:contain; }
-.lenis.lenis-stopped { overflow:hidden; }
+html{ scroll-behavior:smooth; }
+html.lenis,html.lenis body{ height:auto; }
+.lenis.lenis-smooth{ scroll-behavior:auto !important; }
+.lenis.lenis-stopped{ overflow:hidden; }
 
-body {
-  font-family:'Inter', system-ui, sans-serif;
-  background:var(--obsidian);
-  color:var(--platinum);
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-  cursor:none;
+body{
+  font-family:'Inter',system-ui,sans-serif; background:var(--obsidian);
+  color:var(--platinum); overflow-x:hidden; -webkit-font-smoothing:antialiased; line-height:1.6;
 }
-img { display:block; max-width:100%; }
+img{ display:block; max-width:100%; }
+a{ color:inherit; }
+button{ font-family:inherit; cursor:pointer; }
+
+:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; border-radius:4px; }
+.skip-link{ position:absolute; left:-999px; top:0; z-index:12000; background:var(--gold); color:#1a1208; padding:.8rem 1.4rem; border-radius:0 0 8px 0; font-size:.8rem; letter-spacing:.1em; }
+.skip-link:focus{ left:0; }
+.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 
 /* Grano de película */
-body::after {
+body::after{
   content:''; position:fixed; inset:0; pointer-events:none; z-index:9998;
-  opacity:0.025; mix-blend-mode:overlay;
+  opacity:.022; mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ===== CURSOR PERSONALIZADO ===== */
-.cursor-dot, .cursor-ring {
-  position:fixed; top:0; left:0; border-radius:50%; pointer-events:none;
-  z-index:10000; transform:translate(-50%,-50%); will-change:transform;
-}
-.cursor-dot { width:6px; height:6px; background:var(--gold-bright); }
-.cursor-ring {
-  width:38px; height:38px; border:1px solid rgba(201,169,110,0.5);
-  transition:width .35s var(--ease), height .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease);
-}
-.cursor-ring.hover { width:64px; height:64px; background:rgba(201,169,110,0.08); border-color:rgba(201,169,110,0.8); }
-.cursor-ring.hidden, .cursor-dot.hidden { opacity:0; }
-@media(hover:none),(pointer:coarse){ body{cursor:auto;} .cursor-dot,.cursor-ring{display:none;} }
+/* Cursor */
+.cursor-dot,.cursor-ring{ position:fixed; top:0; left:0; border-radius:50%; pointer-events:none; z-index:10000; transform:translate(-50%,-50%); will-change:transform; }
+.cursor-dot{ width:6px; height:6px; background:var(--gold-bright); }
+.cursor-ring{ width:38px; height:38px; border:1px solid rgba(201,169,110,.5); transition:width .35s var(--ease),height .35s var(--ease),background .35s var(--ease); }
+.cursor-ring.hover{ width:60px; height:60px; background:rgba(201,169,110,.08); }
+@media (hover:hover) and (pointer:fine){ body{ cursor:none; } a,button,input,select,.product-card,[role="button"]{ cursor:none; } }
+@media (hover:none),(pointer:coarse){ .cursor-dot,.cursor-ring{ display:none !important; } }
+@media (prefers-reduced-motion:reduce){ *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }
 
-/* ===== LOADER ===== */
-#loader {
-  position:fixed; inset:0; z-index:11000; background:var(--obsidian);
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2rem;
-  transition:opacity 1s var(--ease), visibility 1s;
-}
-#loader.done { opacity:0; visibility:hidden; }
-.loader-logo { font-family:'Playfair Display',serif; font-size:1.6rem; letter-spacing:.4em; color:var(--gold); opacity:0; animation:fadeUp 1s var(--ease) .2s forwards; }
-.loader-bar { width:180px; height:1px; background:rgba(201,169,110,0.15); overflow:hidden; position:relative; }
-.loader-bar span { position:absolute; inset:0; background:var(--gold); transform-origin:left; transform:scaleX(0); }
-.loader-pct { font-size:.6rem; letter-spacing:.3em; color:rgba(232,228,222,0.35); }
-@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+/* Loader */
+#loader{ position:fixed; inset:0; z-index:11000; background:var(--obsidian); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.6rem; transition:opacity .8s var(--ease),visibility .8s; }
+#loader.done{ opacity:0; visibility:hidden; }
+.loader-logo{ font-family:'Playfair Display',serif; font-size:1.5rem; letter-spacing:.4em; color:var(--gold); }
+.loader-bar{ width:170px; height:1px; background:rgba(201,169,110,.15); overflow:hidden; position:relative; }
+.loader-bar span{ position:absolute; inset:0; background:var(--gold); transform-origin:left; transform:scaleX(0); animation:load 1.3s var(--ease) forwards; }
+@keyframes load{ to{ transform:scaleX(1); } }
 
-/* ===== UTILIDADES ===== */
-.glass { background:rgba(21,21,21,0.55); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(201,169,110,0.1); }
-.glass-strong { background:rgba(10,10,10,0.82); backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px); border:1px solid rgba(201,169,110,0.15); }
-.text-gradient { background:linear-gradient(135deg,#c9a96e 0%,#f5f0eb 50%,#c9a96e 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-.glow-line { height:1px; background:linear-gradient(90deg,transparent,rgba(201,169,110,0.6),transparent); }
+/* Utilidades */
+.glass{ background:rgba(21,21,21,.55); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(201,169,110,.1); }
+.glass-strong{ background:rgba(10,10,10,.82); backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px); border:1px solid rgba(201,169,110,.15); }
+.text-gradient{ background:linear-gradient(135deg,#c9a96e,#f5f0eb 50%,#c9a96e); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.glow-line{ height:1px; background:linear-gradient(90deg,transparent,rgba(201,169,110,.6),transparent); }
+@keyframes shimmer{ 0%{ background-position:200% 0; } 100%{ background-position:-200% 0; } }
+@keyframes pulse-slow{ 0%,100%{ opacity:.22; transform:scale(1); } 50%{ opacity:.45; transform:scale(1.12); } }
+@keyframes float{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-16px); } }
 
-@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-@keyframes pulse-slow { 0%,100%{opacity:.25;transform:scale(1)} 50%{opacity:.5;transform:scale(1.15)} }
+.reveal{ opacity:0; transform:translateY(34px); transition:opacity .9s var(--ease),transform .9s var(--ease); }
+.reveal.in{ opacity:1; transform:none; }
 
-/* ===== NAV ===== */
-nav { position:fixed; top:0; left:0; width:100%; z-index:200; padding:1.6rem 2.5rem; transition:padding .6s var(--ease), background .6s var(--ease), border-color .6s var(--ease); border-bottom:1px solid transparent; }
-nav.scrolled { padding:1rem 2.5rem; background:rgba(10,10,10,0.7); backdrop-filter:blur(30px); -webkit-backdrop-filter:blur(30px); border-bottom-color:rgba(201,169,110,0.08); }
-.nav-inner { max-width:1300px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
-.logo { font-family:'Playfair Display',serif; font-size:1.35rem; letter-spacing:.18em; text-decoration:none; }
-.nav-links { display:flex; gap:2.5rem; list-style:none; }
-.nav-links a { font-size:.68rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(232,228,222,0.5); text-decoration:none; position:relative; transition:color .4s; }
-.nav-links a::after { content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px; background:var(--gold); transition:width .4s var(--ease); }
-.nav-links a:hover { color:var(--gold); }
-.nav-links a:hover::after { width:100%; }
-.menu-btn { display:none; flex-direction:column; gap:6px; background:none; border:none; padding:8px; }
-.menu-btn span { width:26px; height:1px; background:var(--platinum); transition:.35s var(--ease); display:block; }
+/* NAV */
+nav{ position:fixed; top:0; left:0; width:100%; z-index:200; padding:1.4rem clamp(1rem,4vw,2.5rem); transition:padding .5s var(--ease),background .5s var(--ease),border-color .5s var(--ease); border-bottom:1px solid transparent; }
+nav.scrolled{ padding:.85rem clamp(1rem,4vw,2.5rem); background:rgba(10,10,10,.75); backdrop-filter:blur(30px); -webkit-backdrop-filter:blur(30px); border-bottom-color:rgba(201,169,110,.08); }
+.nav-inner{ max-width:var(--maxw); margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.logo{ font-family:'Playfair Display',serif; font-size:1.3rem; letter-spacing:.18em; text-decoration:none; white-space:nowrap; }
+.nav-links{ display:flex; gap:2.2rem; list-style:none; align-items:center; }
+.nav-links a{ font-size:.68rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(232,228,222,.55); text-decoration:none; position:relative; transition:color .4s; }
+.nav-links a::after{ content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px; background:var(--gold); transition:width .4s var(--ease); }
+.nav-links a:hover,.nav-links a:focus-visible{ color:var(--gold); }
+.nav-links a:hover::after{ width:100%; }
+.nav-actions{ display:flex; align-items:center; gap:.6rem; }
+.icon-btn{ position:relative; background:none; border:none; color:rgba(232,228,222,.6); display:flex; align-items:center; justify-content:center; padding:8px; transition:color .3s; }
+.icon-btn:hover,.icon-btn:focus-visible{ color:var(--gold); }
+.icon-badge{ position:absolute; top:0; right:0; min-width:16px; height:16px; padding:0 4px; border-radius:10px; background:var(--gold); color:#1a1208; font-size:.55rem; font-weight:600; display:flex; align-items:center; justify-content:center; }
+.icon-badge[data-count="0"]{ display:none; }
+.menu-btn{ display:none; flex-direction:column; gap:6px; background:none; border:none; padding:8px; }
+.menu-btn span{ width:26px; height:1px; background:var(--platinum); transition:.35s var(--ease); display:block; }
 .menu-btn.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
 .menu-btn.open span:nth-child(2){ opacity:0; }
 .menu-btn.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
-.mobile-menu { display:none; position:fixed; inset:0; z-index:190; flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; }
-.mobile-menu.open { display:flex; }
-.mobile-menu a { font-family:'Playfair Display',serif; font-size:1.8rem; color:rgba(232,228,222,0.8); text-decoration:none; }
+.mobile-menu{ display:none; position:fixed; inset:0; z-index:190; flex-direction:column; align-items:center; justify-content:center; gap:2.2rem; }
+.mobile-menu.open{ display:flex; }
+.mobile-menu a{ font-family:'Playfair Display',serif; font-size:1.7rem; color:rgba(232,228,222,.85); text-decoration:none; }
 
-/* ===== HERO ===== */
-.hero { position:relative; height:100vh; min-height:640px; overflow:hidden; }
-#heroCanvas { position:absolute; inset:0; width:100%; height:100%; z-index:1; }
-.hero-orb { position:absolute; border-radius:50%; filter:blur(120px); animation:pulse-slow 9s ease-in-out infinite; z-index:0; }
-.hero-orb-1 { width:600px; height:600px; top:-10%; left:5%; background:rgba(201,169,110,0.06); }
-.hero-orb-2 { width:480px; height:480px; bottom:-5%; right:0; background:rgba(120,90,200,0.04); animation-delay:4s; }
-.hero-vignette { position:absolute; inset:0; z-index:2; pointer-events:none; background:radial-gradient(ellipse at center,transparent 35%,rgba(10,10,10,0.55) 100%); }
-.hero-content { position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem; pointer-events:none; }
-.hero-eyebrow { font-size:.65rem; letter-spacing:.5em; text-transform:uppercase; color:rgba(201,169,110,0.6); margin-bottom:2rem; overflow:hidden; }
-.hero h1 { font-family:'Playfair Display',serif; font-weight:400; line-height:.95; margin-bottom:1.5rem; }
-.hero h1 .line { display:block; overflow:hidden; }
-.hero h1 .l1 { font-size:clamp(3rem,11vw,8rem); }
-.hero h1 .l2 { font-size:clamp(1.4rem,4.5vw,3rem); font-style:italic; font-weight:300; color:rgba(232,228,222,0.85); }
-.hero h1 .word { display:inline-block; }
-.hero-desc { font-size:clamp(.9rem,2vw,1.1rem); font-weight:200; color:rgba(232,228,222,0.4); max-width:480px; line-height:1.8; margin-bottom:2.8rem; }
-.hero-cta { pointer-events:auto; display:inline-flex; align-items:center; gap:.8rem; padding:1.1rem 2.6rem; border-radius:100px; font-size:.68rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); text-decoration:none; border:1px solid rgba(201,169,110,0.25); transition:background .5s var(--ease), transform .4s var(--ease); }
-.hero-cta:hover { background:rgba(201,169,110,0.1); }
-.hero-scroll { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); z-index:3; display:flex; flex-direction:column; align-items:center; gap:.8rem; }
-.hero-scroll span { font-size:.55rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(232,228,222,0.3); }
-.scroll-line { width:1px; height:50px; background:linear-gradient(180deg,rgba(201,169,110,0.6),transparent); position:relative; overflow:hidden; }
-.scroll-line::after { content:''; position:absolute; top:0; left:0; width:100%; height:40%; background:var(--gold); animation:scrollDown 2.2s var(--ease) infinite; }
-@keyframes scrollDown { 0%{transform:translateY(-100%)} 100%{transform:translateY(250%)} }
-.webgl-fallback { position:absolute; inset:0; z-index:1; display:none; align-items:center; justify-content:center; }
-.webgl-fallback .bottle-css { width:120px; height:200px; border-radius:14px; background:linear-gradient(160deg,rgba(201,169,110,0.3),rgba(201,169,110,0.08),rgba(10,10,10,0.85)); border:1px solid rgba(255,255,255,0.1); box-shadow:0 40px 100px rgba(201,169,110,0.2); animation:float 6s ease-in-out infinite; }
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+/* HERO */
+.hero{ position:relative; min-height:100svh; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:6rem 1.2rem 4rem; }
+#heroCanvas{ position:absolute; inset:0; width:100%; height:100%; z-index:1; }
+.hero-orb{ position:absolute; border-radius:50%; filter:blur(120px); animation:pulse-slow 9s ease-in-out infinite; z-index:0; }
+.hero-orb-1{ width:min(600px,70vw); aspect-ratio:1; top:-8%; left:2%; background:rgba(201,169,110,.07); }
+.hero-orb-2{ width:min(480px,60vw); aspect-ratio:1; bottom:-6%; right:-4%; background:rgba(120,90,200,.05); animation-delay:4s; }
+.hero-vignette{ position:absolute; inset:0; z-index:2; pointer-events:none; background:radial-gradient(ellipse at center,transparent 38%,rgba(10,10,10,.6) 100%); }
+.hero-content{ position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; text-align:center; max-width:760px; pointer-events:none; }
+.hero-content .hero-actions, .hero-content a{ pointer-events:auto; }
+.hero-eyebrow{ font-size:.65rem; letter-spacing:.5em; text-transform:uppercase; color:rgba(201,169,110,.65); margin-bottom:1.8rem; }
+.hero h1{ font-family:'Playfair Display',serif; font-weight:400; line-height:.98; margin-bottom:1.4rem; }
+.hero h1 .l1{ display:block; font-size:clamp(2.8rem,11vw,8rem); }
+.hero h1 .l2{ display:block; font-size:clamp(1.3rem,4.5vw,3rem); font-style:italic; font-weight:300; color:rgba(232,228,222,.85); }
+.hero-desc{ font-size:clamp(.92rem,2vw,1.1rem); font-weight:200; color:rgba(232,228,222,.45); max-width:480px; line-height:1.8; margin-bottom:2.6rem; }
+.hero-actions{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+.btn-primary,.btn-ghost{ display:inline-flex; align-items:center; gap:.7rem; padding:1.05rem 2.4rem; border-radius:100px; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; text-decoration:none; border:1px solid; transition:background .5s var(--ease),transform .35s var(--ease),color .4s; }
+.btn-primary{ background:var(--gold); color:#1a1208; border-color:var(--gold); }
+.btn-primary:hover{ background:var(--gold-bright); transform:translateY(-2px); }
+.btn-ghost{ color:var(--gold); border-color:rgba(201,169,110,.3); background:none; }
+.btn-ghost:hover{ background:rgba(201,169,110,.1); transform:translateY(-2px); }
+.hero-scroll{ position:absolute; bottom:1.8rem; left:50%; transform:translateX(-50%); z-index:3; display:flex; flex-direction:column; align-items:center; gap:.7rem; }
+.hero-scroll span{ font-size:.55rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(232,228,222,.3); }
+.scroll-line{ width:1px; height:46px; background:linear-gradient(180deg,rgba(201,169,110,.6),transparent); position:relative; overflow:hidden; }
+.scroll-line::after{ content:''; position:absolute; top:0; left:0; width:100%; height:40%; background:var(--gold); animation:scrollDown 2.2s var(--ease) infinite; }
+@keyframes scrollDown{ 0%{ transform:translateY(-100%); } 100%{ transform:translateY(250%); } }
 
-/* ===== SCROLL STORY ===== */
-.story { position:relative; padding:6rem 2rem; }
-.story-scene { max-width:820px; margin:0 auto; min-height:90vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
-.story-num { font-size:.6rem; letter-spacing:.5em; color:rgba(201,169,110,0.4); margin-bottom:1.5rem; }
-.story-scene h2 { font-family:'Playfair Display',serif; font-size:clamp(2rem,6vw,4rem); color:rgba(232,228,222,0.92); line-height:1.1; margin-bottom:1.8rem; }
-.story-scene p { font-size:clamp(1rem,2vw,1.2rem); font-weight:200; color:rgba(232,228,222,0.45); line-height:1.9; max-width:580px; margin-bottom:1.5rem; }
-.story-scene .accent { font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.5rem); color:rgba(201,169,110,0.8); }
-.story-word { display:inline-block; }
+/* Métricas de confianza */
+.trust{ max-width:var(--maxw); margin:0 auto; padding:0 clamp(1rem,4vw,2rem); }
+.trust-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(201,169,110,.1); border:1px solid rgba(201,169,110,.1); border-radius:1.2rem; overflow:hidden; }
+.trust-item{ background:var(--obsidian); padding:2rem 1rem; text-align:center; }
+.trust-item .num{ font-family:'Playfair Display',serif; font-size:clamp(1.6rem,4vw,2.4rem); color:var(--gold); }
+.trust-item .lbl{ font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(232,228,222,.4); margin-top:.4rem; }
 
-/* ===== CATÁLOGO ===== */
-.catalog { padding:7rem 2rem; max-width:1340px; margin:0 auto; }
-.section-header { text-align:center; margin-bottom:4rem; }
-.section-label { font-size:.65rem; letter-spacing:.45em; text-transform:uppercase; color:rgba(201,169,110,0.5); margin-bottom:1.2rem; }
-.section-title { font-family:'Playfair Display',serif; font-size:clamp(2.4rem,6vw,4.5rem); margin-bottom:1.2rem; }
-.section-desc { font-size:1rem; font-weight:200; color:rgba(232,228,222,0.35); max-width:460px; margin:0 auto; line-height:1.8; }
-.tabs { display:flex; justify-content:center; gap:.5rem; margin-bottom:3.5rem; }
-.tab-btn { padding:.85rem 2.2rem; border-radius:100px; border:1px solid transparent; background:none; font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,228,222,0.4); transition:.4s var(--ease); font-family:'Inter',sans-serif; }
-.tab-btn:hover { color:rgba(232,228,222,0.75); }
-.tab-btn.active { background:rgba(201,169,110,0.12); color:var(--gold); border-color:rgba(201,169,110,0.25); }
-.product-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:1.6rem; }
-.product-card { border-radius:1.4rem; padding:1.6rem; position:relative; overflow:hidden; transition:transform .6s var(--ease), border-color .6s var(--ease), box-shadow .6s var(--ease); will-change:transform; }
-.product-card::after { content:''; position:absolute; inset:0; background:linear-gradient(110deg,transparent 25%,rgba(201,169,110,0.05) 37%,transparent 63%); background-size:200% 100%; animation:shimmer 5s ease-in-out infinite; pointer-events:none; }
-.product-card:hover { border-color:rgba(201,169,110,0.3); transform:translateY(-6px); box-shadow:0 30px 70px rgba(0,0,0,0.5); }
-.card-visual { height:220px; display:flex; align-items:center; justify-content:center; position:relative; margin-bottom:1.5rem; border-radius:1rem; overflow:hidden; }
-.card-visual img { max-height:195px; object-fit:contain; position:relative; z-index:1; transition:transform .8s var(--ease); filter:drop-shadow(0 14px 36px rgba(0,0,0,0.55)); }
-.product-card:hover .card-visual img { transform:scale(1.1) translateY(-6px); }
-.card-glow { position:absolute; width:160px; height:160px; border-radius:50%; opacity:.18; filter:blur(40px); transition:opacity .6s; }
-.product-card:hover .card-glow { opacity:.4; }
-.img-fallback { width:90px; height:150px; border-radius:10px; background:linear-gradient(150deg,rgba(201,169,110,0.22),rgba(10,10,10,0.85)); border:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:.6rem; gap:.3rem; }
-.img-fallback .fb-brand { font-size:.5rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(201,169,110,0.6); }
-.img-fallback .fb-name { font-family:'Playfair Display',serif; font-size:.7rem; color:rgba(232,228,222,0.55); line-height:1.2; }
-.card-brand { font-size:.6rem; letter-spacing:.32em; text-transform:uppercase; color:rgba(201,169,110,0.45); margin-bottom:.4rem; }
-.card-name { font-family:'Playfair Display',serif; font-size:1.15rem; color:rgba(232,228,222,0.88); margin-bottom:.4rem; transition:color .4s; }
-.product-card:hover .card-name { color:var(--gold); }
-.card-type { font-size:.72rem; font-weight:300; color:rgba(232,228,222,0.28); }
-.card-discover { margin-top:1.1rem; display:flex; align-items:center; gap:.5rem; font-size:.58rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(201,169,110,0.5); opacity:0; transform:translateY(8px); transition:.5s var(--ease); }
-.product-card:hover .card-discover { opacity:1; transform:translateY(0); }
+/* SECCIONES */
+section{ scroll-margin-top:90px; }
+.section-header{ text-align:center; margin-bottom:3rem; }
+.section-label{ font-size:.65rem; letter-spacing:.45em; text-transform:uppercase; color:rgba(201,169,110,.55); margin-bottom:1rem; }
+.section-title{ font-family:'Playfair Display',serif; font-size:clamp(2.2rem,6vw,4.2rem); margin-bottom:1rem; line-height:1.05; }
+.section-desc{ font-size:1rem; font-weight:200; color:rgba(232,228,222,.4); max-width:480px; margin:0 auto; line-height:1.8; }
 
-/* ===== MODAL ===== */
-.modal-overlay { position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity .45s var(--ease); }
-.modal-overlay.open { opacity:1; pointer-events:auto; }
-.modal-bg { position:absolute; inset:0; background:rgba(8,8,8,0.9); backdrop-filter:blur(30px); -webkit-backdrop-filter:blur(30px); }
-.modal-content { position:relative; max-width:840px; width:100%; max-height:90vh; overflow-y:auto; border-radius:1.6rem; padding:3.2rem; transform:translateY(40px) scale(0.96); transition:transform .55s var(--ease); }
-.modal-overlay.open .modal-content { transform:translateY(0) scale(1); }
-.modal-close { position:absolute; top:1.4rem; right:1.4rem; width:42px; height:42px; border-radius:50%; border:1px solid rgba(232,228,222,0.12); background:none; color:rgba(232,228,222,0.55); font-size:1.1rem; display:flex; align-items:center; justify-content:center; transition:.3s; }
-.modal-close:hover { border-color:rgba(201,169,110,0.4); color:var(--gold); transform:rotate(90deg); }
-.modal-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:3rem; align-items:center; }
-.modal-bottle-wrap { display:flex; align-items:center; justify-content:center; position:relative; min-height:300px; }
-.modal-bottle-wrap img { max-height:300px; object-fit:contain; animation:float 6s ease-in-out infinite; filter:drop-shadow(0 24px 60px rgba(0,0,0,0.65)); position:relative; z-index:1; }
-.modal-bottle-glow { position:absolute; width:240px; height:240px; border-radius:50%; filter:blur(70px); opacity:.28; }
-.modal-brand { font-size:.65rem; letter-spacing:.4em; text-transform:uppercase; color:rgba(201,169,110,0.55); margin-bottom:.6rem; }
-.modal-name { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.4rem); color:var(--platinum); margin-bottom:.3rem; line-height:1.1; }
-.modal-type { font-size:.82rem; color:rgba(232,228,222,0.35); margin-bottom:1.8rem; }
-.modal-emotion { font-family:'Playfair Display',serif; font-style:italic; font-size:1.1rem; color:rgba(232,228,222,0.68); line-height:1.7; margin-bottom:2.2rem; }
-.modal-notes-title { font-size:.58rem; letter-spacing:.4em; text-transform:uppercase; color:rgba(201,169,110,0.45); margin-bottom:1rem; }
-.note-row { display:flex; align-items:center; gap:1rem; padding:.55rem 0; }
-.note-label { font-size:.58rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,228,222,0.28); width:56px; flex-shrink:0; }
-.note-line { flex:1; height:1px; background:linear-gradient(90deg,rgba(201,169,110,0.25),transparent); }
-.note-value { font-size:.84rem; color:rgba(232,228,222,0.58); text-align:right; }
-.modal-cta { display:inline-flex; align-items:center; gap:.7rem; margin-top:2.2rem; padding:1rem 2.2rem; border-radius:100px; font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); text-decoration:none; border:1px solid rgba(201,169,110,0.25); transition:background .4s var(--ease); }
-.modal-cta:hover { background:rgba(201,169,110,0.12); }
+/* STORY */
+.story{ position:relative; padding:7rem clamp(1rem,4vw,2rem); }
+.story-scene{ max-width:760px; margin:0 auto; min-height:70vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+.story-num{ font-size:.6rem; letter-spacing:.5em; color:rgba(201,169,110,.4); margin-bottom:1.4rem; }
+.story-scene h2{ font-family:'Playfair Display',serif; font-size:clamp(1.9rem,6vw,3.6rem); color:rgba(232,228,222,.92); line-height:1.1; margin-bottom:1.6rem; }
+.story-scene p{ font-size:clamp(1rem,2vw,1.2rem); font-weight:200; color:rgba(232,228,222,.45); line-height:1.9; max-width:560px; margin-bottom:1.2rem; }
+.story-scene .accent{ font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.5rem); color:rgba(201,169,110,.8); }
 
-/* ===== PRICING ===== */
-.pricing { padding:7rem 2rem; max-width:1040px; margin:0 auto; }
-.pricing-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:3rem; }
-.price-card { border-radius:1.6rem; padding:2.6rem; position:relative; }
-.price-card h3 { font-family:'Playfair Display',serif; font-size:1.6rem; color:rgba(232,228,222,0.92); margin-bottom:.3rem; }
-.price-card .card-sub { font-size:.85rem; color:rgba(232,228,222,0.35); margin-bottom:2rem; }
-.price-row { display:flex; justify-content:space-between; align-items:center; padding:.85rem 0; border-bottom:1px solid rgba(232,228,222,0.05); }
-.price-row:last-child { border-bottom:none; }
-.price-qty { color:rgba(232,228,222,0.55); font-size:.9rem; }
-.price-value { font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--gold); text-align:right; }
-.price-unit { display:block; font-family:'Inter',sans-serif; font-size:.58rem; color:rgba(232,228,222,0.25); }
-.best-badge { position:absolute; top:1.2rem; right:1.2rem; padding:.35rem .9rem; border-radius:100px; background:rgba(201,169,110,0.12); border:1px solid rgba(201,169,110,0.25); font-size:.52rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
-.pricing-note { text-align:center; font-size:.8rem; color:rgba(232,228,222,0.28); margin-top:2.2rem; }
+/* CATÁLOGO */
+.catalog{ padding:6rem clamp(1rem,4vw,2rem); max-width:var(--maxw); margin:0 auto; }
+.toolbar{ display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:center; margin-bottom:1.6rem; }
+.search-box{ position:relative; flex:1 1 280px; max-width:420px; }
+.search-box input{ width:100%; padding:.95rem 1rem .95rem 2.8rem; border-radius:100px; background:rgba(21,21,21,.6); border:1px solid rgba(201,169,110,.15); color:var(--platinum); font-family:inherit; font-size:.85rem; transition:border-color .3s; }
+.search-box input::placeholder{ color:rgba(232,228,222,.3); }
+.search-box input:focus{ border-color:rgba(201,169,110,.5); outline:none; }
+.search-box svg{ position:absolute; left:1rem; top:50%; transform:translateY(-50%); color:rgba(201,169,110,.5); }
+.sort-select{ padding:.95rem 2.6rem .95rem 1.2rem; border-radius:100px; background:rgba(21,21,21,.6) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23c9a96e' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 1rem center; border:1px solid rgba(201,169,110,.15); color:rgba(232,228,222,.7); font-family:inherit; font-size:.78rem; appearance:none; -webkit-appearance:none; }
+.filters{ display:flex; flex-direction:column; gap:1rem; margin-bottom:2rem; }
+.filter-group{ display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; align-items:center; }
+.filter-label{ font-size:.58rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(232,228,222,.3); width:100%; text-align:center; margin-bottom:.1rem; }
+.chip{ padding:.55rem 1.3rem; border-radius:100px; border:1px solid rgba(201,169,110,.18); background:none; font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,228,222,.5); transition:.35s var(--ease); }
+.chip:hover{ color:rgba(232,228,222,.85); border-color:rgba(201,169,110,.4); }
+.chip[aria-pressed="true"]{ background:rgba(201,169,110,.14); color:var(--gold); border-color:rgba(201,169,110,.5); }
+.results-count{ text-align:center; font-size:.72rem; letter-spacing:.1em; color:rgba(232,228,222,.3); margin-bottom:2rem; }
 
-/* ===== CONTACT ===== */
-.contact { padding:7rem 2rem; max-width:840px; margin:0 auto; }
-.contact-card { border-radius:1.6rem; padding:3.2rem; }
-.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; }
-.contact-card h3 { font-family:'Playfair Display',serif; font-size:1.25rem; color:rgba(232,228,222,0.9); margin-bottom:1.6rem; }
-.contact-link { display:flex; align-items:center; gap:.7rem; color:rgba(232,228,222,0.55); text-decoration:none; font-size:.9rem; margin-bottom:1.1rem; transition:color .3s; }
-.contact-link:hover { color:var(--gold); }
-.contact-link svg { color:rgba(201,169,110,0.55); flex-shrink:0; }
-.payment-info p { font-size:.85rem; color:rgba(232,228,222,0.45); margin-bottom:.55rem; }
-.payment-info .bank-name { color:rgba(201,169,110,0.65); }
-.shipping-note { font-size:.74rem; color:rgba(232,228,222,0.25); line-height:1.65; margin-top:1.6rem; }
-.contact-cta { display:flex; justify-content:center; margin-top:2.6rem; }
-.contact-cta a { display:inline-flex; align-items:center; gap:.8rem; padding:1.1rem 2.6rem; border-radius:100px; background:rgba(201,169,110,0.1); border:1px solid rgba(201,169,110,0.28); color:var(--gold); text-decoration:none; font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; transition:background .4s var(--ease); }
-.contact-cta a:hover { background:rgba(201,169,110,0.2); }
+.product-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr)); gap:1.4rem; }
+.product-card{ border-radius:1.4rem; padding:1.4rem; position:relative; overflow:hidden; transition:transform .55s var(--ease),border-color .55s var(--ease),box-shadow .55s var(--ease); will-change:transform; }
+.product-card::after{ content:''; position:absolute; inset:0; background:linear-gradient(110deg,transparent 25%,rgba(201,169,110,.05) 37%,transparent 63%); background-size:200% 100%; animation:shimmer 6s ease-in-out infinite; pointer-events:none; }
+.product-card:hover{ border-color:rgba(201,169,110,.3); transform:translateY(-6px); box-shadow:0 30px 70px rgba(0,0,0,.5); }
+.card-visual{ aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; position:relative; margin-bottom:1.2rem; border-radius:1rem; overflow:hidden; background:radial-gradient(circle at 50% 38%,rgba(255,255,255,.04),transparent 70%); }
+.card-visual img{ max-height:84%; object-fit:contain; position:relative; z-index:1; transition:transform .8s var(--ease); filter:drop-shadow(0 14px 36px rgba(0,0,0,.55)); }
+.product-card:hover .card-visual img{ transform:scale(1.08) translateY(-6px); }
+.card-glow{ position:absolute; width:60%; aspect-ratio:1; border-radius:50%; opacity:.2; filter:blur(40px); transition:opacity .6s; top:30%; }
+.product-card:hover .card-glow{ opacity:.42; }
+.card-fav{ position:absolute; top:1.1rem; right:1.1rem; z-index:3; width:38px; height:38px; border-radius:50%; border:1px solid rgba(232,228,222,.12); background:rgba(10,10,10,.5); backdrop-filter:blur(8px); color:rgba(232,228,222,.6); display:flex; align-items:center; justify-content:center; transition:.3s; }
+.card-fav:hover{ border-color:rgba(201,169,110,.5); color:var(--gold); }
+.card-fav.active{ color:#e0648a; border-color:rgba(224,100,138,.5); }
+.card-fav.active svg{ fill:currentColor; }
 
-footer { text-align:center; padding:5rem 2rem 3rem; }
-footer .logo-text { font-family:'Playfair Display',serif; font-size:1.6rem; margin-bottom:.6rem; }
-footer .tagline { font-size:.62rem; letter-spacing:.32em; text-transform:uppercase; color:rgba(232,228,222,0.15); }
+/* Frasco CSS */
+.bottle{ position:relative; width:42%; max-width:120px; aspect-ratio:.62/1; z-index:1; transition:transform .8s var(--ease); }
+.product-card:hover .bottle{ transform:scale(1.07) translateY(-6px); }
+.bottle .cap{ position:absolute; top:0; left:50%; transform:translateX(-50%); width:34%; height:16%; border-radius:4px 4px 2px 2px; background:linear-gradient(180deg,#2a2620,#0c0c0c); border:1px solid rgba(201,169,110,.3); }
+.bottle .body{ position:absolute; bottom:0; left:0; width:100%; height:84%; border-radius:10px 10px 14px 14px; background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(201,169,110,.1) 40%,rgba(10,10,10,.4)); border:1px solid rgba(255,255,255,.12); box-shadow:inset 0 2px 12px rgba(255,255,255,.12),inset 0 -10px 30px rgba(0,0,0,.4); overflow:hidden; }
+.bottle .body::before{ content:''; position:absolute; top:8%; left:12%; width:18%; height:60%; border-radius:50%; background:linear-gradient(180deg,rgba(255,255,255,.4),transparent); filter:blur(2px); }
+.bottle .liquid{ position:absolute; bottom:0; left:0; width:100%; height:55%; opacity:.5; }
+.bottle .label{ position:absolute; bottom:18%; left:50%; transform:translateX(-50%); width:64%; text-align:center; font-family:'Playfair Display',serif; font-size:.5rem; letter-spacing:.1em; color:rgba(245,240,235,.7); }
 
-.magnetic { display:inline-block; will-change:transform; }
+.card-brand{ font-size:.58rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(201,169,110,.5); margin-bottom:.35rem; }
+.card-name{ font-family:'Playfair Display',serif; font-size:1.1rem; color:rgba(232,228,222,.9); margin-bottom:.3rem; transition:color .4s; }
+.product-card:hover .card-name{ color:var(--gold); }
+.card-meta{ font-size:.68rem; font-weight:300; color:rgba(232,228,222,.3); margin-bottom:.8rem; }
+.card-foot{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-top:.6rem; }
+.card-price{ font-family:'Playfair Display',serif; font-size:1rem; color:var(--gold); }
+.card-price small{ font-family:'Inter',sans-serif; font-size:.55rem; color:rgba(232,228,222,.3); display:block; letter-spacing:.1em; }
+.card-actions{ display:flex; gap:.4rem; }
+.mini-btn{ width:34px; height:34px; border-radius:9px; border:1px solid rgba(201,169,110,.18); background:none; color:rgba(232,228,222,.55); display:flex; align-items:center; justify-content:center; transition:.3s; }
+.mini-btn:hover{ border-color:rgba(201,169,110,.5); color:var(--gold); }
+.mini-btn.active{ background:rgba(201,169,110,.15); color:var(--gold); border-color:rgba(201,169,110,.5); }
+.rating{ display:flex; align-items:center; gap:.3rem; font-size:.66rem; color:rgba(232,228,222,.4); margin-bottom:.6rem; }
+.rating .stars{ color:var(--gold); letter-spacing:.05em; }
+.no-results{ grid-column:1/-1; text-align:center; padding:4rem 1rem; color:rgba(232,228,222,.35); font-weight:200; }
 
-/* ===== RESPONSIVE ===== */
-@media(max-width:900px){ .modal-grid{grid-template-columns:1fr; text-align:center;} .modal-bottle-wrap{min-height:240px;} .note-value{text-align:left;} .note-row{justify-content:center;} }
-@media(max-width:768px){
-  nav{padding:1.2rem 1.4rem;}
-  .nav-links{display:none;}
-  .menu-btn{display:flex;}
-  .product-grid{grid-template-columns:1fr 1fr; gap:1rem;}
-  .pricing-grid{grid-template-columns:1fr;}
-  .contact-grid{grid-template-columns:1fr; gap:2rem;}
-  .modal-content{padding:2rem;}
-  .catalog,.pricing,.contact{padding:5rem 1.2rem;}
-}
-@media(max-width:480px){
-  .product-grid{grid-template-columns:1fr;}
-  .card-visual{height:240px;}
-}
-@media(prefers-reduced-motion:reduce){
-  *{animation-duration:.01ms !important; transition-duration:.01ms !important;}
+/* Vistos recientemente */
+.recent{ max-width:var(--maxw); margin:0 auto; padding:0 clamp(1rem,4vw,2rem) 5rem; }
+.recent[hidden]{ display:none; }
+.recent-row{ display:flex; gap:1rem; overflow-x:auto; padding-bottom:1rem; scroll-snap-type:x mandatory; }
+.recent-row::-webkit-scrollbar{ height:6px; }
+.recent-card{ flex:0 0 160px; scroll-snap-align:start; border-radius:1rem; padding:1rem; text-align:center; }
+.recent-card .mini-visual{ aspect-ratio:1; display:flex; align-items:center; justify-content:center; margin-bottom:.6rem; }
+.recent-card .mini-name{ font-family:'Playfair Display',serif; font-size:.8rem; color:rgba(232,228,222,.8); }
+.recent-card .mini-brand{ font-size:.52rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(201,169,110,.5); }
+
+/* MODAL */
+.modal-overlay{ position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center; padding:1rem; opacity:0; pointer-events:none; transition:opacity .45s var(--ease); }
+.modal-overlay.open{ opacity:1; pointer-events:auto; }
+.modal-bg{ position:absolute; inset:0; background:rgba(8,8,8,.9); backdrop-filter:blur(30px); -webkit-backdrop-filter:blur(30px); }
+.modal-content{ position:relative; max-width:920px; width:100%; max-height:92vh; overflow-y:auto; border-radius:1.6rem; padding:clamp(1.6rem,4vw,3rem); transform:translateY(40px) scale(.96); transition:transform .55s var(--ease); }
+.modal-overlay.open .modal-content{ transform:none; }
+.modal-close{ position:absolute; top:1.2rem; right:1.2rem; z-index:5; width:42px; height:42px; border-radius:50%; border:1px solid rgba(232,228,222,.12); background:rgba(10,10,10,.5); color:rgba(232,228,222,.55); font-size:1.1rem; display:flex; align-items:center; justify-content:center; transition:.3s; }
+.modal-close:hover{ border-color:rgba(201,169,110,.4); color:var(--gold); transform:rotate(90deg); }
+.modal-grid{ display:grid; grid-template-columns:1fr 1.15fr; gap:2.4rem; align-items:start; }
+.modal-visual{ position:sticky; top:0; display:flex; flex-direction:column; align-items:center; gap:1rem; }
+.modal-stage{ position:relative; width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:1.2rem; overflow:hidden; background:radial-gradient(circle at 50% 40%,rgba(255,255,255,.05),transparent 70%); }
+.modal-stage .bottle{ width:46%; }
+.modal-stage img{ max-height:80%; object-fit:contain; cursor:zoom-in; transition:transform .4s var(--ease); filter:drop-shadow(0 24px 60px rgba(0,0,0,.65)); }
+.modal-stage img.zoomed{ transform:scale(2); cursor:zoom-out; }
+.modal-glow{ position:absolute; width:55%; aspect-ratio:1; border-radius:50%; filter:blur(60px); opacity:.3; }
+.modal-brand{ font-size:.65rem; letter-spacing:.4em; text-transform:uppercase; color:rgba(201,169,110,.55); margin-bottom:.5rem; }
+.modal-name{ font-family:'Playfair Display',serif; font-size:clamp(1.7rem,4vw,2.3rem); color:var(--platinum); margin-bottom:.3rem; line-height:1.1; }
+.modal-tags{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.8rem 0 1.4rem; }
+.tag{ font-size:.58rem; letter-spacing:.15em; text-transform:uppercase; padding:.35rem .8rem; border-radius:100px; background:rgba(201,169,110,.1); border:1px solid rgba(201,169,110,.2); color:rgba(232,228,222,.6); }
+.modal-story{ font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; color:rgba(232,228,222,.68); line-height:1.7; margin-bottom:1.8rem; }
+.specs{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.8rem; }
+.spec{ padding:.9rem 1rem; border-radius:.9rem; background:rgba(255,255,255,.02); border:1px solid rgba(201,169,110,.08); }
+.spec .s-lbl{ font-size:.54rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,228,222,.3); margin-bottom:.45rem; }
+.spec .s-bar{ height:5px; border-radius:5px; background:rgba(255,255,255,.06); overflow:hidden; }
+.spec .s-bar span{ display:block; height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-bright)); border-radius:5px; }
+.spec .s-val{ font-size:.78rem; color:rgba(232,228,222,.7); margin-top:.4rem; }
+.modal-notes-title{ font-size:.58rem; letter-spacing:.4em; text-transform:uppercase; color:rgba(201,169,110,.45); margin-bottom:1rem; }
+.note-row{ display:flex; align-items:center; gap:1rem; padding:.5rem 0; }
+.note-label{ font-size:.56rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,228,222,.28); width:70px; flex-shrink:0; }
+.note-line{ flex:1; height:1px; background:linear-gradient(90deg,rgba(201,169,110,.25),transparent); }
+.note-value{ font-size:.82rem; color:rgba(232,228,222,.58); text-align:right; max-width:60%; }
+.price-table{ margin:1.8rem 0; }
+.price-table .price-row{ display:flex; justify-content:space-between; align-items:center; padding:.7rem 0; border-bottom:1px solid rgba(232,228,222,.05); }
+.price-table .price-row:last-child{ border-bottom:none; }
+.price-table .qty{ font-size:.84rem; color:rgba(232,228,222,.55); }
+.price-table .val{ font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--gold); }
+.modal-actions{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.6rem; }
+.modal-actions a,.modal-actions button{ flex:1 1 auto; min-width:130px; justify-content:center; }
+.btn-sm{ display:inline-flex; align-items:center; gap:.5rem; padding:.9rem 1.4rem; border-radius:100px; font-size:.64rem; letter-spacing:.18em; text-transform:uppercase; border:1px solid rgba(201,169,110,.25); background:none; color:var(--gold); text-decoration:none; transition:background .4s; }
+.btn-sm:hover{ background:rgba(201,169,110,.12); }
+.similar{ margin-top:2.4rem; }
+.similar h4{ font-size:.6rem; letter-spacing:.35em; text-transform:uppercase; color:rgba(201,169,110,.5); margin-bottom:1rem; }
+.similar-row{ display:flex; gap:.8rem; flex-wrap:wrap; }
+.similar-chip{ display:flex; align-items:center; gap:.6rem; padding:.6rem .9rem; border-radius:.9rem; background:rgba(255,255,255,.02); border:1px solid rgba(201,169,110,.1); transition:.3s; }
+.similar-chip:hover{ border-color:rgba(201,169,110,.4); }
+.similar-chip .sc-dot{ width:26px; height:26px; border-radius:6px; flex-shrink:0; }
+.similar-chip .sc-name{ font-family:'Playfair Display',serif; font-size:.78rem; color:rgba(232,228,222,.75); }
+.similar-chip .sc-brand{ font-size:.5rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(201,169,110,.5); }
+
+/* COMPARADOR */
+.compare-tray{ position:fixed; bottom:0; left:0; width:100%; z-index:250; transform:translateY(110%); transition:transform .5s var(--ease); padding:1rem clamp(1rem,4vw,2rem); }
+.compare-tray.open{ transform:none; }
+.compare-inner{ max-width:var(--maxw); margin:0 auto; display:flex; align-items:center; gap:1rem; flex-wrap:wrap; justify-content:center; }
+.compare-slots{ display:flex; gap:.7rem; flex-wrap:wrap; }
+.compare-slot{ position:relative; width:54px; height:54px; border-radius:.7rem; border:1px solid rgba(201,169,110,.2); display:flex; align-items:center; justify-content:center; }
+.compare-slot.empty{ border-style:dashed; opacity:.4; }
+.compare-slot .cs-rm{ position:absolute; top:-7px; right:-7px; width:20px; height:20px; border-radius:50%; background:var(--gold); color:#1a1208; font-size:.7rem; border:none; display:flex; align-items:center; justify-content:center; }
+.compare-table{ width:100%; border-collapse:collapse; }
+.compare-table th,.compare-table td{ padding:.9rem; text-align:left; border-bottom:1px solid rgba(232,228,222,.06); font-size:.82rem; }
+.compare-table th{ font-family:'Playfair Display',serif; color:var(--gold); font-weight:500; }
+.compare-table td:first-child{ font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(232,228,222,.4); }
+
+/* PRICING + CONTACT */
+.pricing{ padding:6rem clamp(1rem,4vw,2rem); max-width:1040px; margin:0 auto; }
+.pricing-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.6rem; margin-top:2.6rem; }
+.price-card{ border-radius:1.6rem; padding:2.4rem; position:relative; }
+.price-card h3{ font-family:'Playfair Display',serif; font-size:1.5rem; color:rgba(232,228,222,.92); margin-bottom:.3rem; }
+.price-card .card-sub{ font-size:.84rem; color:rgba(232,228,222,.35); margin-bottom:1.8rem; }
+.price-card .row{ display:flex; justify-content:space-between; padding:.8rem 0; border-bottom:1px solid rgba(232,228,222,.05); }
+.price-card .row:last-child{ border-bottom:none; }
+.price-card .q{ color:rgba(232,228,222,.55); font-size:.9rem; }
+.price-card .v{ font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--gold); }
+.best-badge{ position:absolute; top:1.1rem; right:1.1rem; padding:.35rem .9rem; border-radius:100px; background:rgba(201,169,110,.12); border:1px solid rgba(201,169,110,.25); font-size:.52rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+
+.contact{ padding:6rem clamp(1rem,4vw,2rem); max-width:840px; margin:0 auto; }
+.contact-card{ border-radius:1.6rem; padding:clamp(1.8rem,4vw,3rem); }
+.contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:2.4rem; }
+.contact-card h3{ font-family:'Playfair Display',serif; font-size:1.2rem; color:rgba(232,228,222,.9); margin-bottom:1.4rem; }
+.contact-link{ display:flex; align-items:center; gap:.7rem; color:rgba(232,228,222,.55); text-decoration:none; font-size:.9rem; margin-bottom:1rem; transition:color .3s; }
+.contact-link:hover{ color:var(--gold); }
+.contact-link svg{ color:rgba(201,169,110,.55); flex-shrink:0; }
+.payment-info p{ font-size:.85rem; color:rgba(232,228,222,.45); margin-bottom:.5rem; }
+.payment-info .bank-name{ color:rgba(201,169,110,.65); }
+.shipping-note{ font-size:.74rem; color:rgba(232,228,222,.25); line-height:1.65; margin-top:1.4rem; }
+
+/* FOOTER */
+footer{ padding:4rem clamp(1rem,4vw,2rem) 2.5rem; border-top:1px solid rgba(201,169,110,.08); margin-top:2rem; }
+.footer-inner{ max-width:var(--maxw); margin:0 auto; display:flex; flex-wrap:wrap; gap:2rem; justify-content:space-between; align-items:center; }
+.footer-logo{ font-family:'Playfair Display',serif; font-size:1.4rem; letter-spacing:.2em; color:var(--gold); }
+.footer-links{ display:flex; gap:1.6rem; flex-wrap:wrap; list-style:none; }
+.footer-links a{ font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(232,228,222,.4); text-decoration:none; transition:color .3s; }
+.footer-links a:hover{ color:var(--gold); }
+.footer-copy{ text-align:center; font-size:.68rem; color:rgba(232,228,222,.25); margin-top:2.5rem; letter-spacing:.1em; }
+
+/* Toast */
+.toast{ position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%) translateY(140%); z-index:400; padding:.9rem 1.6rem; border-radius:100px; font-size:.78rem; letter-spacing:.05em; transition:transform .45s var(--ease); }
+.toast.show{ transform:translateX(-50%); }
+
+/* RESPONSIVE */
+@media (max-width:900px){ .modal-grid{ grid-template-columns:1fr; } .modal-visual{ position:relative; } .trust-grid{ grid-template-columns:1fr 1fr; } .contact-grid,.pricing-grid{ grid-template-columns:1fr; } }
+@media (max-width:760px){
+  .nav-links{ display:none; }
+  .menu-btn{ display:flex; }
+  .specs{ grid-template-columns:1fr; }
 }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#catalogo">Saltar al catálogo</a>
 
-<!-- Cursor -->
-<div class="cursor-ring" id="cursorRing"></div>
-<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
 
-<!-- Loader -->
-<div id="loader">
-  <div class="loader-logo">TORRES STORE</div>
-  <div class="loader-bar"><span id="loaderBar"></span></div>
-  <div class="loader-pct" id="loaderPct">0%</div>
+<!-- LOADER -->
+<div id="loader" role="status" aria-live="polite">
+  <div class="loader-logo">TORRES</div>
+  <div class="loader-bar"><span></span></div>
+  <span class="sr-only">Cargando experiencia…</span>
 </div>
 
 <!-- NAV -->
-<nav id="navbar">
+<nav id="nav">
   <div class="nav-inner">
-    <a href="#" class="logo text-gradient" data-cursor>TORRES STORE</a>
+    <a href="#hero" class="logo text-gradient" aria-label="Torres Store, inicio">TORRES</a>
     <ul class="nav-links">
-      <li><a href="#collection" data-cursor>Colección</a></li>
-      <li><a href="#story" data-cursor>Manifiesto</a></li>
-      <li><a href="#pricing" data-cursor>Precios</a></li>
-      <li><a href="#contact" data-cursor>Contacto</a></li>
+      <li><a href="#catalogo">Colección</a></li>
+      <li><a href="#manifiesto">Manifiesto</a></li>
+      <li><a href="#precios">Decants</a></li>
+      <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <button class="menu-btn" id="menuBtn" aria-label="Menú" data-cursor><span></span><span></span><span></span></button>
+    <div class="nav-actions">
+      <button class="icon-btn" id="navWishlist" aria-label="Ver favoritos">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+        <span class="icon-badge" id="wishBadge" data-count="0">0</span>
+      </button>
+      <button class="icon-btn" id="navCompare" aria-label="Ver comparador">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+        <span class="icon-badge" id="compBadge" data-count="0">0</span>
+      </button>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </nav>
+
 <div class="mobile-menu glass-strong" id="mobileMenu">
-  <a href="#collection">Colección</a>
-  <a href="#story">Manifiesto</a>
-  <a href="#pricing">Precios</a>
-  <a href="#contact">Contacto</a>
+  <a href="#catalogo">Colección</a>
+  <a href="#manifiesto">Manifiesto</a>
+  <a href="#precios">Decants</a>
+  <a href="#contacto">Contacto</a>
 </div>
 
 <!-- HERO -->
-<section class="hero" id="top">
-  <div class="hero-orb hero-orb-1"></div>
-  <div class="hero-orb hero-orb-2"></div>
-  <canvas id="heroCanvas"></canvas>
-  <div class="webgl-fallback" id="webglFallback"><div class="bottle-css"></div></div>
-  <div class="hero-vignette"></div>
+<header class="hero" id="hero">
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="hero-vignette" aria-hidden="true"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow" id="heroEyebrow">Perfumería de Lujo — Chile</div>
+    <p class="hero-eyebrow">Perfumería de autor · Chile</p>
     <h1>
-      <span class="line l1"><span class="word text-gradient">Torres Store</span></span>
-      <span class="line l2"><span class="word">La Esencia del Lujo</span></span>
+      <span class="l1 text-gradient">Torres</span>
+      <span class="l2">la esencia del lujo</span>
     </h1>
-    <p class="hero-desc" id="heroDesc">Donde la fragancia se convierte en emoción, y cada nota cuenta una historia escrita sobre la piel.</p>
-    <a href="#collection" class="hero-cta magnetic" data-cursor id="heroCta">Explorar Colección →</a>
+    <p class="hero-desc">Una colección curada de las fragancias más codiciadas del mundo. Cristal, luz y materia, destilados en una experiencia digital irrepetible.</p>
+    <div class="hero-actions">
+      <a href="#catalogo" class="btn-primary">Explorar colección</a>
+      <a href="#manifiesto" class="btn-ghost">Nuestra filosofía</a>
+    </div>
   </div>
-  <div class="hero-scroll">
-    <span>Desliza</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
+  <div class="hero-scroll" aria-hidden="true"><span>Descubre</span><div class="scroll-line"></div></div>
+</header>
 
-<!-- STORY -->
-<section class="story" id="story">
-  <div class="story-scene">
-    <p class="story-num">01 — Filosofía</p>
-    <h2 data-split>Creado para los Audaces</h2>
-    <p>Cada fragancia en nuestra colección es elegida no por su popularidad, sino por su poder de transformar un momento en un recuerdo imborrable.</p>
-    <p class="accent">No vendemos perfume. Curamos confianza.</p>
+<!-- TRUST -->
+<div class="trust">
+  <div class="trust-grid reveal">
+    <div class="trust-item"><div class="num">100%</div><div class="lbl">Originales</div></div>
+    <div class="trust-item"><div class="num">+9</div><div class="lbl">Casas de lujo</div></div>
+    <div class="trust-item"><div class="num">24h</div><div class="lbl">Despacho</div></div>
+    <div class="trust-item"><div class="num">4.9★</div><div class="lbl">Valoración</div></div>
   </div>
-  <div class="story-scene">
-    <p class="story-num">02 — Composición</p>
-    <h2 data-split>Notas que Hablan</h2>
-    <p>Notas de salida que despiertan curiosidad. Notas de corazón que capturan la atención. Notas de fondo que permanecen en la memoria mucho después de tu partida.</p>
-    <p class="accent">Tres capas. Una impresión inolvidable.</p>
-  </div>
-  <div class="story-scene">
-    <p class="story-num">03 — El Estándar</p>
-    <h2 data-split>El Estándar Torres</h2>
-    <p>De Dior a Tom Ford, de Chanel a Creed — solo fragancias dignas de obsesión entran a nuestra selección.</p>
-    <p class="accent">Premium. Auténtico. Sin compromisos.</p>
+</div>
+
+<!-- MANIFIESTO -->
+<section class="story" id="manifiesto">
+  <div class="story-scene reveal">
+    <p class="story-num">01 — MANIFIESTO</p>
+    <h2>Un perfume no se usa.<br>Se recuerda.</h2>
+    <p>Creemos que una fragancia es la firma invisible de quien la lleva. Por eso no vendemos frascos: ofrecemos la oportunidad de elegir cómo quieres ser recordado.</p>
+    <p class="accent">“El lujo es el detalle que nadie ve, pero todos sienten.”</p>
   </div>
 </section>
 
 <!-- CATÁLOGO -->
-<section class="catalog" id="collection">
+<section class="catalog" id="catalogo">
   <div class="section-header reveal">
     <p class="section-label">La Colección</p>
-    <h2 class="section-title text-gradient">Excelencia Curada</h2>
-    <p class="section-desc">Cada botella contiene un universo. Elige la que habla tu idioma.</p>
+    <h2 class="section-title">Fragancias <span class="text-gradient">curadas</span></h2>
+    <p class="section-desc">Cada pieza ha sido seleccionada por su carácter, longevidad y capacidad de dejar huella.</p>
   </div>
-  <div class="tabs reveal">
-    <button class="tab-btn active" data-tab="men" data-cursor>Caballero</button>
-    <button class="tab-btn" data-tab="women" data-cursor>Dama</button>
+
+  <div class="toolbar reveal">
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="searchInput" placeholder="Buscar por nombre, marca o nota…" aria-label="Buscar fragancia">
+    </div>
+    <select class="sort-select" id="sortSelect" aria-label="Ordenar resultados">
+      <option value="featured">Destacados</option>
+      <option value="price-asc">Precio: menor a mayor</option>
+      <option value="price-desc">Precio: mayor a menor</option>
+      <option value="rating">Mejor valorados</option>
+      <option value="name">Nombre A–Z</option>
+    </select>
   </div>
+
+  <div class="filters reveal">
+    <div class="filter-group" id="filterBrand" role="group" aria-label="Filtrar por marca"><span class="filter-label">Marca</span></div>
+    <div class="filter-group" id="filterFamily" role="group" aria-label="Filtrar por familia olfativa"><span class="filter-label">Familia olfativa</span></div>
+    <div class="filter-group" id="filterGender" role="group" aria-label="Filtrar por género"><span class="filter-label">Género</span></div>
+  </div>
+
+  <p class="results-count" id="resultsCount" aria-live="polite"></p>
   <div class="product-grid" id="productGrid"></div>
 </section>
 
-<!-- PRICING -->
-<section class="pricing" id="pricing">
-  <div class="section-header reveal">
-    <p class="section-label">Inversión</p>
-    <h2 class="section-title text-gradient">Tu Acceso</h2>
-    <p class="section-desc">Lujo a cualquier escala. Desde tu firma personal hasta construir un imperio.</p>
-  </div>
-  <div class="pricing-grid">
-    <div class="price-card glass reveal">
-      <h3>Personal</h3>
-      <p class="card-sub">Para el conocedor</p>
-      <div class="price-row"><span class="price-qty">1 perfume</span><span class="price-value">$20.000</span></div>
-      <div class="price-row"><span class="price-qty">2 perfumes</span><span class="price-value">$35.000</span></div>
-      <div class="price-row"><span class="price-qty">3 perfumes</span><span class="price-value">$50.000</span></div>
-    </div>
-    <div class="price-card glass reveal" style="border-color:rgba(201,169,110,0.22)">
-      <span class="best-badge">Mejor Valor</span>
-      <h3>Emprendedor</h3>
-      <p class="card-sub">Construye tu negocio de fragancias</p>
-      <div class="price-row"><span class="price-qty">5 perfumes</span><span class="price-value">$75.000<span class="price-unit">$15.000 c/u</span></span></div>
-      <div class="price-row"><span class="price-qty">10 perfumes</span><span class="price-value">$140.000<span class="price-unit">$14.000 c/u</span></span></div>
-      <div class="price-row"><span class="price-qty">15 perfumes</span><span class="price-value">$200.000<span class="price-unit">$13.333 c/u</span></span></div>
-      <div class="price-row"><span class="price-qty">20 perfumes</span><span class="price-value">$260.000<span class="price-unit">$13.000 c/u</span></span></div>
-      <div class="price-row"><span class="price-qty">30 perfumes</span><span class="price-value">$375.000<span class="price-unit">$12.500 c/u</span></span></div>
-    </div>
-  </div>
-  <p class="pricing-note reveal">Personaliza tu pedido: selecciona libremente los perfumes en el modelo y la cantidad de tu elección.</p>
+<!-- VISTOS RECIENTEMENTE -->
+<section class="recent" id="recentSection" hidden aria-label="Vistos recientemente">
+  <div class="section-header"><p class="section-label">Vistos recientemente</p></div>
+  <div class="recent-row" id="recentRow"></div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact" id="contact">
+<!-- STORY 2 -->
+<section class="story" id="origen">
+  <div class="story-scene reveal">
+    <p class="story-num">02 — ARTESANÍA</p>
+    <h2>De los campos de Grasse<br>a tu piel.</h2>
+    <p>Trabajamos solo con casas que dominan la maceración, la destilación y el tiempo. Materias primas nobles que evolucionan contigo durante horas.</p>
+    <p class="accent">Salida, corazón y fondo: tres actos de una misma historia.</p>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section class="pricing" id="precios">
   <div class="section-header reveal">
-    <p class="section-label">Comienza</p>
-    <h2 class="section-title text-gradient">Hazlo Tuyo</h2>
+    <p class="section-label">Formatos</p>
+    <h2 class="section-title">Decants & <span class="text-gradient">Frasco completo</span></h2>
+    <p class="section-desc">Prueba antes de comprometerte. Precios referenciales en pesos chilenos (CLP).</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="price-card glass">
+      <h3>Decants</h3>
+      <p class="card-sub">La mejor forma de descubrir</p>
+      <div class="row"><span class="q">3 ml</span><span class="v">$6.900</span></div>
+      <div class="row"><span class="q">5 ml</span><span class="v">$9.900</span></div>
+      <div class="row"><span class="q">10 ml</span><span class="v">$17.900</span></div>
+    </div>
+    <div class="price-card glass-strong">
+      <span class="best-badge">Mejor valor</span>
+      <h3>Frasco completo</h3>
+      <p class="card-sub">Sellado, original y garantizado</p>
+      <div class="row"><span class="q">50 ml</span><span class="v">Desde $79.900</span></div>
+      <div class="row"><span class="q">100 ml</span><span class="v">Desde $119.900</span></div>
+      <div class="row"><span class="q">Set regalo</span><span class="v">Consultar</span></div>
+    </div>
+  </div>
+  <p class="results-count" style="margin-top:2rem">Los precios finales se confirman por WhatsApp según stock y formato.</p>
+</section>
+
+<!-- CONTACTO -->
+<section class="contact" id="contacto">
+  <div class="section-header reveal">
+    <p class="section-label">Hablemos</p>
+    <h2 class="section-title">Atención <span class="text-gradient">personalizada</span></h2>
   </div>
   <div class="contact-card glass reveal">
     <div class="contact-grid">
       <div>
-        <h3>Contáctanos</h3>
-        <a href="https://wa.me/56987395445" target="_blank" rel="noopener" class="contact-link" data-cursor>
-          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 00-8 8 7.9 7.9 0 001.1 4.1L0 16l4-1.1A7.9 7.9 0 008 16a8 8 0 000-16zm4.3 11.3c-.2.5-1 .9-1.4 1s-.9.1-1.5-.1a12 12 0 01-2.1-1.1 9.3 9.3 0 01-3-3c-.5-.7-.6-1.5-.1-2.1.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .5.4s.6 1.5.7 1.6.1.2 0 .4-.2.3-.3.4-.3.3-.1.6.7 1.2 1.5 1.9c.5.4 1 .6 1.1.7.2.1.3.1.4-.1l.7-1c.1-.2.3-.2.5-.1l1.5.7c.2.1.4.2.4.3s0 .6-.2 1z"/></svg>
-          +56 9 8739 5445
+        <h3>Contacto directo</h3>
+        <a class="contact-link" href="https://wa.me/56900000000" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.5l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3 1 2.6 1.1 2.8.1.2 1.9 3 4.7 4.1 1.7.7 2.3.8 3.1.7.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.5z"/></svg>
+          +56 9 0000 0000
         </a>
-        <a href="https://instagram.com/Torresoficial_store" target="_blank" rel="noopener" class="contact-link" data-cursor>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
-          @Torresoficial_store
+        <a class="contact-link" href="https://instagram.com" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          @torres.store
         </a>
-        <p class="shipping-note">Entregas presenciales y envíos a todo Chile en 1 a 3 días hábiles a través de Starken y Bluexpress.</p>
+        <a class="contact-link" href="mailto:hola@torres.store">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          hola@torres.store
+        </a>
       </div>
       <div class="payment-info">
-        <h3>Métodos de Pago</h3>
-        <p>Alvaro Francisco Torres Bustamante</p>
-        <p>RUT: 18.880.763-1</p>
-        <p>Cuenta Corriente 0 000 88 47532 1</p>
-        <p class="bank-name">Banco Santander</p>
+        <h3>Pago & envío</h3>
+        <p><span class="bank-name">Transferencia</span> bancaria, débito y crédito.</p>
+        <p>Despacho a todo Chile por Starken / Chilexpress.</p>
+        <p>Retiro coordinado en Región Metropolitana.</p>
+        <p class="shipping-note">Envíos en 24–48 h hábiles tras confirmar el pago. Embalaje protegido y discreto. Cambios sujetos a disponibilidad de stock; productos sellados con garantía de originalidad.</p>
       </div>
-    </div>
-    <div class="contact-cta">
-      <a href="https://wa.me/56987395445?text=Hola,%20me%20interesa%20un%20perfume%20del%20cat%C3%A1logo%20de%20Torres%20Store" target="_blank" rel="noopener" class="magnetic" data-cursor>Pedir por WhatsApp →</a>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <div class="glow-line" style="width:60px;margin:0 auto 2rem"></div>
-  <p class="logo-text text-gradient">TORRES STORE</p>
-  <p class="tagline">La Esencia del Lujo — Chile</p>
+  <div class="footer-inner">
+    <div class="footer-logo">TORRES</div>
+    <ul class="footer-links">
+      <li><a href="#catalogo">Colección</a></li>
+      <li><a href="#precios">Decants</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="https://wa.me/56900000000" target="_blank" rel="noopener">WhatsApp</a></li>
+    </ul>
+  </div>
+  <p class="footer-copy">© <span id="year"></span> Torres Store · Perfumería de lujo en Chile. Todas las marcas pertenecen a sus respectivos propietarios.</p>
 </footer>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modal">
-  <div class="modal-bg" id="modalBg"></div>
-  <div class="modal-content glass-strong">
-    <button class="modal-close" id="modalClose" aria-label="Cerrar" data-cursor>✕</button>
-    <div class="modal-grid">
-      <div class="modal-bottle-wrap">
-        <div class="modal-bottle-glow" id="modalGlow"></div>
-        <img id="modalImg" src="" alt="Perfume">
-      </div>
-      <div>
-        <p class="modal-brand" id="modalBrand"></p>
-        <h2 class="modal-name" id="modalName"></h2>
-        <p class="modal-type" id="modalType"></p>
-        <p class="modal-emotion" id="modalEmotion"></p>
-        <p class="modal-notes-title">Viaje Olfativo</p>
-        <div id="modalNotes"></div>
-        <a href="https://wa.me/56987395445" target="_blank" rel="noopener" class="modal-cta" data-cursor id="modalCta">Pedir Ahora →</a>
-      </div>
-    </div>
+<!-- MODAL PRODUCTO -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-content glass-strong" id="modalContent">
+    <button class="modal-close" data-close aria-label="Cerrar">✕</button>
+    <div id="modalBody"></div>
   </div>
 </div>
 
-<!-- ===== DATOS ===== -->
+<!-- COMPARADOR (overlay reutiliza modal style) -->
+<div class="modal-overlay" id="compareModal" role="dialog" aria-modal="true" aria-label="Comparador de fragancias">
+  <div class="modal-bg" data-close-compare></div>
+  <div class="modal-content glass-strong">
+    <button class="modal-close" data-close-compare aria-label="Cerrar comparador">✕</button>
+    <div class="section-header" style="margin-bottom:1.5rem"><p class="section-label">Comparador</p><h2 class="section-title" style="font-size:clamp(1.6rem,4vw,2.4rem)">Lado a lado</h2></div>
+    <div style="overflow-x:auto"><table class="compare-table" id="compareTable"></table></div>
+  </div>
+</div>
+
+<!-- BANDEJA COMPARAR -->
+<div class="compare-tray glass-strong" id="compareTray">
+  <div class="compare-inner">
+    <span style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(232,228,222,.4)">Comparar</span>
+    <div class="compare-slots" id="compareSlots"></div>
+    <button class="btn-sm" id="openCompare">Ver comparativa</button>
+    <button class="btn-sm" id="clearCompare" style="border-color:rgba(232,228,222,.15);color:rgba(232,228,222,.5)">Limpiar</button>
+  </div>
+</div>
+
+<!-- WISHLIST DRAWER (reusa modal) -->
+<div class="modal-overlay" id="wishModal" role="dialog" aria-modal="true" aria-label="Tus favoritos">
+  <div class="modal-bg" data-close-wish></div>
+  <div class="modal-content glass-strong">
+    <button class="modal-close" data-close-wish aria-label="Cerrar favoritos">✕</button>
+    <div class="section-header" style="margin-bottom:1.5rem"><p class="section-label">Wishlist</p><h2 class="section-title" style="font-size:clamp(1.6rem,4vw,2.4rem)">Tus favoritos</h2></div>
+    <div class="product-grid" id="wishGrid"></div>
+  </div>
+</div>
+
+<div class="toast glass-strong" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ============ LÓGICA ============ -->
 <script>
-const perfumesMen = [
-  { id:'sauvage-elixir', name:'Sauvage Elixir', brand:'DIOR', type:'Parfum', size:'100 ml', emotion:'"Magnetismo puro destilado en oro líquido. El aire cambia cuando entras."', notes:{salida:'Pomelo, Canela',corazon:'Lavanda, Nuez Moscada',fondo:'Ámbar, Sándalo'}, color:'#1a3a5c', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw3ae0ce38/Y0996004/Y0996004_C099600455_E01_GHC.jpg?sw=460' },
-  { id:'sauvage-edp', name:'Sauvage', brand:'DIOR', type:'Eau de Parfum', size:'100 ml', emotion:'"Salvaje. Refinado. El desierto al atardecer, infinito e indomable."', notes:{salida:'Bergamota, Pimienta',corazon:'Pimienta Sichuan, Lavanda',fondo:'Ambroxan, Cedro'}, color:'#1a2a3a', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwf6b1f8ec/Y0996006/Y0996006_C099600613_E01_GHC.jpg?sw=460' },
-  { id:'bleu-parfum', name:'Bleu de Chanel', brand:'CHANEL', type:'Parfum', size:'100 ml', emotion:'"El aroma de la confianza silenciosa. Para quienes nunca necesitan alzar la voz."', notes:{salida:'Cítricos, Menta',corazon:'Jazmín, Iso E Super',fondo:'Cedro, Sándalo'}, color:'#0d1b3e', img:'https://www.chanel.com/images/t_one/t_fnbedito//q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/bleu-de-chanel-parfum-spray-3-4fl-oz--packshot-default-107160-8841226027038.jpg' },
-  { id:'aventus', name:'Aventus', brand:'CREED', type:'Eau de Parfum', size:'100 ml', emotion:'"El poder tiene una firma. Esta es. Audaz, sin disculpas, legendaria."', notes:{salida:'Piña, Bergamota',corazon:'Abedul, Rosa',fondo:'Almizcle, Musgo'}, color:'#2d4a2d', img:'https://creedfragrance.com/cdn/shop/files/aventus-100ml-bottle_900x.png?v=1694535571' },
-  { id:'tobacco-vanille', name:'Tobacco Vanille', brand:'TOM FORD', type:'Eau de Parfum', size:'100 ml', emotion:'"Decadencia embotellada. La calidez de un club privado de puros a medianoche."', notes:{salida:'Tabaco, Especias',corazon:'Vainilla, Tonka',fondo:'Frutos Secos, Madera'}, color:'#4a2c17', img:'' },
-  { id:'oud-wood', name:'Oud Wood', brand:'TOM FORD', type:'Eau de Parfum', size:'100 ml', emotion:'"Bosques ancestrales susurran entre velos de humo. Atemporal. Enigmático."', notes:{salida:'Palo de Rosa, Cardamomo',corazon:'Oud, Sándalo',fondo:'Vetiver, Ámbar'}, color:'#3d2b1f', img:'' },
-  { id:'1million-elixir', name:'1 Million Elixir', brand:'PACO RABANNE', type:'Parfum', size:'100 ml', emotion:'"Exceso refinado en elegancia. Oro que gotea con intención."', notes:{salida:'Manzana, Azafrán',corazon:'Rosa, Praliné',fondo:'Ámbar, Cuero'}, color:'#8b6914', img:'https://www.sephora.com/productimages/sku/s2609892-main-zoom.jpg' },
-  { id:'1million-edt', name:'1 Million', brand:'PACO RABANNE', type:'Eau de Toilette', size:'100 ml', emotion:'"El dorado definitivo. Cada pulverización es una declaración de ambición."', notes:{salida:'Pomelo, Menta',corazon:'Rosa, Canela',fondo:'Cuero, Ámbar'}, color:'#7a5a0a', img:'https://www.sephora.com/productimages/sku/s1269847-main-zoom.jpg' },
-  { id:'eros-parfum', name:'Eros', brand:'VERSACE', type:'Eau de Parfum', size:'100 ml', emotion:'"Deseo hecho tangible. Cada nota es una invitación imposible de rechazar."', notes:{salida:'Menta, Manzana',corazon:'Tonka, Geranio',fondo:'Vainilla, Vetiver'}, color:'#1a4a6b', img:'https://www.sephora.com/productimages/sku/s2553082-main-zoom.jpg' },
-  { id:'eros-edt', name:'Eros', brand:'VERSACE', type:'Eau de Toilette', size:'100 ml', emotion:'"El dios griego del amor no pide permiso. Conquista."', notes:{salida:'Menta, Manzana Verde',corazon:'Tonka, Geranio, Ambroxan',fondo:'Vainilla, Vetiver, Cedro'}, color:'#1a4a6b', img:'https://www.sephora.com/productimages/sku/s1647430-main-zoom.jpg' },
-  { id:'invictus-victory', name:'Invictus Victory', brand:'PACO RABANNE', type:'Eau de Parfum Extrême', size:'100 ml', emotion:'"Triunfo cristalizado. El aroma que recuerdan mucho después de tu partida."', notes:{salida:'Laurel, Cardamomo',corazon:'Incienso, Tonka',fondo:'Ámbar Gris, Oud'}, color:'#2a3a4a', img:'https://www.sephora.com/productimages/sku/s2503434-main-zoom.jpg' },
-  { id:'y-le-parfum', name:'Y Le Parfum', brand:'YVES SAINT LAURENT', type:'Parfum', size:'100 ml', emotion:'"La pregunta respondida antes de ser formulada. Certeza absoluta en forma líquida."', notes:{salida:'Manzana, Jengibre',corazon:'Salvia, Enebro',fondo:'Amberwood, Tonka'}, color:'#1a1a3d', img:'https://www.sephora.com/productimages/sku/s2313768-main-zoom.jpg' },
-  { id:'stronger-with-you', name:'Stronger With You', brand:'EMPORIO ARMANI', type:'Parfum', size:'100 ml', emotion:'"Intimidad embotellada. La calidez entre palabras susurradas."', notes:{salida:'Pimienta Rosa, Violeta',corazon:'Toffee, Canela',fondo:'Vainilla, Gamuza'}, color:'#5a2a2a', img:'https://www.sephora.com/productimages/sku/s2487687-main-zoom.jpg' },
-  { id:'born-in-roma-intense', name:'Born in Roma Intense', brand:'VALENTINO', type:'Eau de Parfum Intense', size:'100 ml', emotion:'"Noches romanas destiladas en obsesión. Ciudad eterna, atracción eterna."', notes:{salida:'Té Verde, Jengibre',corazon:'Salvia, Vetiver',fondo:'Vainilla Ahumada, Guaiac'}, color:'#1a2a1a', img:'https://www.sephora.com/productimages/sku/s2563933-main-zoom.jpg' },
-  { id:'acqua-di-gio', name:'Acqua di Giò Profumo', brand:'GIORGIO ARMANI', type:'Parfum', size:'100 ml', emotion:'"El Mediterráneo a la hora dorada. Profundidad bajo la superficie."', notes:{salida:'Bergamota, Notas Marinas',corazon:'Romero, Geranio',fondo:'Pachulí, Ámbar'}, color:'#1a3a4a', img:'https://www.sephora.com/productimages/sku/s1913329-main-zoom.jpg' },
-  { id:'bad-boy-edt', name:'Bad Boy', brand:'CAROLINA HERRERA', type:'Eau de Toilette', size:'100 ml', emotion:'"Las reglas existen para ser reescritas. Audaz, eléctrico, inolvidable."', notes:{salida:'Salvia, Pimienta Negra',corazon:'Cedro, Cacao',fondo:'Tonka, Ámbar'}, color:'#6b5a14', img:'https://www.sephora.com/productimages/sku/s2202326-main-zoom.jpg' },
-  { id:'212-vip-black', name:'212 VIP Black', brand:'CAROLINA HERRERA', type:'Eau de Parfum', size:'100 ml', emotion:'"La lista de invitados no aplica. Nacido para la cuerda de terciopelo."', notes:{salida:'Lavanda, Vainilla Negra',corazon:'Cuero',fondo:'Benzoína, Almizcle'}, color:'#0d0d1a', img:'https://www.sephora.com/productimages/sku/s2090176-main-zoom.jpg' },
-  { id:'scandal-m', name:'Scandal Pour Homme', brand:'JEAN PAUL GAULTIER', type:'Eau de Parfum', size:'100 ml', emotion:'"Hablarán de ti. Asegúrate de que valga la pena."', notes:{salida:'Mandarina, Canela',corazon:'Cacao, Tonka',fondo:'Vetiver, Cuero'}, color:'#3d1a2a', img:'https://www.sephora.com/productimages/sku/s2560806-main-zoom.jpg' },
-  { id:'phantom-edt', name:'Phantom', brand:'PACO RABANNE', type:'Eau de Toilette', size:'100 ml', emotion:'"Tecnología y seducción en una botella de otro mundo."', notes:{salida:'Limón, Lavanda',corazon:'Manzana Ahumada',fondo:'Vainilla, Cashmeran'}, color:'#5a5a6a', img:'https://www.sephora.com/productimages/sku/s2455056-main-zoom.jpg' },
-  { id:'the-one', name:'The One', brand:'DOLCE & GABBANA', type:'Eau de Parfum', size:'100 ml', emotion:'"El elegido. Sofisticación cálida que envuelve como terciopelo."', notes:{salida:'Pomelo, Cilantro',corazon:'Flor de Azahar, Jengibre',fondo:'Ámbar, Cedro'}, color:'#4a3a1a', img:'https://www.sephora.com/productimages/sku/s1154329-main-zoom.jpg' },
-  { id:'allure-sport', name:'Allure Homme Sport', brand:'CHANEL', type:'Eau de Toilette', size:'100 ml', emotion:'"Dinamismo sofisticado. El movimiento convertido en fragancia."', notes:{salida:'Naranja, Aldehídos',corazon:'Néroli, Pimienta',fondo:'Cedro, Tonka'}, color:'#3a4a4a', img:'https://www.chanel.com/images/t_one/t_fnbedito/q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/allure-homme-sport-eau-de-toilette-spray-3-4fl-oz--packshot-default-123630-8841225895966.jpg' },
-  { id:'code-profumo', name:'Code Profumo', brand:'GIORGIO ARMANI', type:'Parfum', size:'110 ml', emotion:'"La versión definitiva del misterio. Más oscuro, más adictivo."', notes:{salida:'Manzana Verde, Bergamota',corazon:'Lavanda, Flor de Naranjo',fondo:'Tonka, Ámbar'}, color:'#1a1a2a', img:'https://www.sephora.com/productimages/sku/s1845786-main-zoom.jpg' },
-  { id:'most-wanted', name:'The Most Wanted', brand:'AZZARO', type:'Eau de Parfum Intense', size:'100 ml', emotion:'"El más buscado. Una intensidad que no se olvida."', notes:{salida:'Cardamomo, Salvia',corazon:'Madera de Teca',fondo:'Vainilla Bourbon, Ámbar'}, color:'#4a2a1a', img:'https://www.sephora.com/productimages/sku/s2515618-main-zoom.jpg' },
-  { id:'man-in-black', name:'Man in Black', brand:'BVLGARI', type:'Eau de Parfum', size:'100 ml', emotion:'"Oscuridad sofisticada. El caballero que domina desde las sombras."', notes:{salida:'Ron, Tabaco',corazon:'Cuero, Tuberosa',fondo:'Ámbar, Guaiac'}, color:'#1a1a1a', img:'https://www.sephora.com/productimages/sku/s1779829-main-zoom.jpg' },
+/* ---------- DATOS DEL CATÁLOGO ---------- */
+const PRODUCTS = [
+  { id:"sauvage", brand:"Dior", name:"Sauvage", type:"Eau de Parfum", gender:"Hombre", family:"Aromática Especiada",
+    glow:"#5b7fb0", liquid:"#3e6aa0", image:"",
+    intensity:4, longevity:4, projection:5, season:"Otoño · Invierno", occasion:"Día & Noche",
+    rating:4.8, prices:{ "3 ml":6900, "5 ml":9900, "10 ml":17900, "100 ml":119900 }, sortPrice:9900,
+    story:"Una frescura radiante y bruta inspirada en los espacios abiertos. Bergamota cruda sobre un fondo ambarado magnético.",
+    notes:{ salida:"Bergamota de Calabria, Pimienta", corazon:"Lavanda, Pimienta de Sichuan, Geranio", fondo:"Ambroxan, Cedro, Labdanum" } },
+
+  { id:"bleu", brand:"Chanel", name:"Bleu de Chanel", type:"Eau de Parfum", gender:"Hombre", family:"Amaderada Aromática",
+    glow:"#3a5d8f", liquid:"#27497a", image:"",
+    intensity:4, longevity:4, projection:4, season:"Todo el año", occasion:"Oficina & Noche",
+    rating:4.7, prices:{ "3 ml":7900, "5 ml":11900, "10 ml":21900, "100 ml":134900 }, sortPrice:11900,
+    story:"Libertad embotellada. Cítricos vibrantes que se asientan en un sándalo cremoso y un cedro noble.",
+    notes:{ salida:"Pomelo, Limón, Menta", corazon:"Jengibre, Nuez moscada, Jazmín", fondo:"Incienso, Sándalo, Cedro" } },
+
+  { id:"oudwood", brand:"Tom Ford", name:"Oud Wood", type:"Eau de Parfum", gender:"Unisex", family:"Amaderada Oriental",
+    glow:"#7a5230", liquid:"#5a3a1e", image:"",
+    intensity:3, longevity:4, projection:3, season:"Otoño · Invierno", occasion:"Noche & Eventos",
+    rating:4.8, prices:{ "3 ml":12900, "5 ml":18900, "10 ml":34900, "50 ml":219900 }, sortPrice:18900,
+    story:"Oud raro y exótico domesticado con especias y maderas. Sofisticación absoluta en estado puro.",
+    notes:{ salida:"Oud, Palisandro, Cardamomo", corazon:"Sándalo, Palo de rosa, Pimienta", fondo:"Haba tonka, Vainilla, Ámbar" } },
+
+  { id:"aventus", brand:"Creed", name:"Aventus", type:"Eau de Parfum", gender:"Hombre", family:"Frutal Chipre",
+    glow:"#8a6a3a", liquid:"#6e5028", image:"",
+    intensity:4, longevity:5, projection:4, season:"Primavera · Verano", occasion:"Éxito & Negocios",
+    rating:4.9, prices:{ "3 ml":15900, "5 ml":24900, "10 ml":44900, "100 ml":289900 }, sortPrice:24900,
+    story:"Una oda a la fuerza y la visión. Piña jugosa, abedul ahumado y un musgo de roble inolvidable.",
+    notes:{ salida:"Piña, Bergamota, Manzana, Grosella", corazon:"Abedul, Pachulí, Rosa, Jazmín", fondo:"Almizcle, Musgo de roble, Vainilla" } },
+
+  { id:"br540", brand:"Maison F. Kurkdjian", name:"Baccarat Rouge 540", type:"Eau de Parfum", gender:"Unisex", family:"Ámbar Floral",
+    glow:"#b03a4a", liquid:"#8a2a38", image:"",
+    intensity:5, longevity:5, projection:5, season:"Otoño · Invierno", occasion:"Statement & Noche",
+    rating:4.9, prices:{ "3 ml":18900, "5 ml":29900, "10 ml":54900, "70 ml":379900 }, sortPrice:29900,
+    story:"Una luminosidad mineral y ambarada que se vuelve adictiva. El perfume que todos reconocen y nadie olvida.",
+    notes:{ salida:"Azafrán, Jazmín", corazon:"Ámbar gris, Madera de cedro", fondo:"Resina de abeto, Almizcle" } },
+
+  { id:"coco", brand:"Chanel", name:"Coco Mademoiselle", type:"Eau de Parfum", gender:"Mujer", family:"Oriental Floral",
+    glow:"#c06a7a", liquid:"#a04a5a", image:"",
+    intensity:4, longevity:4, projection:4, season:"Todo el año", occasion:"Día & Cita",
+    rating:4.8, prices:{ "3 ml":8900, "5 ml":13900, "10 ml":24900, "100 ml":139900 }, sortPrice:13900,
+    story:"Carácter y feminidad audaz. Naranja chispeante sobre un pachulí elegante y sensual.",
+    notes:{ salida:"Naranja, Bergamota, Mandarina", corazon:"Rosa, Jazmín, Litchi", fondo:"Pachulí, Vetiver, Vainilla, Almizcle" } },
+
+  { id:"jadore", brand:"Dior", name:"J'adore", type:"Eau de Parfum", gender:"Mujer", family:"Floral",
+    glow:"#c9a14e", liquid:"#b08838", image:"",
+    intensity:3, longevity:4, projection:4, season:"Primavera · Verano", occasion:"Elegancia diaria",
+    rating:4.7, prices:{ "3 ml":8900, "5 ml":13900, "10 ml":24900, "100 ml":144900 }, sortPrice:13900,
+    story:"Un ramo solar y opulento. Ylang-ylang, rosa de Damasco y jazmín en perfecta armonía dorada.",
+    notes:{ salida:"Pera, Melón, Magnolia, Bergamota", corazon:"Rosa, Jazmín, Ylang-ylang, Ciruela", fondo:"Almizcle, Vainilla, Madera de Blackberry" } },
+
+  { id:"santal33", brand:"Le Labo", name:"Santal 33", type:"Eau de Parfum", gender:"Unisex", family:"Amaderada Aromática",
+    glow:"#9a7a4a", liquid:"#7a5e34", image:"",
+    intensity:4, longevity:4, projection:4, season:"Todo el año", occasion:"Urbano & Casual chic",
+    rating:4.6, prices:{ "5 ml":22900, "10 ml":42900, "50 ml":259900 }, sortPrice:22900,
+    story:"El aroma cult de Nueva York. Sándalo cremoso, cuero y cardamomo con un aura andrógina e inconfundible.",
+    notes:{ salida:"Cardamomo, Iris, Violeta", corazon:"Ambrox, Sándalo de Australia", fondo:"Cuero, Cedro, Almizcle" } },
+
+  { id:"tobaccovanille", brand:"Tom Ford", name:"Tobacco Vanille", type:"Eau de Parfum", gender:"Unisex", family:"Oriental Especiada",
+    glow:"#8a5a2a", liquid:"#6a401c", image:"",
+    intensity:5, longevity:5, projection:4, season:"Invierno", occasion:"Noche fría & Lujo",
+    rating:4.8, prices:{ "3 ml":13900, "5 ml":20900, "10 ml":38900, "50 ml":229900 }, sortPrice:20900,
+    story:"Un club de caballeros embotellado. Hoja de tabaco y vainilla especiada, cálido, denso y aristocrático.",
+    notes:{ salida:"Hoja de tabaco, Especias", corazon:"Flor de tabaco, Vainilla, Cacao", fondo:"Frutos secos, Haba tonka, Madera" } }
 ];
 
-const perfumesWomen = [
-  { id:'good-girl', name:'Good Girl', brand:'CAROLINA HERRERA', type:'Eau de Parfum', size:'80 ml', emotion:'"Dualidad hecha divina. El tacón stiletto esconde un jardín de jazmín."', notes:{salida:'Almendra, Café',corazon:'Tuberosa, Jazmín',fondo:'Tonka, Cacao'}, color:'#1a0d2a', img:'https://www.sephora.com/productimages/sku/s1925141-main-zoom.jpg' },
-  { id:'good-girl-supreme', name:'Good Girl Suprême', brand:'CAROLINA HERRERA', type:'Eau de Parfum', size:'80 ml', emotion:'"La versión suprema. Más frutal, más golosa, más irresistible."', notes:{salida:'Frutos Rojos',corazon:'Tuberosa, Jazmín',fondo:'Tonka, Vainilla'}, color:'#2a0d3a', img:'https://www.sephora.com/productimages/sku/s2283862-main-zoom.jpg' },
-  { id:'libre-intense', name:'Libre Intense', brand:'YVES SAINT LAURENT', type:'Eau de Parfum Intense', size:'90 ml', emotion:'"Libertad destilada. Azahar floreciendo contra cuero de medianoche."', notes:{salida:'Mandarina, Lavanda',corazon:'Azahar',fondo:'Vainilla, Oud'}, color:'#2a1a3d', img:'https://www.sephora.com/productimages/sku/s2433095-main-zoom.jpg' },
-  { id:'libre-edp', name:'Libre', brand:'YVES SAINT LAURENT', type:'Eau de Parfum', size:'90 ml', emotion:'"Sin reglas. Sin cadenas. Absolutamente libre."', notes:{salida:'Mandarina, Grosella Negra',corazon:'Lavanda, Azahar',fondo:'Vainilla de Madagascar'}, color:'#3a2a4d', img:'https://www.sephora.com/productimages/sku/s2225624-main-zoom.jpg' },
-  { id:'mon-paris', name:'Mon Paris', brand:'YVES SAINT LAURENT', type:'Eau de Parfum', size:'90 ml', emotion:'"Amor parisino a primera vista. Intoxicante, impulsivo, divino."', notes:{salida:'Fresa, Pera',corazon:'Peonía, Datura',fondo:'Almizcle Blanco, Pachulí'}, color:'#4a1a2a', img:'https://www.sephora.com/productimages/sku/s1873382-main-zoom.jpg' },
-  { id:'baccarat-rouge', name:'Baccarat Rouge 540', brand:'MAISON FRANCIS KURKDJIAN', type:'Extrait de Parfum', size:'70 ml', emotion:'"Luminosa. De otro mundo. La fragancia que trasciende lo físico."', notes:{salida:'Azafrán, Jazmín',corazon:'Amberwood, Resina',fondo:'Cedro, Almizcle'}, color:'#6b1a1a', img:'https://www.sephora.com/productimages/sku/s2176793-main-zoom.jpg' },
-  { id:'miss-dior-blooming', name:'Miss Dior Blooming Bouquet', brand:'DIOR', type:'Eau de Toilette', size:'100 ml', emotion:'"Primavera capturada en su momento más fugaz. Pétalos en cámara lenta."', notes:{salida:'Mandarina Siciliana',corazon:'Peonía, Rosa Damascena',fondo:'Almizcle Blanco'}, color:'#d4a5a5', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw04ee36f2/Y0185006/Y0185006_C018500613_E01_GHC.jpg?sw=460' },
-  { id:'jadore', name:"J'adore", brand:'DIOR', type:'Eau de Parfum', size:'100 ml', emotion:'"Oro líquido tejido de rosas y luz solar. Gracia atemporal."', notes:{salida:'Ylang-Ylang, Rosa',corazon:'Jazmín, Lirio',fondo:'Almizcle, Vainilla'}, color:'#c9a96e', img:'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw7f7e4e0f/Y0996152/Y0996152_C099615213_E01_GHC.jpg?sw=460' },
-  { id:'coco-mademoiselle', name:'Coco Mademoiselle', brand:'CHANEL', type:'Eau de Parfum', size:'100 ml', emotion:'"El legado reinventado. Feminidad moderna que deja una marca indeleble."', notes:{salida:'Naranja, Bergamota',corazon:'Rosa, Jazmín',fondo:'Pachulí, Vetiver'}, color:'#4a3a2a', img:'https://www.chanel.com/images/t_one/t_fnbedito/q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/coco-mademoiselle-eau-de-parfum-spray-3-4fl-oz--packshot-default-116520-8841226125342.jpg' },
-  { id:'n5', name:'N°5', brand:'CHANEL', type:'Eau de Parfum', size:'100 ml', emotion:'"Leyenda. Cien años definiendo qué significa el perfume para el mundo."', notes:{salida:'Aldehídos, Néroli',corazon:'Jazmín, Rosa, Ylang-Ylang',fondo:'Sándalo, Vainilla'}, color:'#d4c9a5', img:'https://www.chanel.com/images/t_one/t_fnbedito/q_auto:good,f_autoplus,fl_lossy,dpr_1.2/w_620/n5-eau-de-parfum-spray-3-4fl-oz--packshot-default-101450-8841226092574.jpg' },
-  { id:'lady-million', name:'Lady Million', brand:'PACO RABANNE', type:'Eau de Parfum', size:'80 ml', emotion:'"Opulencia sin disculpas. Los diamantes se sentirían mal vestidos."', notes:{salida:'Frambuesa, Naranja Amarga',corazon:'Jazmín, Gardenia',fondo:'Miel, Pachulí'}, color:'#8b7a14', img:'https://www.sephora.com/productimages/sku/s1269870-main-zoom.jpg' },
-  { id:'olympea', name:'Olympéa', brand:'PACO RABANNE', type:'Eau de Parfum', size:'80 ml', emotion:'"Una diosa no llega: aparece. Piel besada por sal y vainilla divina."', notes:{salida:'Mandarina Verde, Acuática',corazon:'Jazmín, Sal',fondo:'Vainilla, Cachemira'}, color:'#4a5a6b', img:'https://www.sephora.com/productimages/sku/s1834970-main-zoom.jpg' },
-  { id:'fame-edp', name:'Fame', brand:'PACO RABANNE', type:'Eau de Parfum', size:'80 ml', emotion:'"El reflector te encuentra. Mango e incienso colisionan en obsesión dorada."', notes:{salida:'Mango',corazon:'Jazmín, Incienso',fondo:'Sándalo, Cedro'}, color:'#6b4a14', img:'https://www.sephora.com/productimages/sku/s2596586-main-zoom.jpg' },
-  { id:'la-vie-est-belle', name:'La Vie Est Belle', brand:'LANCÔME', type:'Eau de Parfum', size:'75 ml', emotion:'"Felicidad en su forma molecular más pura. Una sonrisa hecha eterna."', notes:{salida:'Iris, Pera',corazon:'Iris, Jazmín',fondo:'Praliné, Pachulí'}, color:'#d4a5c9', img:'https://www.sephora.com/productimages/sku/s1524324-main-zoom.jpg' },
-  { id:'la-nuit-tresor', name:'La Nuit Trésor', brand:'LANCÔME', type:'Eau de Parfum', size:'100 ml', emotion:'"La noche tiene tesoros ocultos. Este es el más precioso."', notes:{salida:'Orquídea',corazon:'Rosa, Frambuesa',fondo:'Chocolate, Vainilla'}, color:'#2a0d2a', img:'https://www.sephora.com/productimages/sku/s1838856-main-zoom.jpg' },
-  { id:'si-passione', name:'Sì Passione', brand:'GIORGIO ARMANI', type:'Eau de Parfum', size:'100 ml', emotion:'"Labios rojos y confianza. La mujer que posee cada habitación."', notes:{salida:'Pera, Pimienta Rosa',corazon:'Rosa, Jazmín',fondo:'Vainilla, Cedro'}, color:'#8b1a1a', img:'https://www.sephora.com/productimages/sku/s2106998-main-zoom.jpg' },
-  { id:'my-way', name:'My Way', brand:'GIORGIO ARMANI', type:'Eau de Parfum', size:'90 ml', emotion:'"Cada viaje deja su esencia en la piel. Este se queda para siempre."', notes:{salida:'Azahar, Bergamota',corazon:'Tuberosa, Jazmín',fondo:'Vainilla, Almizcle'}, color:'#c9a55a', img:'https://www.sephora.com/productimages/sku/s2340639-main-zoom.jpg' },
-  { id:'born-in-roma-w', name:'Born in Roma', brand:'VALENTINO', type:'Eau de Parfum', size:'100 ml', emotion:'"Adoquines cubiertos de jazmín al atardecer. La dolce vita infinita."', notes:{salida:'Pimienta Rosa, Grosella Negra',corazon:'Jazmín, Rosa',fondo:'Cashmeran, Guaiac'}, color:'#3d1a3d', img:'https://www.sephora.com/productimages/sku/s2263062-main-zoom.jpg' },
-  { id:'scandal-w', name:'Scandal', brand:'JEAN PAUL GAULTIER', type:'Eau de Parfum', size:'80 ml', emotion:'"Escándalo puro. Miel y naranja sanguina en piernas que se cruzan."', notes:{salida:'Naranja Sanguina, Mandarina',corazon:'Gardenia, Miel',fondo:'Caramelo, Regaliz'}, color:'#4a1a2a', img:'https://www.sephora.com/productimages/sku/s2200445-main-zoom.jpg' },
-  { id:'paradoxe', name:'Paradoxe', brand:'PRADA', type:'Eau de Parfum', size:'90 ml', emotion:'"Contradictoria por naturaleza. Única por elección."', notes:{salida:'Pera, Bergamota',corazon:'Jazmín',fondo:'Almizcle, Ámbar'}, color:'#c9a5d4', img:'https://www.sephora.com/productimages/sku/s2632894-main-zoom.jpg' },
-  { id:'bright-crystal', name:'Bright Crystal', brand:'VERSACE', type:'Eau de Toilette', size:'90 ml', emotion:'"Cristal brillante. La pureza del agua y la luz convertidas en joya."', notes:{salida:'Granada, Yuzu',corazon:'Magnolia, Peonía',fondo:'Almizcle, Ámbar'}, color:'#c9c9d4', img:'https://www.sephora.com/productimages/sku/s1218629-main-zoom.jpg' },
-  { id:'light-blue', name:'Light Blue', brand:'DOLCE & GABBANA', type:'Eau de Toilette', size:'100 ml', emotion:'"Azul claro del Mediterráneo. Sol, sal y libertad infinita."', notes:{salida:'Limón Siciliano, Manzana',corazon:'Jazmín, Bambú',fondo:'Cedro, Almizcle'}, color:'#75a5c9', img:'https://www.sephora.com/productimages/sku/s1218652-main-zoom.jpg' },
-  { id:'flora-gardenia', name:'Flora Gorgeous Gardenia', brand:'GUCCI', type:'Eau de Parfum', size:'100 ml', emotion:'"Un jardín italiano en plena floración. Belleza sin reservas."', notes:{salida:'Pera, Frutos Rojos',corazon:'Gardenia, Jazmín',fondo:'Azúcar Moreno, Pachulí'}, color:'#d4758a', img:'https://www.sephora.com/productimages/sku/s2530518-main-zoom.jpg' },
-  { id:'bombshell', name:'Bombshell', brand:"VICTORIA'S SECRET", type:'Eau de Parfum', size:'100 ml', emotion:'"Explosiva. La bomba que todos esperaban pero nadie predijo."', notes:{salida:'Mandarina Púrpura',corazon:'Peonía, Jazmín',fondo:'Almizcle Blanco'}, color:'#d4758a', img:'' },
-];
-</script>
-
-<!-- ===== INTERACCIÓN PRINCIPAL ===== -->
-<script>
-(function(){
-  'use strict';
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ---------- CURSOR ---------- */
-  const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  let mx = window.innerWidth/2, my = window.innerHeight/2, rx = mx, ry = my;
-  const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
-  if (fine) {
-    window.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
-    });
-    (function ringLoop(){
-      rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
-      ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
-      requestAnimationFrame(ringLoop);
-    })();
-    document.addEventListener('mouseover', e => {
-      if (e.target.closest('[data-cursor], a, button')) ring.classList.add('hover');
-    });
-    document.addEventListener('mouseout', e => {
-      if (e.target.closest('[data-cursor], a, button')) ring.classList.remove('hover');
-    });
-    document.addEventListener('mouseleave', () => { dot.classList.add('hidden'); ring.classList.add('hidden'); });
-    document.addEventListener('mouseenter', () => { dot.classList.remove('hidden'); ring.classList.remove('hidden'); });
-  }
-
-  /* ---------- BOTONES MAGNÉTICOS ---------- */
-  if (fine && !prefersReduced) {
-    document.querySelectorAll('.magnetic').forEach(el => {
-      el.addEventListener('mousemove', e => {
-        const r = el.getBoundingClientRect();
-        const x = e.clientX - r.left - r.width/2;
-        const y = e.clientY - r.top - r.height/2;
-        el.style.transform = `translate(${x*0.3}px, ${y*0.4}px)`;
-      });
-      el.addEventListener('mouseleave', () => { el.style.transform = 'translate(0,0)'; });
-    });
-  }
-
-  /* ---------- MENÚ MÓVIL ---------- */
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  menuBtn.addEventListener('click', () => {
-    menuBtn.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-  });
-  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    menuBtn.classList.remove('open'); mobileMenu.classList.remove('open');
+/* JSON-LD de productos para Rich Snippets */
+(function injectProductSchema(){
+  const items = PRODUCTS.map((p,i)=>({
+    "@type":"ListItem","position":i+1,
+    "item":{ "@type":"Product","name":`${p.brand} ${p.name}`,"brand":{"@type":"Brand","name":p.brand},
+      "category":p.family,"description":p.story,
+      "aggregateRating":{"@type":"AggregateRating","ratingValue":p.rating,"reviewCount":40+i*7,"bestRating":5},
+      "offers":{"@type":"Offer","priceCurrency":"CLP","price":p.sortPrice,"availability":"https://schema.org/InStock"} }
   }));
-
-  /* ---------- CATÁLOGO ---------- */
-  let currentTab = 'men';
-  const grid = document.getElementById('productGrid');
-
-  function cardImg(p){
-    if (!p.img) return `<div class="img-fallback"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name}</span></div>`;
-    return `<img src="${p.img}" alt="${p.brand} ${p.name}" loading="lazy" onerror="this.outerHTML='<div class="img-fallback"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name.replace(/'/g,'&#39;')}</span></div>'">`;
-  }
-
-  function renderGrid(){
-    const data = currentTab === 'men' ? perfumesMen : perfumesWomen;
-    grid.innerHTML = data.map(p => `
-      <article class="product-card glass" data-id="${p.id}" data-cursor>
-        <div class="card-visual">
-          <div class="card-glow" style="background:radial-gradient(circle,${p.color},transparent)"></div>
-          ${cardImg(p)}
-        </div>
-        <p class="card-brand">${p.brand}</p>
-        <h3 class="card-name">${p.name}</h3>
-        <p class="card-type">${p.type} — ${p.size}</p>
-        <div class="card-discover"><span>Descubrir</span> →</div>
-      </article>
-    `).join('');
-    animateCards();
-  }
-
-  grid.addEventListener('click', e => {
-    const card = e.target.closest('.product-card');
-    if (card) openModal(card.dataset.id);
-  });
-
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (btn.dataset.tab === currentTab) return;
-      currentTab = btn.dataset.tab;
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
-      renderGrid();
-    });
-  });
-
-  /* ---------- MODAL ---------- */
-  const modal = document.getElementById('modal');
-  function openModal(id){
-    const p = [...perfumesMen, ...perfumesWomen].find(x => x.id === id);
-    if (!p) return;
-    document.getElementById('modalBrand').textContent = p.brand;
-    document.getElementById('modalName').textContent = p.name;
-    document.getElementById('modalType').textContent = `${p.type} — ${p.size}`;
-    document.getElementById('modalEmotion').textContent = p.emotion;
-    document.getElementById('modalGlow').style.background = p.color;
-    const wrap = document.querySelector('.modal-bottle-wrap');
-    const oldImg = document.getElementById('modalImg');
-    const imgHtml = p.img
-      ? `<img id="modalImg" src="${p.img}" alt="${p.brand} ${p.name}" onerror="this.outerHTML='<div class="img-fallback" style="width:140px;height:230px"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name.replace(/'/g,'&#39;')}</span></div>'">`
-      : `<div class="img-fallback" id="modalImg" style="width:140px;height:230px"><span class="fb-brand">${p.brand}</span><span class="fb-name">${p.name}</span></div>`;
-    oldImg.outerHTML = imgHtml;
-    const noteKeys = Object.keys(p.notes);
-    document.getElementById('modalNotes').innerHTML = noteKeys.map(n => `
-      <div class="note-row">
-        <span class="note-label">${n}</span>
-        <div class="note-line"></div>
-        <span class="note-value">${p.notes[n]}</span>
-      </div>`).join('');
-    document.getElementById('modalCta').href = `https://wa.me/56987395445?text=${encodeURIComponent('Hola, me interesa el perfume '+p.name+' ('+p.brand+') del catálogo de Torres Store')}`;
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    if (window.lenisInstance) window.lenisInstance.stop();
-  }
-  function closeModal(){
-    modal.classList.remove('open');
-    document.body.style.overflow = '';
-    if (window.lenisInstance) window.lenisInstance.start();
-  }
-  document.getElementById('modalClose').addEventListener('click', closeModal);
-  document.getElementById('modalBg').addEventListener('click', closeModal);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-  /* ---------- GSAP + LENIS ---------- */
-  let lenis = null;
-  if (typeof Lenis !== 'undefined' && !prefersReduced) {
-    lenis = new Lenis({ duration:1.2, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true });
-    window.lenisInstance = lenis;
-  }
-
-  function setupGSAP(){
-    if (typeof gsap === 'undefined') return;
-    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
-
-    if (lenis && typeof ScrollTrigger !== 'undefined') {
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(time => lenis.raf(time*1000));
-      gsap.ticker.lagSmoothing(0);
-    } else if (lenis) {
-      function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
-      requestAnimationFrame(raf);
-    }
-
-    if (prefersReduced) { document.querySelectorAll('.reveal').forEach(el=>el.style.opacity=1); return; }
-
-    // Hero entrada
-    const heroTl = gsap.timeline({ delay:0.2 });
-    heroTl.from('.hero-eyebrow', { y:30, opacity:0, duration:1, ease:'power3.out' })
-          .from('.hero h1 .word', { yPercent:120, opacity:0, duration:1.1, stagger:0.12, ease:'power4.out' }, '-=0.5')
-          .from('.hero-desc', { y:30, opacity:0, duration:1, ease:'power3.out' }, '-=0.6')
-          .from('.hero-cta', { y:30, opacity:0, duration:1, ease:'power3.out' }, '-=0.7')
-          .from('.hero-scroll', { opacity:0, duration:1, ease:'power2.out' }, '-=0.5');
-
-    // Reveals genéricos
-    if (typeof ScrollTrigger !== 'undefined') {
-      gsap.utils.toArray('.reveal').forEach(el => {
-        gsap.from(el, { y:60, opacity:0, duration:1.1, ease:'power3.out',
-          scrollTrigger:{ trigger:el, start:'top 85%' } });
-      });
-
-      // Story: split de palabras
-      document.querySelectorAll('[data-split]').forEach(h => {
-        const words = h.textContent.split(' ');
-        h.innerHTML = words.map(w => `<span class="story-word">${w}</span>`).join(' ');
-        gsap.from(h.querySelectorAll('.story-word'), {
-          yPercent:110, opacity:0, duration:1, stagger:0.06, ease:'power4.out',
-          scrollTrigger:{ trigger:h, start:'top 80%' }
-        });
-      });
-      gsap.utils.toArray('.story-scene p').forEach(p => {
-        gsap.from(p, { y:40, opacity:0, duration:1, ease:'power3.out',
-          scrollTrigger:{ trigger:p, start:'top 85%' } });
-      });
-
-      // Parallax suave en orbes
-      gsap.to('.hero-orb-1', { yPercent:30, ease:'none', scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true } });
-      gsap.to('.hero-orb-2', { yPercent:-20, ease:'none', scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true } });
-    }
-  }
-
-  // Entrada escalonada de tarjetas
-  function animateCards(){
-    if (typeof gsap === 'undefined' || prefersReduced) return;
-    gsap.from('#productGrid .product-card', {
-      y:50, opacity:0, duration:0.8, stagger:0.05, ease:'power3.out',
-      scrollTrigger: (typeof ScrollTrigger !== 'undefined') ? { trigger:'#productGrid', start:'top 90%' } : undefined
-    });
-  }
-
-  /* ---------- NAV scrolled ---------- */
-  const navbar = document.getElementById('navbar');
-  function onScroll(){ navbar.classList.toggle('scrolled', window.scrollY > 60); }
-  window.addEventListener('scroll', onScroll, { passive:true });
-
-  /* ---------- Anclas con Lenis ---------- */
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const id = a.getAttribute('href');
-      if (id === '#' || id.length < 2) return;
-      const target = document.querySelector(id);
-      if (!target) return;
-      e.preventDefault();
-      if (lenis) lenis.scrollTo(target, { offset:-20 });
-      else target.scrollIntoView({ behavior:'smooth' });
-    });
-  });
-
-  /* ---------- INIT ---------- */
-  renderGrid();
-  setupGSAP();
-
-  // Loader (se cierra al cargar todo o tras timeout de seguridad)
-  const loader = document.getElementById('loader');
-  const loaderBar = document.getElementById('loaderBar');
-  const loaderPct = document.getElementById('loaderPct');
-  let progress = 0;
-  const fakeLoad = setInterval(() => {
-    progress = Math.min(progress + Math.random()*18, 100);
-    if (typeof gsap !== 'undefined') gsap.set(loaderBar, { scaleX: progress/100 });
-    else loaderBar.style.transform = `scaleX(${progress/100})`;
-    loaderPct.textContent = Math.round(progress) + '%';
-    if (progress >= 100) { clearInterval(fakeLoad); finishLoad(); }
-  }, 130);
-  function finishLoad(){
-    setTimeout(() => { loader.classList.add('done'); if (lenis) lenis.start(); }, 300);
-  }
-  // seguridad
-  setTimeout(() => { if (!loader.classList.contains('done')){ progress=100; clearInterval(fakeLoad); loader.classList.add('done'); } }, 6000);
+  const ld={ "@context":"https://schema.org","@type":"ItemList","itemListElement":items };
+  const s=document.createElement("script"); s.type="application/ld+json"; s.textContent=JSON.stringify(ld);
+  document.head.appendChild(s);
 })();
+
+/* ---------- ESTADO PERSISTENTE ---------- */
+const store = {
+  get(k,d){ try{ return JSON.parse(localStorage.getItem(k)) ?? d; }catch{ return d; } },
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch{} }
+};
+let wishlist = store.get("ts_wishlist", []);
+let compare  = store.get("ts_compare", []);
+let recent   = store.get("ts_recent", []);
+
+const $  = (s,c=document)=>c.querySelector(s);
+const $$ = (s,c=document)=>[...c.querySelectorAll(s)];
+const fmt = n => "$"+n.toLocaleString("es-CL");
+const byId = id => PRODUCTS.find(p=>p.id===id);
+
+/* ---------- TOAST ---------- */
+let toastTimer;
+function toast(msg){
+  const t=$("#toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
+}
+
+/* ---------- VISUAL (imagen real o frasco CSS) ---------- */
+function visualHTML(p, big=false){
+  if(p.image){
+    return `<img src="${p.image}" alt="Perfume ${p.brand} ${p.name}, ${p.type}, familia ${p.family}" loading="lazy" decoding="async" width="300" height="300">`;
+  }
+  return `
+    <span class="bottle" style="--g:${p.glow}" aria-hidden="true">
+      <span class="cap"></span>
+      <span class="body">
+        <span class="liquid" style="background:linear-gradient(180deg,transparent,${p.liquid})"></span>
+        <span class="label">${p.brand.split(" ")[0]}</span>
+      </span>
+    </span>`;
+}
+function stars(r){ const full=Math.round(r); return "★".repeat(full)+"☆".repeat(5-full); }
+
+/* ---------- RENDER CATÁLOGO ---------- */
+const grid = $("#productGrid");
+let activeFilters = { brand:new Set(), family:new Set(), gender:new Set() };
+let searchTerm = "";
+let sortMode = "featured";
+
+function buildFilterChips(){
+  const make = (containerId, key) => {
+    const c=$("#"+containerId);
+    const values=[...new Set(PRODUCTS.map(p=>p[key]))].sort();
+    values.forEach(v=>{
+      const b=document.createElement("button");
+      b.className="chip"; b.type="button"; b.textContent=v; b.setAttribute("aria-pressed","false");
+      b.addEventListener("click",()=>{
+        const set=activeFilters[key];
+        if(set.has(v)){ set.delete(v); b.setAttribute("aria-pressed","false"); }
+        else{ set.add(v); b.setAttribute("aria-pressed","true"); }
+        renderGrid();
+      });
+      c.appendChild(b);
+    });
+  };
+  make("filterBrand","brand");
+  make("filterFamily","family");
+  make("filterGender","gender");
+}
+
+function filterSort(){
+  let list = PRODUCTS.filter(p=>{
+    const f=activeFilters;
+    if(f.brand.size && !f.brand.has(p.brand)) return false;
+    if(f.family.size && !f.family.has(p.family)) return false;
+    if(f.gender.size && !f.gender.has(p.gender)) return false;
+    if(searchTerm){
+      const hay=(p.brand+" "+p.name+" "+p.family+" "+Object.values(p.notes).join(" ")).toLowerCase();
+      if(!hay.includes(searchTerm)) return false;
+    }
+    return true;
+  });
+  switch(sortMode){
+    case "price-asc": list.sort((a,b)=>a.sortPrice-b.sortPrice); break;
+    case "price-desc": list.sort((a,b)=>b.sortPrice-a.sortPrice); break;
+    case "rating": list.sort((a,b)=>b.rating-a.rating); break;
+    case "name": list.sort((a,b)=>a.name.localeCompare(b.name)); break;
+  }
+  return list;
+}
+
+function cardHTML(p){
+  const faved = wishlist.includes(p.id);
+  const inComp = compare.includes(p.id);
+  return `
+  <article class="product-card glass" data-id="${p.id}" tabindex="0" role="button" aria-label="Ver detalle de ${p.brand} ${p.name}">
+    <button class="card-fav ${faved?'active':''}" data-fav="${p.id}" aria-label="${faved?'Quitar de':'Añadir a'} favoritos" aria-pressed="${faved}">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+    </button>
+    <div class="card-visual">
+      <span class="card-glow" style="background:${p.glow}"></span>
+      ${visualHTML(p)}
+    </div>
+    <p class="card-brand">${p.brand}</p>
+    <h3 class="card-name">${p.name}</h3>
+    <p class="card-meta">${p.type} · ${p.family} · ${p.gender}</p>
+    <div class="rating"><span class="stars">${stars(p.rating)}</span><span>${p.rating.toFixed(1)}</span></div>
+    <div class="card-foot">
+      <span class="card-price">${fmt(p.sortPrice)}<small>5 ml decant</small></span>
+      <div class="card-actions">
+        <button class="mini-btn ${inComp?'active':''}" data-comp="${p.id}" aria-label="Comparar ${p.name}" title="Comparar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+        </button>
+        <button class="mini-btn" data-share="${p.id}" aria-label="Compartir ${p.name}" title="Compartir">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5 8.6 10.5"/></svg>
+        </button>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderGrid(){
+  const list=filterSort();
+  $("#resultsCount").textContent = `${list.length} ${list.length===1?'fragancia':'fragancias'}`;
+  grid.innerHTML = list.length ? list.map(cardHTML).join("") : `<p class="no-results">No encontramos fragancias con esos criterios. Prueba ajustar los filtros.</p>`;
+  $$(".product-card",grid).forEach(c=>observer.observe(c));
+}
+
+/* ---------- DELEGACIÓN DE EVENTOS GRID ---------- */
+grid.addEventListener("click", e=>{
+  const fav=e.target.closest("[data-fav]");
+  const comp=e.target.closest("[data-comp]");
+  const share=e.target.closest("[data-share]");
+  const card=e.target.closest(".product-card");
+  if(fav){ e.stopPropagation(); toggleWish(fav.dataset.fav); return; }
+  if(comp){ e.stopPropagation(); toggleCompare(comp.dataset.comp); return; }
+  if(share){ e.stopPropagation(); shareProduct(share.dataset.share); return; }
+  if(card){ openModal(card.dataset.id); }
+});
+grid.addEventListener("keydown", e=>{
+  if((e.key==="Enter"||e.key===" ") && e.target.classList.contains("product-card")){
+    e.preventDefault(); openModal(e.target.dataset.id);
+  }
+});
+
+/* ---------- WISHLIST ---------- */
+function toggleWish(id){
+  const i=wishlist.indexOf(id);
+  if(i>-1){ wishlist.splice(i,1); toast("Quitado de favoritos"); }
+  else{ wishlist.push(id); toast("Añadido a favoritos ♥"); }
+  store.set("ts_wishlist",wishlist);
+  updateBadges(); renderGrid(); renderWishlist();
+}
+function renderWishlist(){
+  const g=$("#wishGrid");
+  if(!wishlist.length){ g.innerHTML=`<p class="no-results">Aún no tienes favoritos. Toca el corazón en cualquier fragancia.</p>`; return; }
+  g.innerHTML = wishlist.map(id=>cardHTML(byId(id))).join("");
+}
+
+/* ---------- COMPARADOR ---------- */
+function toggleCompare(id){
+  const i=compare.indexOf(id);
+  if(i>-1){ compare.splice(i,1); }
+  else{
+    if(compare.length>=3){ toast("Máximo 3 para comparar"); return; }
+    compare.push(id); toast("Añadido al comparador");
+  }
+  store.set("ts_compare",compare);
+  updateBadges(); renderCompareTray(); renderGrid();
+}
+function renderCompareTray(){
+  const tray=$("#compareTray"), slots=$("#compareSlots");
+  slots.innerHTML="";
+  for(let k=0;k<3;k++){
+    const id=compare[k];
+    const slot=document.createElement("div");
+    slot.className="compare-slot"+(id?"":" empty");
+    if(id){
+      const p=byId(id);
+      slot.innerHTML=`<span class="bottle" style="--g:${p.glow};width:30px"><span class="cap"></span><span class="body"></span></span><button class="cs-rm" data-rm="${id}" aria-label="Quitar ${p.name}">✕</button>`;
+    }
+    slots.appendChild(slot);
+  }
+  tray.classList.toggle("open", compare.length>0);
+}
+$("#compareSlots").addEventListener("click",e=>{
+  const rm=e.target.closest("[data-rm]"); if(rm) toggleCompare(rm.dataset.rm);
+});
+$("#clearCompare").addEventListener("click",()=>{ compare=[]; store.set("ts_compare",compare); updateBadges(); renderCompareTray(); renderGrid(); });
+$("#openCompare").addEventListener("click",openCompareModal);
+$("#navCompare").addEventListener("click",()=>{ compare.length?openCompareModal():toast("Añade fragancias al comparador"); });
+
+function openCompareModal(){
+  if(!compare.length) return;
+  const rows=[
+    ["Marca", p=>p.brand],["Tipo", p=>p.type],["Familia", p=>p.family],["Género", p=>p.gender],
+    ["Intensidad", p=>"●".repeat(p.intensity)+"○".repeat(5-p.intensity)],
+    ["Duración", p=>"●".repeat(p.longevity)+"○".repeat(5-p.longevity)],
+    ["Proyección", p=>"●".repeat(p.projection)+"○".repeat(5-p.projection)],
+    ["Estación", p=>p.season],["Ocasión", p=>p.occasion],
+    ["Valoración", p=>p.rating.toFixed(1)+" ★"],["Desde", p=>fmt(p.sortPrice)]
+  ];
+  const items=compare.map(byId);
+  let html=`<thead><tr><th></th>${items.map(p=>`<th>${p.brand}<br>${p.name}</th>`).join("")}</tr></thead><tbody>`;
+  rows.forEach(([lbl,fn])=>{ html+=`<tr><td>${lbl}</td>${items.map(p=>`<td>${fn(p)}</td>`).join("")}</tr>`; });
+  html+="</tbody>";
+  $("#compareTable").innerHTML=html;
+  openOverlay("#compareModal");
+}
+
+/* ---------- COMPARTIR ---------- */
+async function shareProduct(id){
+  const p=byId(id);
+  const url=location.origin+location.pathname+"#"+id;
+  const data={ title:`${p.brand} ${p.name}`, text:`Mira ${p.brand} ${p.name} en Torres Store`, url };
+  if(navigator.share){ try{ await navigator.share(data); }catch{} }
+  else{ try{ await navigator.clipboard.writeText(url); toast("Enlace copiado"); }catch{ toast(url); } }
+}
+
+/* ---------- BADGES ---------- */
+function updateBadges(){
+  const w=$("#wishBadge"), c=$("#compBadge");
+  w.textContent=wishlist.length; w.dataset.count=wishlist.length;
+  c.textContent=compare.length; c.dataset.count=compare.length;
+}
+
+/* ---------- VISTOS RECIENTEMENTE ---------- */
+function pushRecent(id){
+  recent = [id, ...recent.filter(x=>x!==id)].slice(0,8);
+  store.set("ts_recent",recent); renderRecent();
+}
+function renderRecent(){
+  const sec=$("#recentSection"), row=$("#recentRow");
+  if(!recent.length){ sec.hidden=true; return; }
+  sec.hidden=false;
+  row.innerHTML=recent.map(id=>{ const p=byId(id); return `
+    <div class="recent-card glass" data-id="${id}" role="button" tabindex="0" aria-label="Ver ${p.name}">
+      <div class="mini-visual"><span class="bottle" style="--g:${p.glow};width:50px"><span class="cap"></span><span class="body"><span class="liquid" style="background:linear-gradient(180deg,transparent,${p.liquid})"></span></span></span></div>
+      <div class="mini-brand">${p.brand}</div><div class="mini-name">${p.name}</div>
+    </div>`;}).join("");
+}
+$("#recentRow").addEventListener("click",e=>{ const c=e.target.closest("[data-id]"); if(c) openModal(c.dataset.id); });
+$("#recentRow").addEventListener("keydown",e=>{ if((e.key==="Enter"||e.key===" ")){ const c=e.target.closest("[data-id]"); if(c){ e.preventDefault(); openModal(c.dataset.id);} } });
+
+/* ---------- MODAL PRODUCTO ---------- */
+let lastFocus=null;
+function similarOf(p){
+  return PRODUCTS.filter(o=>o.id!==p.id && (o.family===p.family || o.brand===p.brand)).slice(0,4);
+}
+function specBar(label,val,text){
+  return `<div class="spec"><div class="s-lbl">${label}</div><div class="s-bar"><span style="width:${val/5*100}%"></span></div><div class="s-val">${text}</div></div>`;
+}
+function openModal(id){
+  const p=byId(id); if(!p) return;
+  pushRecent(id);
+  const faved=wishlist.includes(id);
+  const sim=similarOf(p);
+  $("#modalBody").innerHTML=`
+    <div class="modal-grid">
+      <div class="modal-visual">
+        <div class="modal-stage">
+          <span class="modal-glow" style="background:${p.glow}"></span>
+          ${visualHTML(p,true)}
+        </div>
+        <div class="modal-actions">
+          <button class="btn-sm" id="mFav" aria-pressed="${faved}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="${faved?'currentColor':'none'}" stroke="currentColor" stroke-width="1.6"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+            ${faved?'En favoritos':'Favorito'}
+          </button>
+          <button class="btn-sm" id="mShare">Compartir</button>
+        </div>
+      </div>
+      <div>
+        <p class="modal-brand">${p.brand}</p>
+        <h2 class="modal-name" id="modalName">${p.name}</h2>
+        <div class="rating"><span class="stars">${stars(p.rating)}</span><span>${p.rating.toFixed(1)} · ${p.type}</span></div>
+        <div class="modal-tags"><span class="tag">${p.family}</span><span class="tag">${p.gender}</span><span class="tag">${p.season}</span></div>
+        <p class="modal-story">${p.story}</p>
+
+        <div class="specs">
+          ${specBar("Intensidad",p.intensity, p.intensity>=4?'Alta':'Moderada')}
+          ${specBar("Duración",p.longevity, p.longevity+'/5 · 8–12 h')}
+          ${specBar("Proyección",p.projection, p.projection>=4?'Notoria':'Cercana')}
+          <div class="spec"><div class="s-lbl">Ocasión</div><div class="s-val" style="margin-top:0">${p.occasion}</div></div>
+        </div>
+
+        <p class="modal-notes-title">Pirámide olfativa</p>
+        <div class="note-row"><span class="note-label">Salida</span><span class="note-line"></span><span class="note-value">${p.notes.salida}</span></div>
+        <div class="note-row"><span class="note-label">Corazón</span><span class="note-line"></span><span class="note-value">${p.notes.corazon}</span></div>
+        <div class="note-row"><span class="note-label">Fondo</span><span class="note-line"></span><span class="note-value">${p.notes.fondo}</span></div>
+
+        <p class="modal-notes-title" style="margin-top:1.8rem">Formatos</p>
+        <div class="price-table">
+          ${Object.entries(p.prices).map(([q,v])=>`<div class="price-row"><span class="qty">${q}</span><span class="val">${fmt(v)}</span></div>`).join("")}
+        </div>
+
+        <div class="modal-actions">
+          <a class="btn-primary" style="padding:.95rem 1.6rem;font-size:.64rem" href="https://wa.me/56900000000?text=${encodeURIComponent('Hola Torres Store, me interesa '+p.brand+' '+p.name)}" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+          <button class="btn-sm" id="mComp">${compare.includes(id)?'En comparador':'Comparar'}</button>
+        </div>
+
+        ${sim.length?`<div class="similar"><h4>Fragancias similares</h4><div class="similar-row">${sim.map(s=>`
+          <button class="similar-chip" data-go="${s.id}">
+            <span class="sc-dot" style="background:${s.glow}"></span>
+            <span><span class="sc-name">${s.name}</span><br><span class="sc-brand">${s.brand}</span></span>
+          </button>`).join("")}</div></div>`:""}
+      </div>
+    </div>`;
+
+  // listeners internos
+  $("#mFav").addEventListener("click",()=>{ toggleWish(id); openModal(id); });
+  $("#mShare").addEventListener("click",()=>shareProduct(id));
+  $("#mComp").addEventListener("click",()=>{ toggleCompare(id); openModal(id); });
+  $$(".similar-chip").forEach(b=>b.addEventListener("click",()=>openModal(b.dataset.go)));
+  const img=$(".modal-stage img");
+  if(img){ img.addEventListener("click",()=>img.classList.toggle("zoomed")); }
+  openOverlay("#modal");
+}
+
+/* ---------- OVERLAYS GENÉRICOS ---------- */
+function openOverlay(sel){
+  lastFocus=document.activeElement;
+  const ov=$(sel); ov.classList.add("open");
+  lockScroll(true);
+  const f=ov.querySelector("button,a,input"); if(f) f.focus();
+}
+function closeOverlay(sel){
+  $(sel).classList.remove("open");
+  if(!$$(".modal-overlay.open").length) lockScroll(false);
+  if(lastFocus) lastFocus.focus();
+}
+$$("[data-close]").forEach(b=>b.addEventListener("click",()=>closeOverlay("#modal")));
+$$("[data-close-compare]").forEach(b=>b.addEventListener("click",()=>closeOverlay("#compareModal")));
+$$("[data-close-wish]").forEach(b=>b.addEventListener("click",()=>closeOverlay("#wishModal")));
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") $$(".modal-overlay.open").forEach(o=>closeOverlay("#"+o.id)); });
+$("#navWishlist").addEventListener("click",()=>{ renderWishlist(); openOverlay("#wishModal"); });
+$("#wishGrid").addEventListener("click",e=>{
+  const fav=e.target.closest("[data-fav]"); const card=e.target.closest(".product-card");
+  if(fav){ e.stopPropagation(); toggleWish(fav.dataset.fav); return; }
+  if(card){ closeOverlay("#wishModal"); openModal(card.dataset.id); }
+});
+
+let lenisRef=null;
+function lockScroll(on){
+  document.documentElement.classList.toggle("lenis-stopped",on);
+  if(lenisRef){ on?lenisRef.stop():lenisRef.start(); }
+  else{ document.body.style.overflow = on?"hidden":""; }
+}
+
+/* ---------- BÚSQUEDA / ORDEN ---------- */
+let searchT;
+$("#searchInput").addEventListener("input",e=>{
+  clearTimeout(searchT);
+  searchT=setTimeout(()=>{ searchTerm=e.target.value.trim().toLowerCase(); renderGrid(); },180);
+});
+$("#sortSelect").addEventListener("change",e=>{ sortMode=e.target.value; renderGrid(); });
+
+/* ---------- NAV / MENÚ MÓVIL ---------- */
+const nav=$("#nav");
+window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});
+const menuBtn=$("#menuBtn"), mobileMenu=$("#mobileMenu");
+menuBtn.addEventListener("click",()=>{
+  const open=mobileMenu.classList.toggle("open");
+  menuBtn.classList.toggle("open",open);
+  menuBtn.setAttribute("aria-expanded",open);
+  lockScroll(open);
+});
+$$(".mobile-menu a").forEach(a=>a.addEventListener("click",()=>{
+  mobileMenu.classList.remove("open"); menuBtn.classList.remove("open");
+  menuBtn.setAttribute("aria-expanded","false"); lockScroll(false);
+}));
+
+/* ---------- REVEAL ON SCROLL ---------- */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); observer.unobserve(en.target); } });
+},{threshold:.12, rootMargin:"0px 0px -8% 0px"});
+$$(".reveal").forEach(el=>observer.observe(el));
+
+/* ---------- INIT ---------- */
+$("#year").textContent=new Date().getFullYear();
+buildFilterChips();
+renderGrid();
+renderRecent();
+renderCompareTray();
+updateBadges();
+
+// deep link #id abre producto
+if(location.hash){ const p=byId(location.hash.slice(1)); if(p) setTimeout(()=>openModal(p.id),900); }
+
+/* ---------- CURSOR PERSONALIZADO ---------- */
+(function cursor(){
+  if(!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+  const dot=$(".cursor-dot"), ring=$(".cursor-ring");
+  let mx=0,my=0,rx=0,ry=0;
+  addEventListener("mousemove",e=>{ mx=e.clientX; my=e.clientY; dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`; });
+  (function loop(){ rx+=(mx-rx)*.18; ry+=(my-ry)*.18; ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`; requestAnimationFrame(loop); })();
+  document.addEventListener("mouseover",e=>{ if(e.target.closest("a,button,[role='button'],input,select")) ring.classList.add("hover"); });
+  document.addEventListener("mouseout",e=>{ if(e.target.closest("a,button,[role='button'],input,select")) ring.classList.remove("hover"); });
+})();
+
+/* ---------- LOADER OFF ---------- */
+window.addEventListener("load",()=>setTimeout(()=>$("#loader").classList.add("done"),600));
+setTimeout(()=>$("#loader").classList.add("done"),3500); // failsafe
+
+/* ---------- GSAP + LENIS (progressive enhancement) ---------- */
+window.addEventListener("load",()=>{
+  const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  if(reduce) return;
+  if(window.Lenis){
+    lenisRef=new Lenis({ duration:1.1, smoothWheel:true });
+    function raf(t){ lenisRef.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    if(window.ScrollTrigger){ lenisRef.on("scroll",ScrollTrigger.update); }
+  }
+  if(window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray(".story-scene").forEach(scene=>{
+      gsap.fromTo(scene,{y:60,opacity:.2},{ y:0,opacity:1,duration:1.1,ease:"power3.out",
+        scrollTrigger:{ trigger:scene, start:"top 80%", end:"top 40%", scrub:false } });
+    });
+  }
+});
 </script>
 
-<!-- ===== ESCENA 3D (Three.js) ===== -->
+<!-- ============ HERO 3D (Three.js) ============ -->
 <script type="module">
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
-const canvas = document.getElementById('heroCanvas');
-const fallback = document.getElementById('webglFallback');
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function hero3D(){
+  const canvas=document.getElementById('heroCanvas');
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let renderer;
+  try{
+    renderer=new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
+  }catch(e){ return; } // sin WebGL: quedan los orbs/vignette de fondo
+  if(!renderer.capabilities || !renderer.capabilities.isWebGL2 && !renderer.getContext()){ return; }
 
-function showFallback(){ if (canvas) canvas.style.display='none'; if (fallback) fallback.style.display='flex'; }
+  const hero=document.querySelector('.hero');
+  let W=hero.clientWidth, H=hero.clientHeight;
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(W,H,false);
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=1.05;
+  renderer.outputColorSpace=THREE.SRGBColorSpace;
 
-try {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
-  if (!renderer.getContext()) { showFallback(); throw new Error('no-webgl'); }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.1;
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(35,W/H,0.1,100);
+  camera.position.set(0,0,7);
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-  camera.position.set(0, 0, 6.5);
+  // Entorno para reflejos de vidrio
+  const pmrem=new THREE.PMREMGenerator(renderer);
+  scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
 
-  // Entorno para reflejos/refracción
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-
-  // Grupo de la botella
-  const bottle = new THREE.Group();
-  scene.add(bottle);
-
-  // Material vidrio
-  const glass = new THREE.MeshPhysicalMaterial({
-    transmission: 1, thickness: 1.4, roughness: 0.08, ior: 1.5,
-    metalness: 0, transparent: true,
-    color: new THREE.Color('#cfd6e6'), attenuationColor: new THREE.Color('#c9a96e'),
-    attenuationDistance: 2.5, clearcoat: 1, clearcoatRoughness: 0.06,
-    envMapIntensity: 1.2, specularIntensity: 1
+  // Perfil del frasco (Lathe)
+  const profile=[
+    [0.001,-1.5],[0.55,-1.5],[0.62,-1.3],[0.64,0.3],[0.6,0.7],
+    [0.4,1.0],[0.18,1.12],[0.16,1.5],[0.2,1.55]
+  ].map(p=>new THREE.Vector2(p[0],p[1]));
+  const glassGeo=new THREE.LatheGeometry(profile,64);
+  const glassMat=new THREE.MeshPhysicalMaterial({
+    color:0xffffff, metalness:0, roughness:0.04, transmission:1, thickness:1.2,
+    ior:1.46, clearcoat:1, clearcoatRoughness:0.06, envMapIntensity:1.4, transparent:true
   });
+  const glass=new THREE.Mesh(glassGeo,glassMat);
 
-  const bodyGeo = new RoundedBoxGeometry(1.9, 2.7, 0.95, 6, 0.28);
-  const body = new THREE.Mesh(bodyGeo, glass);
-  bottle.add(body);
-
-  // Líquido interior (ámbar dorado)
-  const liquidMat = new THREE.MeshPhysicalMaterial({
-    color: new THREE.Color('#b8893f'), transmission: 0.55, thickness: 1,
-    roughness: 0.25, ior: 1.4, metalness: 0, transparent: true,
-    attenuationColor: new THREE.Color('#7a4f12'), attenuationDistance: 1.2,
-    envMapIntensity: 0.8
-  });
-  const liquidGeo = new RoundedBoxGeometry(1.62, 1.85, 0.7, 5, 0.22);
-  const liquid = new THREE.Mesh(liquidGeo, liquidMat);
-  liquid.position.y = -0.38;
-  bottle.add(liquid);
-
-  // Cuello
-  const neckMat = new THREE.MeshPhysicalMaterial({ color:'#cfd6e6', transmission:0.9, thickness:0.8, roughness:0.1, ior:1.5, transparent:true, clearcoat:1, envMapIntensity:1.1 });
-  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.42, 0.45, 32), neckMat);
-  neck.position.y = 1.55;
-  bottle.add(neck);
+  // Líquido ambarado
+  const liqProfile=[
+    [0.001,-1.45],[0.5,-1.45],[0.57,-1.25],[0.58,0.0],[0.5,0.15]
+  ].map(p=>new THREE.Vector2(p[0],p[1]));
+  const liquid=new THREE.Mesh(new THREE.LatheGeometry(liqProfile,48),
+    new THREE.MeshPhysicalMaterial({ color:0xc98a3a, metalness:0, roughness:0.25, transmission:0.6, thickness:1, ior:1.4, envMapIntensity:1, transparent:true, opacity:0.95 }));
 
   // Tapa dorada
-  const goldMat = new THREE.MeshStandardMaterial({ color:'#c9a96e', metalness:1, roughness:0.22, envMapIntensity:1.4 });
-  const cap = new THREE.Mesh(new RoundedBoxGeometry(0.78, 0.62, 0.78, 5, 0.12), goldMat);
-  cap.position.y = 2.05;
-  bottle.add(cap);
-  const capTop = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.22, 0.18, 24), goldMat);
-  capTop.position.y = 2.42;
-  bottle.add(capTop);
+  const cap=new THREE.Mesh(new THREE.CylinderGeometry(0.26,0.26,0.55,48),
+    new THREE.MeshStandardMaterial({ color:0xc9a96e, metalness:1, roughness:0.22, envMapIntensity:1.3 }));
+  cap.position.y=1.78;
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(0.2,0.05,16,48),
+    new THREE.MeshStandardMaterial({ color:0xe3c894, metalness:1, roughness:0.2 }));
+  ring.rotation.x=Math.PI/2; ring.position.y=1.45;
 
-  // Luces de acento
-  const key = new THREE.SpotLight('#ffffff', 60, 30, Math.PI/6, 0.4, 1.5);
-  key.position.set(4, 6, 6); scene.add(key);
-  const rim = new THREE.PointLight('#c9a96e', 40, 30); rim.position.set(-5, 2, -4); scene.add(rim);
-  const fill = new THREE.PointLight('#6a7fc4', 18, 30); fill.position.set(3, -4, 3); scene.add(fill);
-  scene.add(new THREE.AmbientLight('#ffffff', 0.25));
+  const bottle=new THREE.Group();
+  bottle.add(glass,liquid,cap,ring);
+  bottle.scale.setScalar(1.25);
+  scene.add(bottle);
 
-  // Partículas
-  const pCount = 600;
-  const pGeo = new THREE.BufferGeometry();
-  const pPos = new Float32Array(pCount*3);
-  for (let i=0;i<pCount;i++){
-    pPos[i*3]   = (Math.random()-0.5)*16;
-    pPos[i*3+1] = (Math.random()-0.5)*12;
-    pPos[i*3+2] = (Math.random()-0.5)*8 - 2;
-  }
-  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-  const pMat = new THREE.PointsMaterial({ color:'#c9a96e', size:0.025, transparent:true, opacity:0.55, depthWrite:false, blending:THREE.AdditiveBlending });
-  const particles = new THREE.Points(pGeo, pMat);
+  // Luces dinámicas
+  scene.add(new THREE.AmbientLight(0xffffff,0.5));
+  const key=new THREE.PointLight(0xffe9c4,40,30); key.position.set(4,5,5); scene.add(key);
+  const rim=new THREE.PointLight(0x6b7bff,28,30); rim.position.set(-5,-2,3); scene.add(rim);
+  const warm=new THREE.PointLight(0xc9a96e,22,30); warm.position.set(0,-4,5); scene.add(warm);
+
+  // Partículas sutiles
+  const pCount=140, pPos=new Float32Array(pCount*3);
+  for(let i=0;i<pCount;i++){ pPos[i*3]=(Math.random()-0.5)*10; pPos[i*3+1]=(Math.random()-0.5)*8; pPos[i*3+2]=(Math.random()-0.5)*6; }
+  const pGeo=new THREE.BufferGeometry(); pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({ color:0xc9a96e, size:0.035, transparent:true, opacity:0.5, blending:THREE.AdditiveBlending, depthWrite:false }));
   scene.add(particles);
 
-  // Postproceso: bloom
-  const composer = new EffectComposer(renderer);
-  composer.addPass(new RenderPass(scene, camera));
-  const bloom = new UnrealBloomPass(new THREE.Vector2(1,1), 0.45, 0.85, 0.85);
-  composer.addPass(bloom);
+  // Cursor reactivo
+  let tx=0,ty=0,cx=0,cy=0;
+  hero.addEventListener('pointermove',e=>{
+    const r=hero.getBoundingClientRect();
+    tx=((e.clientX-r.left)/r.width-0.5)*2;
+    ty=((e.clientY-r.top)/r.height-0.5)*2;
+  });
+  hero.addEventListener('pointerleave',()=>{ tx=0; ty=0; });
 
-  // Resize
   function resize(){
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    renderer.setSize(w, h, false);
-    composer.setSize(w, h);
-    camera.aspect = w/h; camera.updateProjectionMatrix();
-    bottle.scale.setScalar(w < 700 ? 0.78 : 1);
+    W=hero.clientWidth; H=hero.clientHeight;
+    camera.aspect=W/H; camera.updateProjectionMatrix();
+    renderer.setSize(W,H,false);
   }
-  resize();
-  window.addEventListener('resize', resize);
+  addEventListener('resize',resize,{passive:true});
 
-  // Mouse parallax
-  let targetRX = 0, targetRY = 0, curRX = 0, curRY = 0;
-  window.addEventListener('mousemove', e => {
-    targetRY = (e.clientX/window.innerWidth - 0.5) * 0.8;
-    targetRX = (e.clientY/window.innerHeight - 0.5) * 0.5;
-  });
-  window.addEventListener('deviceorientation', e => {
-    if (e.gamma!=null) targetRY = Math.max(-0.8,Math.min(0.8,(e.gamma/45)*0.6));
-    if (e.beta!=null)  targetRX = Math.max(-0.5,Math.min(0.5,((e.beta-45)/45)*0.4));
-  });
+  let visible=true;
+  document.addEventListener('visibilitychange',()=>visible=!document.hidden);
 
-  const clock = new THREE.Clock();
-  let running = true;
-  document.addEventListener('visibilitychange', () => { running = !document.hidden; });
-
+  const clock=new THREE.Clock();
   function animate(){
     requestAnimationFrame(animate);
-    if (!running) return;
-    const t = clock.getElapsedTime();
-    curRX += (targetRX - curRX)*0.05;
-    curRY += (targetRY - curRY)*0.05;
-    if (!prefersReduced) {
-      bottle.rotation.y = t*0.25 + curRY;
-      bottle.rotation.x = curRX;
-      bottle.position.y = Math.sin(t*0.8)*0.12;
-      particles.rotation.y = t*0.02;
-      particles.position.y = Math.sin(t*0.2)*0.3;
-    } else {
-      bottle.rotation.y = curRY; bottle.rotation.x = curRX;
-    }
-    composer.render();
+    if(!visible) return;
+    const t=clock.getElapsedTime();
+    cx+=(tx-cx)*0.05; cy+=(ty-cy)*0.05;
+    bottle.rotation.y = t*0.25 + cx*0.6;
+    bottle.rotation.x = cy*0.35;
+    bottle.position.y = Math.sin(t*1.1)*0.12;
+    particles.rotation.y = t*0.03;
+    key.position.x = Math.sin(t*0.5)*4;
+    rim.position.y = Math.cos(t*0.4)*3;
+    renderer.render(scene,camera);
   }
-  animate();
-} catch(err){
-  console.warn('WebGL no disponible, usando fallback:', err);
-  showFallback();
-}
+  if(!reduce){ animate(); } else { renderer.render(scene,camera); }
+})();
 </script>
-
 </body>
 </html>
